@@ -1,58 +1,46 @@
-lifeTimes: biological time series cross correlation in R
+README
 ================
-somaSystems
+LGD
 19/12/2021
 
-#Coupled time series analysis in r:
+[![Project Status: WIP – Initial development is in progress, but there
+has not yet been a stable, usable release suitable for the
+public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
-### i. [input](#data-cleanup)
+## lifeTimes: correlations in biological series data
 
-### ii. [output](#initial-results)
+This is a package for **detecting** and **visualising** correlations
+between objects in biological series data.
 
-# input
+**Required inputs:**  
+i. Evenly spaced series data (eg. can be time or space series).  
+ii. Label of the measurements taken. (eg. can be shape or signal
+intensity)  
+iii. Labels for the objects to be compared (eg. cytoplasm and nuclear
+compartments)  
+iv. Higher level groupings for comparing objects (eg. compare objects
+per cell/organism/treatment/community).  
 
-### Analysis to Remove low intensity cells
+**Outputs** Lifetimes outputs:  
+i. Calculated correlations clustered by strength at lag zero ii.
+Calculated asymmetries between past and future lags, clustered by
+strength of asymmetry. iii. ‘Coupling plots’ representing the strength
+of correlation at lag zero, and the direction of correlation.
 
-![](README_files/figure-markdown_github/unnamed-chunk-8-1.png)
+**Output examples**  
 
-    ## Warning: Removed 400 rows containing missing values (geom_point).
+**Fig 1** Calculated correlation clustered by strength at lag zero  
+  
+![an image caption Source: Ultimate Funny Dog Videos Compilation
+2013.](README_figs/README-clusteredCorrelations.png)
 
-![](README_files/figure-markdown_github/unnamed-chunk-8-2.png)
-
-    ## Warning: Removed 400 rows containing missing values (geom_point).
-
-![](README_files/figure-markdown_github/unnamed-chunk-8-3.png)![](README_files/figure-markdown_github/unnamed-chunk-8-4.png)![](README_files/figure-markdown_github/unnamed-chunk-8-5.png)
-
-### Analysis to identify base of nuclei and coverslip position
-
-![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)![](README_files/figure-markdown_github/unnamed-chunk-9-2.png)![](README_files/figure-markdown_github/unnamed-chunk-9-3.png)![](README_files/figure-markdown_github/unnamed-chunk-9-4.png)
-
-### Method to put lowest cell in each FIELD (regions of wells) on coverslip
-
-### View of adjusted coverslip positions
-
-![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
-
-    ## geom_pointdensity using method='kde2d' due to large number of points (>20k)
-
-![](README_files/figure-markdown_github/unnamed-chunk-11-2.png)
-
-    ## geom_pointdensity using method='kde2d' due to large number of points (>20k)
-
-    ## Warning: Removed 27126 rows containing missing values (stat_pointdensity).
-
-![](README_files/figure-markdown_github/unnamed-chunk-11-3.png)![](README_files/figure-markdown_github/unnamed-chunk-11-4.png)
-
-    ## Warning: Removed 25102 rows containing missing values (geom_point).
-
-![](README_files/figure-markdown_github/unnamed-chunk-11-5.png)
-
-# output
-
-### Look at effect of Proximal vs Distal on protrusivity, at single cell, well, field
-
-![](README_files/figure-markdown_github/unnamed-chunk-18-1.png)![](README_files/figure-markdown_github/unnamed-chunk-18-2.png)![](README_files/figure-markdown_github/unnamed-chunk-18-3.png)![](README_files/figure-markdown_github/unnamed-chunk-18-4.png)
-
-### Compare each treatment to controls
-
-![](README_files/figure-markdown_github/unnamed-chunk-19-1.png)![](README_files/figure-markdown_github/unnamed-chunk-19-2.png)![](README_files/figure-markdown_github/unnamed-chunk-19-3.png)
+**Fig 2** Calculated asymmetries between past and future lags, clustered
+by strength of asymmetry  
+  
+![an image caption Source: Ultimate Funny Dog Videos Compilation
+2013.](README_figs/README-clusteredCorrelationLags.png) <br> **Fig 3**
+‘Coupling plots’ representing the strength of correlation at lag zero,
+and the direction of correlation.  
+  
+![an image caption Source: Ultimate Funny Dog Videos Compilation
+2013.](README_figs/README-couplingPlot.png)
