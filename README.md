@@ -13,19 +13,20 @@ This is a package for **detecting** and **visualising** correlations
 between objects in biological series data.
 
 **Required inputs:**  
-i. Evenly spaced series data (eg. can be time or space series).  
+i. Evenly spaced series data (eg. can be time or space series)  
 ii. Label of the measurements taken. (eg. can be shape or signal
 intensity)  
 iii. Labels for the objects to be compared (eg. cytoplasm and nuclear
 compartments)  
 iv. Higher level groupings for comparing objects (eg. compare objects
-per cell/organism/treatment/community).  
+per cell/organism/treatment/community)  
 
-**Outputs** Lifetimes outputs:  
-i. Calculated correlations clustered by strength at lag zero ii.
-Calculated asymmetries between past and future lags, clustered by
-strength of asymmetry. iii. ‘Coupling plots’ representing the strength
-of correlation at lag zero, and the direction of correlation.
+**Outputs** lifeTimes outputs:  
+i. Calculated correlations clustered by strength at lag zero  
+ii. Calculated asymmetries between past and future lags, clustered by
+strength of asymmetry  
+iii. ‘Coupling plots’ representing the strength of correlation at lag
+zero, and the direction of correlation  
 
 **Output examples**  
 
