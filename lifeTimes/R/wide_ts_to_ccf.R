@@ -22,7 +22,7 @@
 
 #3. After this create output from wide dataframe
 
-pairedCCFs <- function(wideTimeSeries){
+wide_ts_to_ccf <- function(wideIDfeatures){
   library(dplyr) #load library for filtering
   library(stringr)  #load library to split string
 
