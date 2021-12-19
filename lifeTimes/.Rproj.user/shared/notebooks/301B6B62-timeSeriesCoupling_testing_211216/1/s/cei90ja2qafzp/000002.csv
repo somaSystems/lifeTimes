@@ -1,0 +1,24 @@
+"0","```r
+
+colnames(long_clustR)
+
+long_clustR$feature_type <- ifelse(grepl(\"_cell\",long_clustR$geomFeatures), \"cell_feature\", 
+                                          ifelse(grepl(\"_nucleus\",long_clustR$geomFeatures), \"nucleus_feature\",\"whole_object\"))
+
+long_clustR$highLevelFeatures <- gsub(\"_cell\",\"\",long_clustR$geomFeatures)  
+long_clustR$highLevelFeatures <- gsub(\"_nucleus\",\"\",long_clustR$highLevelFeatures)
+long_clustR$highLevelFeatures <- as.factor(long_clustR$highLevelFeatures)
+
+
+#cellNumber (need also cell Number fused to each feature type)
+  #the line is going to every point belonging to that cell,
+  #make two versions of each cellObject, one that is nuclear and one that is cellular
+
+long_clustR$cellNumberCompartment <- paste(long_clustR$cellNumber,\"_\",long_clustR$feature_type)
+
+# long_clustR$cellNumberCompartment
+
+unique(long_clustR$geomFeatures)
+
+
+```"

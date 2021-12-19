@@ -1,0 +1,69 @@
+"0","```r
+
+#add rownames and remove first column to make numeric matrix
+rnames_m_wide_subset_sum_join_outputCCFdata <- m_wide_subset_sum_join_outputCCFdata
+rownames(rnames_m_wide_subset_sum_join_outputCCFdata) <- m_wide_subset_sum_join_outputCCFdata$an_CCF_Feature
+```"
+"1","Warning: Setting row names on a tibble is deprecated.
+"
+"0","```r
+mCCF_lagZero <- as.matrix(rnames_m_wide_subset_sum_join_outputCCFdata[-1]) #make a matrix
+rownames(mCCF_lagZero) <-  m_wide_subset_sum_join_outputCCFdata$an_CCF_Feature # add rownames to matrix
+
+row.order <- hclust(dist(mCCF_lagZero))$order # get row order from clustered matrix and set this as a  variable
+col.order <- hclust(dist(t(mCCF_lagZero)))$order # get column order from clustered matrix and set this as a variable
+
+row.order
+```"
+"1"," [1]  4 13 10  2  5  6 11  7  8 12  9  1  3
+"
+"0","```r
+col.order
+```"
+"1","[1] 4 1 5 2 3 6
+"
+"0","```r
+mCCF_lagZero[row.order, col.order]
+```"
+"1","                          H1152 Blebbistatin        PF228      CK666         DMSO Palbociclib
+MinorAxis          -0.006349057   0.07167036  0.145961014 0.09014634  0.149793825  0.09708400
+Protrusivity        0.014539875   0.06505763 -0.006708106 0.05788555  0.128198733  0.07335239
+nProtrusions        0.012258843   0.01574554  0.014954936 0.04310129 -0.050246279  0.05897430
+SurfaceArea         0.077271089   0.12886351  0.133897125 0.19910025 -0.028814741  0.03365591
+secondMajor         0.096512562   0.06209724  0.089632526 0.13939170 -0.002543216  0.03600853
+Eccentricity        0.072285683   0.09383988  0.096024905 0.29326688  0.264950415  0.16190690
+Polarity            0.075100636   0.06230569  0.098232869 0.27565131  0.217888154  0.12715346
+secondEccentricity  0.081195389   0.02634901  0.065178931 0.19349362  0.139665457  0.10799925
+Sphericity          0.058027695   0.08406116  0.028583340 0.13144359  0.258866615  0.13340014
+Spreading           0.041429780   0.09181204  0.024164187 0.21485050  0.199570476  0.14826932
+Vol2surf            0.117843141   0.19732716  0.220718145 0.10312642  0.271272631  0.28874159
+Volume              0.125543312   0.21415734  0.285030908 0.18567827  0.067218317  0.18040136
+MajorAxis           0.126309748   0.21692136  0.163091197 0.32810789  0.127418219  0.15677898
+"
+"0","```r
+# get list of rows with names for ordering (order the factor this way)
+featureOrder <- m_wide_subset_sum_join_outputCCFdata$an_CCF_Feature # make the features a variable called feature order
+featureOrder # look at current feature order (this is order will be plotted in ggplot)
+```"
+"1"," [1] \"Volume\"             \"SurfaceArea\"        \"MajorAxis\"          \"MinorAxis\"          \"secondMajor\"        \"Eccentricity\"       \"secondEccentricity\" \"Sphericity\"         \"Vol2surf\"          
+[10] \"nProtrusions\"       \"Polarity\"           \"Spreading\"          \"Protrusivity\"      
+"
+"0","```r
+newFeatureOrder <- featureOrder[row.order] #make a new or desired feature order based on the row order
+featureOrder <- factor(featureOrder, levels = newFeatureOrder) # reorder the factor levels of the feature to match the clsutering
+featureOrder 
+```"
+"1"," [1] Volume             SurfaceArea        MajorAxis          MinorAxis          secondMajor        Eccentricity       secondEccentricity Sphericity         Vol2surf           nProtrusions      
+[11] Polarity           Spreading          Protrusivity      
+Levels: MinorAxis Protrusivity nProtrusions SurfaceArea secondMajor Eccentricity Polarity secondEccentricity Sphericity Spreading Vol2surf Volume MajorAxis
+"
+"0","```r
+# Treatment orders (do same process for factors but for treatments)
+treatmentOrder <- colnames(mCCF_lagZero)
+newTreatmentOrder <- treatmentOrder[col.order]
+treatmentOrder <- factor(treatmentOrder, levels = newTreatmentOrder)
+
+#update main dataframe (update the factor levels for Treatments and Features, to be based on clustering)
+subset_sum_join_outputCCFdata$Treatment <- factor(subset_sum_join_outputCCFdata$Treatment, levels =newTreatmentOrder)
+subset_sum_join_outputCCFdata$an_CCF_Feature  <- factor(subset_sum_join_outputCCFdata$an_CCF_Feature, levels = newFeatureOrder)
+```"

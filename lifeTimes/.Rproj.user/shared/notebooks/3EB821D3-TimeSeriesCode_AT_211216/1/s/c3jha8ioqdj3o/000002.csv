@@ -1,0 +1,16 @@
+"0","```r
+long_clustR <- 
+  clustR %>% pivot_longer(
+    cols = contains(\"_cell\") |
+      contains(\"_nucleus\")   | 
+      contains(\"Intensity\")  |
+      contains(\"NucleusVolumeFraction\")|
+      contains(\"Dim\")|
+      contains(\"Diameter\")|
+      contains(\"AngleBetween\")|
+      contains(\"Orbit\"),
+    names_to = \"geomFeatures\" 
+        )
+
+head(long_clustR)
+```"

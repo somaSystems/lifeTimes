@@ -1,0 +1,26 @@
+"0","```r
+# str(CellID_metaData)
+outputCCFdata$an_CCF_ObjectID <- as.numeric(outputCCFdata$an_CCF_ObjectID)
+# str(outputCCFdata)
+# 
+# acfOutput
+
+
+
+unq_CellID_metaData <- unique(CellID_metaData)
+unq_CellID_metaData
+
+
+outputCCFdata
+unq_CellID_metaData
+
+library(dplyr)
+join_outputCCFdata <- left_join(outputCCFdata, unq_CellID_metaData, by = c(\"an_CCF_ObjectID\"=\"cellNumber\"))
+
+# join_out
+
+dim(join_outputCCFdata)
+
+
+# (outputCCFdata$anCCF_ACF)
+```"

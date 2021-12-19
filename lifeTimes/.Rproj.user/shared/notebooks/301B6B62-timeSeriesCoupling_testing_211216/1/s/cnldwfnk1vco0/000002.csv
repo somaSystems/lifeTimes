@@ -1,0 +1,33 @@
+"0","```r
+
+#add rownames and remove first column to make numeric matrix
+rnames_m_wide_subset_sum_join_outputCCFdata <- m_wide_subset_sum_join_outputCCFdata
+rownames(rnames_m_wide_subset_sum_join_outputCCFdata) <- m_wide_subset_sum_join_outputCCFdata$an_CCF_Feature
+
+mCCF_lagZero <- as.matrix(rnames_m_wide_subset_sum_join_outputCCFdata[-1]) #make a matrix
+rownames(mCCF_lagZero) <-  m_wide_subset_sum_join_outputCCFdata$an_CCF_Feature # add rownames to matrix
+
+row.order <- hclust(dist(mCCF_lagZero))$order # get row order from clustered matrix and set this as a  variable
+col.order <- hclust(dist(t(mCCF_lagZero)))$order # get column order from clustered matrix and set this as a variable
+
+row.order
+col.order
+
+mCCF_lagZero[row.order, col.order]
+
+# get list of rows with names for ordering (order the factor this way)
+featureOrder <- m_wide_subset_sum_join_outputCCFdata$an_CCF_Feature # make the features a variable called feature order
+featureOrder # look at current feature order (this is order will be plotted in ggplot)
+newFeatureOrder <- featureOrder[row.order] #make a new or desired feature order based on the row order
+featureOrder <- factor(featureOrder, levels = newFeatureOrder) # reorder the factor levels of the feature to match the clsutering
+featureOrder 
+
+# Treatment orders (do same process for factors but for treatments)
+treatmentOrder <- colnames(mCCF_lagZero)
+newTreatmentOrder <- treatmentOrder[col.order]
+treatmentOrder <- factor(treatmentOrder, levels = newTreatmentOrder)
+
+#update main dataframe (update the factor levels for Treatments and Features, to be based on clustering)
+subset_sum_join_outputCCFdata$Treatment <- factor(subset_sum_join_outputCCFdata$Treatment, levels =newTreatmentOrder)
+subset_sum_join_outputCCFdata$an_CCF_Feature  <- factor(subset_sum_join_outputCCFdata$an_CCF_Feature, levels = newFeatureOrder)
+```"

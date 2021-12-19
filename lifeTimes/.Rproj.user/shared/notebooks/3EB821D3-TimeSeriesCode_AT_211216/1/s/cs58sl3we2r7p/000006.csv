@@ -1,0 +1,11 @@
+"0","```r
+
+levels(sum_join_outputCCFdata$Treatment)
+```"
+"1","NULL
+"
+"0","```r
+#remove coordinate features as they are the same for cell and nucleus
+subset_sum_join_outputCCFdata <- sum_join_outputCCFdata[!grepl(\"Coord\",sum_join_outputCCFdata$an_CCF_Feature),]
+
+```"

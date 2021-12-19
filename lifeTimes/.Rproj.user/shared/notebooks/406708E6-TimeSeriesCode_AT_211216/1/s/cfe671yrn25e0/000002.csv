@@ -1,0 +1,11 @@
+"0","```r
+# library(ggplot2)
+ggplot(subset_sum_join_outputCCFdata, aes(x =anCCF_LAG, y = anCCF_ACF, group = an_CCF_ObjectID))+
+  geom_line(alpha = 0.1)+
+  facet_wrap(~an_CCF_Feature)+
+    stat_summary(aes(y = anCCF_ACF,group=1), fun.y=mean, colour=\"darkorange\", geom=\"line\",group=1, size = 1)+
+  theme_classic()
+```"
+"1","Warning: `fun.y` is deprecated. Use `fun` instead.
+Warning: Removed 189 rows containing non-finite values (stat_summary).
+"

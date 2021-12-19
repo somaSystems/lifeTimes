@@ -1,0 +1,10 @@
+"0","```r
+outputCCFdata <-  pairedOPM_CCF(wideIDfeatures)
+write.csv(outputCCFdata,file=\"nuc_cell_CCF_data.csv\", row.names = FALSE)
+str(outputCCFdata)
+head(outputCCFdata,50)
+
+
+outputCCFdata[outputCCFdata$an_CCF_ObjectID == 219 & outputCCFdata$anCCF_LAG ==1 & outputCCFdata$an_CCF_Feature == \"Volume\", ]
+
+```"
