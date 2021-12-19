@@ -1,0 +1,25 @@
+{
+    "id": "450547F3",
+    "path": "~/ICR_2021/lifeTimes_package/lifeTimes/rawMaterial/TimeSeriesCode_AT_211216.Rmd",
+    "project_path": "rawMaterial/TimeSeriesCode_AT_211216.Rmd",
+    "type": "r_markdown",
+    "hash": "1799694917",
+    "contents": "",
+    "dirty": false,
+    "created": 1639876579539.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "chunk_output_type": "inline",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1639876627,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1639876627481,
+    "read_only": false,
+    "read_only_alternatives": []
+}

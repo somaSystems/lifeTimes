@@ -1,0 +1,6 @@
+"0","```r
+
+# join this mean lag to output of data
+sum_join_outputCCFdata <- left_join(join_outputCCFdata, mean_ccfLAGzero, by = c(\"Treatment\", \"an_CCF_Feature\"))
+head(sum_join_outputCCFdata)
+```"

@@ -1,0 +1,79 @@
+"0","```r
+#1. Get differnece in all lags 
+
+
+testArranger_join_outputCCFdata <- join_outputCCFdata %>%
+    arrange(an_CCF_ObjectID,an_CCF_Feature, Treatment,anCCF_LAG,)%>%
+    group_by(an_CCF_ObjectID, an_CCF_Feature,Treatment)
+    # mutate_at(\"anCCF_ACF\", ~ . - dplyr::lag(., n = 1, default = NA),.keep = \"all\" )
+
+
+
+diff_join_outputCCFdata <- join_outputCCFdata %>%
+    arrange(an_CCF_ObjectID,an_CCF_Feature, Treatment,anCCF_LAG)%>%
+    group_by(an_CCF_ObjectID, an_CCF_Feature,Treatment) %>%
+    mutate_at(\"anCCF_ACF\", ~ . - dplyr::lag(., n = 1, default = NA),.keep = \"all\" )
+
+
+
+
+diff_join_outputCCFdata$CCF_diff <- diff_join_outputCCFdata$anCCF_ACF
+
+head(testArranger_join_outputCCFdata)
+head(diff_join_outputCCFdata)
+
+#create absolute difference measure (getting absolute change in correlation)
+diff_join_outputCCFdata$absCCF_diff <- abs(diff_join_outputCCFdata$CCF_diff)
+abs(diff_join_outputCCFdata$absCCF_diff)
+diff_join_outputCCFdata
+
+#2. get average difference for lags less than 0
+
+diff_join_outputCCFdata$lagRange <- ifelse(diff_join_outputCCFdata$anCCF_LAG >-7 & diff_join_outputCCFdata$anCCF_LAG <0 , \"negativeLAG\",
+                                           ifelse(diff_join_outputCCFdata$anCCF_LAG >0 & diff_join_outputCCFdata$anCCF_LAG <7, \"positiveLAG\", 
+                                                  ifelse(diff_join_outputCCFdata$anCCF_LAG == 0, \"zeroLAG\", \"OutOfLagRange\")))
+
+
+#doing individual
+#NB, could do overall averages and then summarise this
+
+##Possible MISTAKE --> Need to group by lag range?
+diff_join_outputCCFdata
+
+summary_meandiff_overLAGrange_join_outputCCFdata <- diff_join_outputCCFdata %>%
+  group_by(an_CCF_ObjectID, an_CCF_Feature,Treatment,lagRange)%>%
+  dplyr::summarise(meanLAGdiff = mean(anCCF_ACF, na.rm = TRUE),
+                   meanAbsLAGdiff = mean(absCCF_diff, na.rm = TRUE))
+
+summary_meandiff_overLAGrange_join_outputCCFdata
+
+library(tidyr)
+colnames(summary_meandiff_overLAGrange_join_outputCCFdata)
+widerDiffs <- pivot_wider(summary_meandiff_overLAGrange_join_outputCCFdata,
+                          id_cols = c(\"an_CCF_ObjectID\",\"an_CCF_Feature\",\"Treatment\",\"meanAbsLAGdiff\",\"lagRange\"),
+                          names_from = \"lagRange\",
+                          values_from = \"meanAbsLAGdiff\") 
+
+
+
+  
+
+ widerDiffs$priorToPostRatio <- widerDiffs$negativeLAG/widerDiffs$positiveLAG
+head(widerDiffs)
+#rejoin ratios back to main summary
+widerDiffs[,c(1,2,3,7)]
+
+join_summary_meandiff_overLAGrange_join_outputCCFdata <- left_join(summary_meandiff_overLAGrange_join_outputCCFdata, widerDiffs[,c(1,2,3,7)], by = c(\"an_CCF_ObjectID\",\"an_CCF_Feature\",\"Treatment\"))
+
+dim(summary_meandiff_overLAGrange_join_outputCCFdata)
+dim(join_summary_meandiff_overLAGrange_join_outputCCFdata)  
+
+
+?pivot_wider()
+head(summary_meandiff_overLAGrange_join_outputCCFdata)  
+
+#3. Get average difference for lags greater than 0
+
+# -0.1781466	--0.1402122	
+
+```"

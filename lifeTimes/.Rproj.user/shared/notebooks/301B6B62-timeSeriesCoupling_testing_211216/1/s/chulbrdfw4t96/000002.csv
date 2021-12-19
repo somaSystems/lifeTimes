@@ -1,0 +1,35 @@
+"0","```r
+
+#make a heatmap of average correlation before and after lag 0
+
+join_medianDiff_meanLagRange_join_outputCCFdata
+
+PrePostcorrelation <- join_medianDiff_meanLagRange_join_outputCCFdata[join_medianDiff_meanLagRange_join_outputCCFdata$an_CCF_Feature != \"nProtrusions\",]
+PrePostcorrelation <-  PrePostcorrelation %>%
+  filter(!grepl(\"Coord\", an_CCF_Feature))
+  
+filteredForM_PrePostcorrelation<-PrePostcorrelation[,c(2,3,9)]
+dim(filteredForM_PrePostcorrelation)
+filteredForM_PrePostcorrelation <- unique(filteredForM_PrePostcorrelation)
+
+wide_filteredForM_PrePostcorrelation <- pivot_wider(filteredForM_PrePostcorrelation,
+                                                    names_from = Treatment,
+                                                    values_from = medianPrePostPerTF)
+
+
+wide_filteredForM_PrePostcorrelation
+
+mw_prePost <- as.matrix(wide_filteredForM_PrePostcorrelation[-1])
+rownames(mw_prePost) <- wide_filteredForM_PrePostcorrelation$an_CCF_Feature  
+
+library(ComplexHeatmap)
+
+library(circlize)
+col_fun = colorRamp2(c(min(mw_prePost), 0,max(mw_prePost)), c(\"steelblue4\", \"white\", \"gold\"))
+col_fun(seq(-10, 10))
+
+
+Heatmap(mw_prePost, col = col_fun)
+
+
+```"
