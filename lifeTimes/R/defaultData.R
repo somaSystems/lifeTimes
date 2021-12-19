@@ -9,7 +9,7 @@
 #https://www.datamentor.io/r-programming/return-function/
 
 defaultData <- function(){
-clustR <<- read.csv(file = "R/data/clusterData.csv")
+clustR <<- read.csv(file = "data/clusterData.csv")
 feaureSet1 <<- c("_cell") #features for one object type, marked by a suffix, these could also be contained in a metadata column called "object" #can also be a feature
 featureSet2 <<- c("_nucleus")#features for one object type, marked by a suffix, these could also be contained in a metadata column called "object" # can also be a feature
 object1 <<- c() # If there is an object ID column, name of object 1 type, eg. cell
@@ -22,5 +22,6 @@ metaData <<- c("cellNumber","fieldNumber","Treatment","Row","Column","Plate") # 
 }
 
 defaultData()
+
 
 

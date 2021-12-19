@@ -12,7 +12,12 @@ public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostat
 This is a package for **detecting** and **visualising** correlations
 between objects in biological series data.
 
-**Required inputs:**  
+**How to use**  
+Currently, just source and call the `` `r timesChain()` `` function,  
+this will chain together the lifeTimes workflow on a built in set of
+default data.
+
+**Inputs**  
 i. Evenly spaced series data (eg. can be time or space series)  
 ii. Label of the measurements taken. (eg. can be shape or signal
 intensity)  
@@ -21,7 +26,7 @@ compartments)
 iv. Higher level groupings for comparing objects (eg. compare objects
 per cell/organism/treatment/community)  
 
-**Outputs** lifeTimes outputs:  
+**Outputs**  
 i. Calculated correlations clustered by strength at lag zero  
 ii. Calculated asymmetries between past and future lags, clustered by
 strength of asymmetry  
