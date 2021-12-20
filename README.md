@@ -13,7 +13,8 @@ This is a package for **detecting** and **visualising** correlations
 between objects in biological series data.
 
 **How to use**  
-Currently, just source and call the `` `r timesChain()` `` function,  
+Currently, just source, assign, and call the
+`` `r outputCCF <- timesChain()` `` function,  
 this will chain together the lifeTimes workflow on a built in set of
 default data.
 
