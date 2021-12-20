@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE, fig.path = "README_figs/README-")
 This is a package for **detecting** and **visualising** correlations between objects in biological series data. 
 
 **How to use**\
-Currently, just source and call the  `` `r "\u0060r timesChain()\u0060"` `` function,\
+Currently, just source, assign, and call the  `` `r "\u0060r outputCCF <- timesChain()\u0060"` `` function,\
 this will chain together the lifeTimes workflow on a built in set of default data.
 
 **Inputs**\

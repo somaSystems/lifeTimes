@@ -8,19 +8,22 @@
 
 timesChain <- function(){
 
-  library("rstudioapi")
-setwd(dirname(getActiveDocumentContext()$path))  #setwd to same directory as timesChain (this may not work outside of Rstudio)
+# library("rstudioapi")
+# setwd(dirname(getActiveDocumentContext()$path))  #setwd to same directory as timesChain (this may not work outside of Rstudio)
 
 file.sources = list.files(pattern="*.R$", full.names=FALSE,
                           ignore.case=TRUE)
 
-subset_file.sources<- file.sources[-(which(file.sources %in% "timesChain.R"))] #remove this script from list of sources
+subset_file.sources <- file.sources[-(which(file.sources %in% "timesChain.R"))] #remove this script from list of sources
+subset_file.sources <- subset_file.sources[-(which(subset_file.sources %in% "clusterCCFs.R"))]
+
+subset_file.sources
 
 # sapply(subset_file.sources, source, .GlobalEnv)
 
 for(script in subset_file.sources){
-  setwd(dirname(getActiveDocumentContext()$path))
-  print(paste("sourcing...",script))
+  # setwd(dirname(getActiveDocumentContext()$path))
+  print(paste("sourcing...", script))
   source(script)
 }
 
@@ -29,11 +32,24 @@ library(dplyr)
 outputCCF <- defaultData() %>%
   clustR %>%
   tsToWide()%>%
-  wide_ts_to_ccf()
+  wide_ts_to_ccf() #generates cross correlations from original input
+
+CellID_metaData <<- clustR %>% #assigns global variable metaData from original input
+  tsMetaData()
+
+return(outputCCF) #returns cross correlations
 }
+
+# timesChain()
+
+
+#Question, how best to handle that I would like to output metadata and ccf then join later
+#Currently assigning metadata as global variable
+
+#PREDO add install dependencies to script, and load libraries
 #TODO: start using this output for downstream steps
-
-
+# i. metaData_ccf_join
+# ii.
 
 #
 # source(file.sources[1])
