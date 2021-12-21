@@ -16,6 +16,7 @@ file.sources = list.files(pattern="*.R$", full.names=FALSE,
 
 subset_file.sources <- file.sources[-(which(file.sources %in% "timesChain.R"))] #remove this script from list of sources
 subset_file.sources <- subset_file.sources[-(which(subset_file.sources %in% "clusterCCFs.R"))]
+subset_file.sources <- subset_file.sources[-(which(subset_file.sources %in% "inprogress_clusterCCFs.R"))]
 
 subset_file.sources
 
@@ -49,7 +50,8 @@ return(outputCCF) #returns cross correlations
 #PREDO add install dependencies to script, and load libraries
 #TODO: start using this output for downstream steps
 # i. metaData_ccf_join
-# ii.
+# ii.clusterCCFs
+#iii. plotFromClustered
 
 #
 # source(file.sources[1])
