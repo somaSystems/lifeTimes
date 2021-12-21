@@ -3,6 +3,9 @@
 #battery of different timeSeries functions
 # https://stackoverflow.com/questions/10291520/reading-all-scripts-and-data-files-from-multiple-folders
 
+
+try(setwd("./R"))
+getwd()
 #a function that chains all the functions together
 #currently using default input data
 
@@ -15,7 +18,7 @@ file.sources = list.files(pattern="*.R$", full.names=FALSE,
                           ignore.case=TRUE)
 
 subset_file.sources <- file.sources[-(which(file.sources %in% "timesChain.R"))] #remove this script from list of sources
-subset_file.sources <- subset_file.sources[-(which(subset_file.sources %in% "clusterCCFs.R"))]
+# subset_file.sources <- subset_file.sources[-(which(subset_file.sources %in% "clusterCCFs.R"))]
 subset_file.sources <- subset_file.sources[-(which(subset_file.sources %in% "inprogress_clusterCCFs.R"))]
 
 subset_file.sources
@@ -30,23 +33,28 @@ for(script in subset_file.sources){
 
 #chain functions and output ccf
 library(dplyr)
-outputCCF <- defaultData() %>%
+
+CellID_metaData <<-clustR %>% #assigns global variable metaData from original input
+  define_tsMetaData()
+
+outputCCFdata_withMetaData <<- defaultData() %>%
   clustR %>%
   tsToWide()%>%
-  wide_ts_to_ccf() #generates cross correlations from original input
+  wide_ts_to_ccf()%>% #generates cross correlations from original input
+  metaData_ccf_join() #joined metadata to output
 
-CellID_metaData <<- clustR %>% #assigns global variable metaData from original input
-  tsMetaData()
+df_clusteredZeroLag_withMetada <<-outputCCFdata_withMetaData %>%
+  clusterCCFs()
 
-return(outputCCF) #returns cross correlations
+return(outputCCFdata_withMetaData) #returns cross correlations
 }
 
-outputCCF <- timesChain(clus)
+outputCCF <- timesChain()
 
 clusterPlot(plotType = "compoundPlot")
-clusterPlot()
-?clusterPlot()
-# timesChain()
+# clusterPlot()
+# ?clusterPlot()
+# # timesChain()
 
 
 

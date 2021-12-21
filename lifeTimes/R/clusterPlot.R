@@ -3,16 +3,17 @@
 #https://stackoverflow.com/questions/11799317/custom-function-ggplot-and-return-values#
 #https://stackoverflow.com/questions/9057006/getting-strings-recognized-as-variable-names-in-r
 
-clusterPlot <- function(df_clusteredZeroLag, plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
+clusterPlot <- function(clusteredZeroLag = df_clusteredZeroLag_withMetada, plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
   #create heatmap ggplot
   #https://stackoverflow.com/questions/4683405/function-default-arguments-and-named-values
-  subset_sum_join_outputCCFdata <-  df_clusteredZeroLag
+  subset_sum_join_outputCCFdata <-  df_clusteredZeroLag_withMetada
 
   plotType <- match.arg(plotType)
   ensym_plotType <- rlang::sym(plotType)
 
   # !!sym(plotType) := eval(parse(text = plotType))
 # ?match.arg()
+  library(ggdendro)
   library(ggplot2)
 
   #create dendrogram plot
@@ -65,7 +66,7 @@ clusterPlot <- function(df_clusteredZeroLag, plotType = c("compoundPlot","draw_t
   # print(draw_treatmentDendrogram, vp = viewport(x = 0.4, y = 0.9, width = 0.8, height = 1))
 
   library(ggpubr)
-  compoundPlot <- ggarrange(plt_dendr, heatmap_CCF + rremove("x.text"),
+  compoundPlot <- ggarrange(plt_dendr, heatmapLagZero + rremove("x.text"),
                             heights = c(1, 4),
                             align = "v",
                             # labels = c("A", "B", "C"),
@@ -125,5 +126,6 @@ clusterPlot <- function(df_clusteredZeroLag, plotType = c("compoundPlot","draw_t
   #   theme_classic()
 # return(compoundPlot)
   # print(ensym_plotType)
+
    return(eval(ensym_plotType))
 }

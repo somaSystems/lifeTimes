@@ -21,13 +21,12 @@
 #ggokit dendrograms and heatmaps
 #https://jcoliver.github.io/learn-r/008-ggplot-dendrograms-and-heatmaps.html
 
-outputCCFdata_withMetaData <- metaData_ccf_join(outputCCF) #run metaData_ccf_join on output of CCF ans save results
-
-defaultClustGroups <- c("Treatment","an_CCF_Feature")
 
 clusterCCFs <- function(outputCCFdata_withMetaData, clustGroups = defaultClustGroups){
 library(rlang)
 library(tidyr)
+
+defaultClustGroups <- c("Treatment","an_CCF_Feature")
 
 mean_ccfLAGzero <- outputCCFdata_withMetaData %>%
   filter(anCCF_LAG == 0)%>% #filter lag is 0
@@ -67,10 +66,10 @@ col.order <- hclust(dist(t(mCCF_lagZero)))$order # get column order from cluster
 mCCF_lagZero[row.order, col.order] #display matrix organised by rows and columns
 
 #make dendrogram
-treatmentDendrogram <- as.dendrogram(hclust(dist(t(mCCF_lagZero)))) #make dendrogram
+treatmentDendrogram <<- as.dendrogram(hclust(dist(t(mCCF_lagZero)))) #make dendrogram
 
 library("ggdendro")
-draw_treatmentDendrogram <- ggdendrogram(treatmentDendrogram)
+draw_treatmentDendrogram <<- ggdendrogram(treatmentDendrogram)
 draw_treatmentDendrogram
 # draw_treatmentDendrogram
 # row.order
@@ -92,9 +91,9 @@ treatmentOrder
 subset_sum_join_outputCCFdata$Treatment <- factor(subset_sum_join_outputCCFdata$Treatment, levels =newTreatmentOrder)
 subset_sum_join_outputCCFdata$an_CCF_Feature  <- factor(subset_sum_join_outputCCFdata$an_CCF_Feature, levels = newFeatureOrder)
 
-df_clusteredZeroLag <- subset_sum_join_outputCCFdata
+df_clusteredZeroLag_withMetada <<- subset_sum_join_outputCCFdata
 
-return(subset_sum_join_outputCCFdata) #returns data with factor levels organised by clustering #in future could include distance metrics
+return(df_clusteredZeroLag_withMetada) #returns data with factor levels organised by clustering #in future could include distance metrics
 }
 
 
