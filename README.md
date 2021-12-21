@@ -13,10 +13,14 @@ This is a package for **detecting** and **visualising** correlations
 between objects in biological series data.
 
 **How to use**  
-Currently, just source, assign, and call the
-`` `r outputCCF <- timesChain()` `` function,  
-this will chain together the lifeTimes workflow on a built in set of
-default data.
+Currently, just source, assign, and call the `outputCCF <- timesChain()`
+function.  
+This will chain together the lifeTimes workflow on a built in set of
+default data and return calculated cross correlations.  
+  
+To plot cross correlations, just call `clusterPlot() <- timesChain()`  
+To change the plot style just adjust the `plotType` argument.  
+For example, `clusterPlot(, plotType = "rawTraces")`  
 
 **Inputs**  
 i. Evenly spaced series data (eg. can be time or space series)  
@@ -44,7 +48,8 @@ zero, and the direction of correlation
 by strength of asymmetry  
   
 <img src="README_figs/README-clusteredCorrelationLags.png" style="width:50.0%" alt="an image caption Source: Ultimate Funny Dog Videos Compilation 2013." />
-<br> **Fig 3** ‘Coupling plots’ representing the strength of correlation
-at lag zero, and the direction of correlation.  
+
+**Fig 3** ‘Coupling plots’ representing the strength of correlation at
+lag zero, and the direction of correlation.  
   
 <img src="README_figs/README-couplingPlot.png" style="width:50.0%" alt="an image caption Source: Ultimate Funny Dog Videos Compilation 2013." />

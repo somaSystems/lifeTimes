@@ -3,7 +3,7 @@
 #https://stackoverflow.com/questions/11799317/custom-function-ggplot-and-return-values#
 #https://stackoverflow.com/questions/9057006/getting-strings-recognized-as-variable-names-in-r
 
-clusterPlot <- function(df_clusteredZeroLag, plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
+clusterPlot <- function(df_clusteredZeroLag = clusteredZeroLag, plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
   #create heatmap ggplot
   #https://stackoverflow.com/questions/4683405/function-default-arguments-and-named-values
   subset_sum_join_outputCCFdata <-  df_clusteredZeroLag
@@ -125,5 +125,6 @@ clusterPlot <- function(df_clusteredZeroLag, plotType = c("compoundPlot","draw_t
   #   theme_classic()
 # return(compoundPlot)
   # print(ensym_plotType)
+
    return(eval(ensym_plotType))
 }

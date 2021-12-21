@@ -41,9 +41,16 @@ CellID_metaData <<- clustR %>% #assigns global variable metaData from original i
 return(outputCCF) #returns cross correlations
 }
 
+outputCCF <- timesChain(clus)
+
+clusterPlot(plotType = "compoundPlot")
+clusterPlot()
+?clusterPlot()
 # timesChain()
 
 
+
+ plot("hello")
 #Question, how best to handle that I would like to output metadata and ccf then join later
 #Currently assigning metadata as global variable
 
@@ -63,7 +70,7 @@ return(outputCCF) #returns cross correlations
 #                           pattern="*.rda$", full.names=TRUE,
 #                           ignore.case=TRUE)
 #
-#
+# wide_ts_to_ccf
 #
 # sapply(data.sources,load,.GlobalEnv)
 # sapply(file.sources,source,.GlobalEnv)
