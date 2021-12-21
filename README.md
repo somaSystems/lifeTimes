@@ -13,14 +13,14 @@ This is a package for **detecting** and **visualising** correlations
 between objects in biological series data.
 
 **How to use**  
-Currently, just source, assign, and call the `outputCCF <- timesChain()`
-function.  
+To calculate cross correlation, just source, assign, and call the
+`outputCCF <- timesChain()` function.  
 This will chain together the lifeTimes workflow on a built in set of
 default data and return calculated cross correlations.  
   
-To plot cross correlations, just call `clusterPlot() <- timesChain()`  
+To plot cross correlations, just call `clusterPlot()`  
 To change the plot style just adjust the `plotType` argument.  
-For example, `clusterPlot(, plotType = "rawTraces")`  
+For example, `clusterPlot(plotType = "rawTraces")`  
 
 **Inputs**  
 i. Evenly spaced series data (eg. can be time or space series)  
