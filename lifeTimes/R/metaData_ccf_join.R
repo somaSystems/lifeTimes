@@ -6,6 +6,8 @@ metaData_ccf_join <- function(outputCCF){
 unq_metaData <- unique(CellID_metaData) #uses output of tsMetaData
 outputCCF$an_CCF_ObjectID <- as.numeric(outputCCF$an_CCF_ObjectID) #make CCF object ID numeric
 library(dplyr)
-return(join_outputCCFdata <- left_join(outputCCF, unq_metaData, by = c("an_CCF_ObjectID"="cellNumber")))
+outputCCFdata_withMetaData <<- left_join(outputCCF, unq_metaData, by = c("an_CCF_ObjectID"="cellNumber"))
+
+return(outputCCFdata_withMetaData)
 }
 
