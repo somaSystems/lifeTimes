@@ -1,8 +1,0 @@
-"0","```r
-
-clustRnormal <- read.csv(file=\"data/clusterData.csv\") # z scored values
-clustR <- clustRnormal
-# clustR 
-
-
-```"
