@@ -37,21 +37,30 @@ library(dplyr)
 CellID_metaData <<-clustR %>% #assigns global variable metaData from original input
   define_tsMetaData()
 
-outputCCFdata_withMetaData <<- defaultData() %>%
+defaultData() %>%
   clustR %>%
   tsToWide()%>%
   wide_ts_to_ccf()%>% #generates cross correlations from original input
-  metaData_ccf_join() #joined metadata to output
+  metaData_ccf_join() ->>
+  outputCCFdata_withMetaData  #joined metadata to output
 
-df_clusteredZeroLag_withMetada <<-outputCCFdata_withMetaData %>%
-  clusterCCFs()
+outputCCFdata_withMetaData %>% # NB: this stage can be a useful output
+  clusterCCFs() ->>
+  df_clusteredZeroLag_withMetada #NB: this stage can be a useful output
+
+df_clusteredZeroLag_withMetada %>%
+  leadLagCorr_diffs() ->> leadLagPlotInput
 
 return(outputCCFdata_withMetaData) #returns cross correlations
 }
 
 outputCCF <- timesChain()
 
+
+
 clusterPlot(plotType = "compoundPlot")
+leadLagClusterPlot(leadLagPlotInput)
+
 # clusterPlot()
 # ?clusterPlot()
 # # timesChain()
