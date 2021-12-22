@@ -56,10 +56,10 @@ return(outputCCFdata_withMetaData) #returns cross correlations
 
 outputCCF <- timesChain()
 
-
-
 clusterPlot(plotType = "compoundPlot")
 leadLagClusterPlot(leadLagPlotInput)
+couplingPlot(leadLagPlotInput)
+
 
 # clusterPlot()
 # ?clusterPlot()
