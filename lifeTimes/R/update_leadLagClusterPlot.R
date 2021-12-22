@@ -66,6 +66,6 @@ col_fun = colorRamp2(c(min(narm_mw_prePost), 0,max(narm_mw_prePost)), c("steelbl
 col_fun(seq(-10, 10))
 
 Heatmap(narm_mw_prePost, col = col_fun)
-return((Heatmap(mw_prePost, col = col_fun)))
+return((Heatmap(narm_mw_prePost, col = col_fun)))
 }
 }
