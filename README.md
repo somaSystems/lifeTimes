@@ -22,47 +22,57 @@ shape determination by Rho GTPase regulators in melanoma** doi:
 
 ## **How to use** 
 
-To calculate cross correlation, just source, assign, and call the
-`outputCCF <- lifeTimesChain()` function.  
-This will chain together the lifeTimes workflow on a built in set of
-default data and return calculated cross correlations.  
-  
-To plot cross correlations, just call `clusterPlot(outputCCF)`  
-To change the plot style just adjust the `plotType` argument.  
-For example, `clusterPlot(outputCCF, plotType = "rawTraces")`  
+To calculate cross correlation, just load the package, assign, and call
+the `outputCCF <- lifeTimesChain()` function. This will chain together
+the lifeTimes workflow on a built in set of default data and return
+calculated cross correlations.<br>
+<p>
+
+To plot cross correlations, just call `clusterPlot(outputCCF)` <br> To
+change the plot style just adjust the `plotType` argument. <br> For
+example, `clusterPlot(outputCCF, plotType = "rawTraces")` <br>
 
 ## **Inputs** 
 
-1.   Evenly spaced series data (eg. can be time or space series)\
+1.   Evenly spaced series data (eg. can be time or space series)
 
-2.  Label of the measurements taken. (eg. can be shape or signal intensity)\
+2.  Label of the measurements taken. (eg. can be shape or signal intensity)
 
 3.  Labels for the objects to be compared (eg. cytoplasm and nuclear
-    compartments)  
+    compartments)
 
-4.  Higher level groupings for comparing objects (eg. compare objects per cell/organism/treatment/community)\
+4.  Higher level groupings for comparing objects (eg. compare objects per cell/organism/treatment/community)
 
 ## **Outputs** 
 
-1.   Calculated correlations clustered by strength at lag zero\
+1.   Calculated correlations clustered by strength at lag zero\n
 
-2.  Calculated asymmetries between past and future lags, clustered by strength of asymmetry\
+2.  Calculated asymmetries between past and future lags, clustered by strength of asymmetry\n
 
 3.  ‘Coupling plots’ representing the strength of correlation at lag
-    zero, and the direction of correlation  
+    zero, and the direction of correlation
 
 ## **Examples** 
 
 **Fig 1** Calculated correlation clustered by strength at lag zero  
-  
-<img src="README_figs/README-clusteredCorrelations.png" style="width:50.0%" alt="an image caption Source: Ultimate Funny Dog Videos Compilation 2013." />
+<p>
+
+<figure>
+<img src="README_figs/README-clusteredCorrelations.png" style="width:50.0%" alt="Fig 1: An example of clusterPlot(), output" /><figcaption aria-hidden="true">Fig 1: An example of clusterPlot(), output</figcaption>
+</figure>
 
 **Fig 2** Calculated asymmetries between past and future lags, clustered
 by strength of asymmetry  
-  
-<img src="README_figs/README-clusteredCorrelationLags.png" style="width:50.0%" alt="an image caption Source: Ultimate Funny Dog Videos Compilation 2013." />
+<p>
+
+<figure>
+<img src="README_figs/README-clusteredCorrelationLags.png" style="width:50.0%" alt="Fig 2: An example of leadLagClusterPlot(), output" /><figcaption aria-hidden="true">Fig 2: An example of leadLagClusterPlot(), output</figcaption>
+</figure>
 
 **Fig 3** ‘Coupling plots’ representing the strength of correlation at
 lag zero, and the direction of correlation.  
-  
-<img src="README_figs/README-couplingPlot.png" style="width:50.0%" alt="an image caption Source: Ultimate Funny Dog Videos Compilation 2013." />
+<p>
+
+<figure>
+<img src="README_figs/README-couplingPlot.png" style="width:50.0%" alt="Fig 3: An example of couplingPlot(), output" /><figcaption aria-hidden="true">Fig 3: An example of couplingPlot(), output</figcaption>
+</figure>
