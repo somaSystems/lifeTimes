@@ -15,11 +15,12 @@
 #Overall schema
 #1. Before this, make a function to create a wide dataframe
 
+
   tsToWide <- function(data = clustR, feature1 = feaureSet1, feature2 = featureSet2, timepoints = timePoints, maxTime = maxTimes) {
   library(rlang) # to convert variables to symbols of variables using sym(), and then evaluating these !!
   #https://stackoverflow.com/questions/48219732/pass-a-string-as-variable-name-in-dplyrfilter
-
   library(tidyr)
+
   long_clustR <- clustR %>% pivot_longer( #Make geomFeatures column of features containing object measurements
   cols = contains(feaureSet1) | #get measures for cols with object 1
   contains(featureSet2), #get measures for cols with object 2
