@@ -1,0 +1,16 @@
+Package: lifeTimes
+Type: Package
+Title: lifeTimes
+Version: 0.1.0
+Author: Lucas Dent <dent.lucas@gmail.com.
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: This package uses cross-correlation analysis to study coupling of biological process in time series data. 
+License: CC-BY
+Encoding: UTF-8
+RoxygenNote: 7.1.2
+Imports: circlize, ComplexHeatmap, dplyr, ggdendro, ggplot2, ggpubr,
+        grid, rlang, stringr, tidyr
+Suggests: rmarkdown, knitr
+VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2021-12-23 01:36:35 UTC; ldent
