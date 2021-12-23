@@ -23,13 +23,13 @@ shape determination by Rho GTPase regulators in melanoma** doi:
 ## **How to use** 
 
 To calculate cross correlation, just source, assign, and call the
-`outputCCF <- timesChain()` function.  
+`outputCCF <- lifeTimesChain()` function.  
 This will chain together the lifeTimes workflow on a built in set of
 default data and return calculated cross correlations.  
   
-To plot cross correlations, just call `clusterPlot()`  
+To plot cross correlations, just call `clusterPlot(outputCCF)`  
 To change the plot style just adjust the `plotType` argument.  
-For example, `clusterPlot(plotType = "rawTraces")`  
+For example, `clusterPlot(outputCCF, plotType = "rawTraces")`  
 
 ## **Inputs** 
 
