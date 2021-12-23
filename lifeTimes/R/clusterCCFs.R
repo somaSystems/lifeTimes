@@ -23,8 +23,12 @@
 
 
 clusterCCFs <- function(outputCCFdata_withMetaData, clustGroups = defaultClustGroups){
+
+#define global variables to resolve NOTES in R CMD check:
+# globalVariables(c("anCCF_LAG", "anCCF_ACF", "meanLAGzero","an_CCF_Feature", "Treatment"))
 library(rlang)
 library(tidyr)
+library(ggdendro)
 
 defaultClustGroups <- c("Treatment","an_CCF_Feature")
 
@@ -68,7 +72,6 @@ mCCF_lagZero[row.order, col.order] #display matrix organised by rows and columns
 #make dendrogram
 treatmentDendrogram <<- as.dendrogram(hclust(dist(t(mCCF_lagZero)))) #make dendrogram
 
-library("ggdendro")
 draw_treatmentDendrogram <<- ggdendrogram(treatmentDendrogram)
 draw_treatmentDendrogram
 # draw_treatmentDendrogram

@@ -7,9 +7,9 @@
 #returning more than one value from a function in r
 #https://stackoverflow.com/questions/1826519/how-to-assign-from-a-function-which-returns-more-than-one-value
 #https://www.datamentor.io/r-programming/return-function/
-
 defaultData <- function(){
-clustR <<- read.csv(file = "data/clusterData.csv")
+# try(setwd("./data"))
+clustR <<- read.csv(file = "./R/data/clusterData.csv")
 feaureSet1 <<- c("_cell") #features for one object type, marked by a suffix, these could also be contained in a metadata column called "object" #can also be a feature
 featureSet2 <<- c("_nucleus")#features for one object type, marked by a suffix, these could also be contained in a metadata column called "object" # can also be a feature
 object1 <<- c() # If there is an object ID column, name of object 1 type, eg. cell
@@ -19,9 +19,21 @@ objectGroupings <<- c("cellNumber") #unique id for entity that groups two object
 timePoints <<- c("runNumber")#name of feature that is time measure
 maxTimes <<- c("46")
 metaData <<- c("cellNumber","fieldNumber","Treatment","Row","Column","Plate") # list of column names for metadata)
+
+defaultData <- list(clustR = clustR,
+                    feaureSet1 = feaureSet1,
+                    featureSet2 = featureSet2,
+                    object1 = object1,
+                    object2 = object2,
+                    features = features,
+                    objectGroupings = objectGroupings,
+                    timePoints = timePoints,
+                    maxTimes = maxTimes,
+                    metaData = metaData)
+
+return(defaultData)
 }
 
-defaultData()
 
 
 

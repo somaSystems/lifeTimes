@@ -22,6 +22,14 @@
 
 #3. After this create output from wide dataframe
 
+#' Title
+#'
+#' @param wideIDfeatures
+#'
+#' @return
+#' @export
+#'
+#' @examples
 wide_ts_to_ccf <- function(wideIDfeatures){
   library(dplyr) #load library for filtering
   library(stringr)  #load library to split string
