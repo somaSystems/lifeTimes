@@ -16,21 +16,22 @@
 #1. Before this, make a function to create a wide dataframe
 
 
-  tsToWide <- function(data = clustR, feature1 = feaureSet1, feature2 = featureSet2, timepoints = timePoints, maxTime = maxTimes) {
-  library(rlang) # to convert variables to symbols of variables using sym(), and then evaluating these !!
+  tsToWide <- function(dataToMakeWide = clustR, feature1 = featureSet1, feature2 = featureSet2, timepoints = timePoints, maxTimes = maxTime) {
+  # library(rlang) # to convert variables to symbols of variables using sym(), and then evaluating these !!
   #https://stackoverflow.com/questions/48219732/pass-a-string-as-variable-name-in-dplyrfilter
-  library(tidyr)
+  # library(tidyr)
 
-  long_clustR <- clustR %>% pivot_longer( #Make geomFeatures column of features containing object measurements
-  cols = contains(feaureSet1) | #get measures for cols with object 1
-  contains(featureSet2), #get measures for cols with object 2
+  long_clustR <- dataToMakeWide %>%
+  tidyr::pivot_longer( #Make geomFeatures column of features containing object measurements
+  cols = contains(feature1) | #get measures for cols with object 1
+  contains(feature2), #get measures for cols with object 2
   names_to = "geomFeatures")
 
   #make wide dataframe with columns that are cell ID and geom features, #keep only runNumber (timepoint, as an organising coolum) #keep only first "n" timepoints
   wide_cellID_geomFeature <- long_clustR %>%
-  select(!!sym(timePoints),cellNumber,geomFeatures,value)%>%
-  filter(!!sym(timePoints) < maxTimes) %>%
-  pivot_wider(names_from = c("cellNumber","geomFeatures"),
+  dplyr::select(!!rlang::sym(timepoints),cellNumber,geomFeatures,value)%>%
+  dplyr::filter(!!rlang::sym(timepoints) < maxTime) %>%
+  tidyr::pivot_wider(names_from = c("cellNumber","geomFeatures"),
                 values_from = "value",
                 names_sep = "_FeatureID_")
 

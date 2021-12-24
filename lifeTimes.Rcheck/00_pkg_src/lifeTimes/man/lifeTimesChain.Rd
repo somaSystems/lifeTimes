@@ -21,4 +21,6 @@ output is ccf from original time series and calculated differences
 }
 \examples{
 outPutCCF <- lifeTimesChain()
+
+
 }

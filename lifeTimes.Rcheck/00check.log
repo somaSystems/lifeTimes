@@ -17,14 +17,15 @@
 * checking for sufficient/correct file permissions ... OK
 * checking serialization versions ... OK
 * checking whether package ‘lifeTimes’ can be installed ... OK
-* checking installed package size ... OK
+* checking installed package size ... NOTE
+  installed size is 15.1Mb
+  sub-directories of 1Mb or more:
+    data      6.2Mb
+    extdata   8.8Mb
 * checking package directory ... OK
 * checking for future file timestamps ... OK
 * checking ‘build’ directory ... OK
-* checking DESCRIPTION meta-information ... WARNING
-Non-standard license specification:
-  CC-BY
-Standardizable: FALSE
+* checking DESCRIPTION meta-information ... OK
 * checking top-level files ... OK
 * checking for left-over files ... OK
 * checking index information ... OK
@@ -50,7 +51,6 @@ Standardizable: FALSE
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
 * checking R code for possible problems ... NOTE
-clusterCCFs: no visible global function definition for ‘%>%’
 clusterCCFs: no visible global function definition for ‘filter’
 clusterCCFs: no visible binding for global variable ‘anCCF_LAG’
 clusterCCFs: no visible global function definition for ‘group_by_at’
@@ -131,37 +131,12 @@ couplingPlot: no visible global function definition for
 couplingPlot: no visible global function definition for ‘facet_wrap’
 couplingPlot: no visible global function definition for ‘theme_classic’
 couplingPlot: no visible global function definition for ‘geom_vline’
-defaultData: no visible binding for '<<-' assignment to ‘clustR’
 defaultData: no visible global function definition for ‘read.csv’
-defaultData: no visible binding for '<<-' assignment to ‘feaureSet1’
-defaultData: no visible binding for '<<-' assignment to ‘featureSet2’
-defaultData: no visible binding for '<<-' assignment to ‘object1’
-defaultData: no visible binding for '<<-' assignment to ‘object2’
-defaultData: no visible binding for '<<-' assignment to ‘features’
 defaultData: no visible binding for '<<-' assignment to
   ‘objectGroupings’
-defaultData: no visible binding for '<<-' assignment to ‘timePoints’
-defaultData: no visible binding for '<<-' assignment to ‘maxTimes’
-defaultData: no visible binding for '<<-' assignment to ‘metaData’
-defaultData: no visible binding for global variable ‘clustR’
-defaultData: no visible binding for global variable ‘feaureSet1’
-defaultData: no visible binding for global variable ‘featureSet2’
-defaultData: no visible binding for global variable ‘object1’
-defaultData: no visible binding for global variable ‘object2’
-defaultData: no visible binding for global variable ‘features’
 defaultData: no visible binding for global variable ‘objectGroupings’
-defaultData: no visible binding for global variable ‘timePoints’
-defaultData: no visible binding for global variable ‘maxTimes’
-defaultData: no visible binding for global variable ‘metaData’
+define_tsMetaData: no visible binding for global variable ‘clustR’
 define_tsMetaData: no visible binding for global variable ‘metaData’
-define_tsMetaData: no visible binding for '<<-' assignment to
-  ‘CellID_metaData’
-define_tsMetaData: no visible global function definition for ‘%>%’
-define_tsMetaData: no visible global function definition for ‘select’
-define_tsMetaData: no visible global function definition for ‘all_of’
-define_tsMetaData: no visible binding for global variable
-  ‘CellID_metaData’
-leadLagClusterPlot: no visible global function definition for ‘%>%’
 leadLagClusterPlot: no visible global function definition for ‘filter’
 leadLagClusterPlot: no visible binding for global variable
   ‘removeByname’
@@ -178,7 +153,6 @@ leadLagClusterPlot: no visible global function definition for ‘na.omit’
 leadLagClusterPlot: no visible global function definition for
   ‘colorRamp2’
 leadLagClusterPlot: no visible global function definition for ‘Heatmap’
-leadLagCorr_diffs: no visible global function definition for ‘%>%’
 leadLagCorr_diffs: no visible global function definition for ‘arrange’
 leadLagCorr_diffs: no visible binding for global variable
   ‘an_CCF_ObjectID’
@@ -202,99 +176,111 @@ leadLagCorr_diffs: no visible binding for '<<-' assignment to
   ‘join_medianDiff_meanLagRange_outputCCFdata_withMetaData’
 leadLagCorr_diffs: no visible binding for global variable
   ‘join_medianDiff_meanLagRange_outputCCFdata_withMetaData’
-lifeTimesChain: no visible global function definition for ‘%>%’
+lifeTimesChain: no visible global function definition for ‘head’
+lifeTimesChain: no visible binding for '<<-' assignment to ‘clustR’
+lifeTimesChain: no visible binding for '<<-' assignment to
+  ‘featureSet1’
+lifeTimesChain: no visible binding for '<<-' assignment to
+  ‘featureSet2’
+lifeTimesChain: no visible binding for '<<-' assignment to ‘timePoints’
+lifeTimesChain: no visible binding for '<<-' assignment to ‘maxTime’
+lifeTimesChain: no visible binding for '<<-' assignment to ‘metaData’
+lifeTimesChain: no visible binding for '<<-' assignment to
+  ‘CellID_metaData_output’
 metaData_ccf_join: no visible binding for global variable
-  ‘CellID_metaData’
+  ‘df_setOfCCF_forEachFeatureAndCellID’
+metaData_ccf_join: no visible binding for global variable
+  ‘CellID_metaData_output’
 metaData_ccf_join: no visible binding for '<<-' assignment to
   ‘outputCCFdata_withMetaData’
-metaData_ccf_join: no visible global function definition for
-  ‘left_join’
 metaData_ccf_join: no visible binding for global variable
   ‘outputCCFdata_withMetaData’
+tsMetaData: no visible binding for global variable ‘clustR’
 tsMetaData: no visible binding for global variable ‘metaData’
-tsMetaData: no visible global function definition for ‘%>%’
-tsMetaData: no visible global function definition for ‘select’
-tsMetaData: no visible global function definition for ‘all_of’
+tsMetaData: no visible binding for global variable
+  ‘CellID_metaData_output’
 tsToWide: no visible binding for global variable ‘clustR’
-tsToWide: no visible binding for global variable ‘feaureSet1’
+tsToWide: no visible binding for global variable ‘featureSet1’
 tsToWide: no visible binding for global variable ‘featureSet2’
 tsToWide: no visible binding for global variable ‘timePoints’
-tsToWide: no visible binding for global variable ‘maxTimes’
-tsToWide: no visible global function definition for ‘%>%’
-tsToWide: no visible global function definition for ‘pivot_longer’
+tsToWide: no visible binding for global variable ‘maxTime’
 tsToWide: no visible global function definition for ‘contains’
-tsToWide: no visible global function definition for ‘select’
-tsToWide: no visible global function definition for ‘sym’
 tsToWide: no visible binding for global variable ‘cellNumber’
 tsToWide: no visible binding for global variable ‘geomFeatures’
 tsToWide: no visible binding for global variable ‘value’
-tsToWide: no visible global function definition for ‘filter’
-tsToWide: no visible global function definition for ‘pivot_wider’
 wide_ts_to_ccf: no visible global function definition for
   ‘str_split_fixed’
-wide_ts_to_ccf: no visible global function definition for ‘%>%’
 wide_ts_to_ccf: no visible global function definition for ‘pull’
 wide_ts_to_ccf: no visible global function definition for ‘ccf’
 wide_ts_to_ccf: no visible binding for global variable ‘na.pass’
 wide_ts_to_ccf: no visible global function definition for ‘str’
 Undefined global functions or variables:
-  %>% CellID_metaData Heatmap Treatment aes all_of anCCF_ACF anCCF_LAG
+  CellID_metaData_output Heatmap Treatment aes anCCF_ACF anCCF_LAG
   an_CCF_Feature an_CCF_ObjectID annotate arrange as.dendrogram ccf
   cellNumber clustR colorRamp2 contains coord_flip dendro_data
-  df_clusteredZeroLag_withMetada dist draw_treatmentDendrogram
-  element_blank facet_grid facet_wrap featureSet2 features feaureSet1
-  filter geomFeatures geom_line geom_point geom_rect geom_segment
-  geom_vline ggarrange ggdendrogram ggplot group_by group_by_at hclust
+  df_clusteredZeroLag_withMetada df_setOfCCF_forEachFeatureAndCellID
+  dist draw_treatmentDendrogram element_blank facet_grid facet_wrap
+  featureSet1 featureSet2 filter geomFeatures geom_line geom_point
+  geom_rect geom_segment geom_vline ggarrange ggdendrogram ggplot
+  group_by group_by_at hclust head
   join_medianDiff_meanLagRange_outputCCFdata_withMetaData labs lagRange
-  left_join maxTimes meanLAGzero meanPrior_meanPost_diff median
-  medianPrePostPerTF metaData na.omit na.pass object1 object2
-  objectGroupings outputCCFdata_withMetaData pivot_longer pivot_wider
-  pull read.csv removeByname rremove scale_color_viridis
-  scale_color_viridis_c scale_fill_viridis_c scale_y_continuous segment
-  select stat_summary str str_split_fixed summarise sym theme theme_bw
-  theme_classic timePoints treatmentDendrogram ungroup value vars x
-  xend y yend
+  left_join maxTime meanLAGzero meanPrior_meanPost_diff median
+  medianPrePostPerTF metaData na.omit na.pass objectGroupings
+  outputCCFdata_withMetaData pivot_wider pull read.csv removeByname
+  rremove scale_color_viridis scale_color_viridis_c
+  scale_fill_viridis_c scale_y_continuous segment select stat_summary
+  str str_split_fixed summarise theme theme_bw theme_classic timePoints
+  treatmentDendrogram ungroup value vars x xend y yend
 Consider adding
   importFrom("stats", "as.dendrogram", "ccf", "dist", "filter", "hclust",
              "median", "na.omit", "na.pass")
-  importFrom("utils", "read.csv", "str")
+  importFrom("utils", "head", "read.csv", "str")
 to your NAMESPACE file.
 * checking Rd files ... NOTE
-prepare_Rd: wide_ts_to_ccf.Rd:12-14: Dropping empty section \value
+prepare_Rd: define_tsMetaData.Rd:18-20: Dropping empty section \value
+prepare_Rd: define_tsMetaData.Rd:24-26: Dropping empty section \examples
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
 * checking Rd cross-references ... OK
-* checking for missing documentation entries ... OK
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘clusterData’ ‘mtcars’ ‘widetimeSeries’ ‘x’
+Undocumented data sets:
+  ‘clusterData’ ‘mtcars’ ‘widetimeSeries’ ‘x’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
 * checking for code/documentation mismatches ... OK
-* checking Rd \usage sections ... OK
+* checking Rd \usage sections ... WARNING
+Undocumented arguments in documentation object 'define_tsMetaData'
+  ‘timeSeriesData’
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
 * checking Rd contents ... WARNING
+Argument items with no description in Rd object 'define_tsMetaData':
+  ‘columsForMetaData’
+
 Argument items with no description in Rd object 'wide_ts_to_ccf':
   ‘wideIDfeatures’
 
 * checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking LazyData ... WARNING
+  LazyData DB of 6.2 MB without LazyDataCompression set
+  See §1.1.6 of 'Writing R Extensions'
+* checking data for ASCII and uncompressed saves ... OK
 * checking installed files from ‘inst/doc’ ... OK
 * checking files in ‘vignettes’ ... OK
-* checking examples ... ERROR
-Running examples in ‘lifeTimes-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: lifeTimesChain
-> ### Title: lifeTimesChain
-> ### Aliases: lifeTimesChain
-> 
-> ### ** Examples
-> 
-> outPutCCF <- lifeTimesChain()
-Warning in file(file, "rt") :
-  cannot open file './R/data/clusterData.csv': No such file or directory
-Error in file(file, "rt") : cannot open the connection
-Calls: lifeTimesChain -> defaultData -> read.csv -> read.table -> file
-Execution halted
+* checking examples ... OK
 * checking for unstated dependencies in vignettes ... OK
 * checking package vignettes in ‘inst/doc’ ... OK
 * checking re-building of vignette outputs ... OK
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 1 ERROR, 3 WARNINGs, 2 NOTEs
+Status: 5 WARNINGs, 3 NOTEs

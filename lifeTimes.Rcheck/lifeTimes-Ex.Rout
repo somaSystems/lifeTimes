@@ -50,8 +50,1185 @@ Type 'q()' to quit R.
 > ### ** Examples
 > 
 > outPutCCF <- lifeTimesChain()
-Warning in file(file, "rt") :
-  cannot open file './R/data/clusterData.csv': No such file or directory
-Error in file(file, "rt") : cannot open the connection
-Calls: lifeTimesChain -> defaultData -> read.csv -> read.table -> file
-Execution halted
+[1] "timeSeriesData is null? TRUE"
+[1] "Running defaultData() to load test dataset..."
+  Volume_cell EquivDiameter SurfaceArea_cell MeanIntensity MinIntensity
+1   0.6075355      27.11739         1.551272      122.0629           11
+2   0.7851741      27.71448         1.782141      111.5248            6
+3   0.6846382      27.37975         1.717007      114.5175            5
+4   0.7310006      27.53513         1.796335      119.1877           11
+5   0.5644486      26.96853         1.596337      120.7511            7
+6   0.6659924      27.31677         1.715279      114.7776            9
+  MaxIntensity MajorAxis_cell MinorAxis_cell secondMajor_cell Eccentricity_cell
+1          604       2.153157     -0.8801838        0.4524040          1.062387
+2          500       2.279222     -0.9384143        0.5653020          1.067734
+3          509       2.325864     -0.8985189        0.5720636          1.067774
+4          521       2.420901     -1.0570544        0.6577468          1.074505
+5          542       2.387479     -1.1992271        0.6306906          1.077547
+6          484       2.551732     -1.1722021        0.8561717          1.080109
+  secondEccentricity_cell Sphericity_cell Vol2surf_cell runNumber timeTrack
+1                1.119371       -1.723498     -1.300285         1        37
+2                1.119081       -1.780878     -1.293367         2        37
+3                1.122035       -1.800588     -1.356047         3        37
+4                1.121716       -1.828777     -1.369838         4        37
+5                1.121563       -1.792323     -1.395820         5        37
+6                1.114587       -1.812420     -1.377021         6        37
+  yDim xDim zDim xCoord_cell yCoord_cell zCoord_cell     Orbit AngleBetween
+1   99   80   33    248.8841    308.8068    52.98712 0.2526838    -1.326916
+2  103   80   34    249.5903    308.2057    53.12207 0.4163494    -1.427144
+3  102   81   34    249.9964    307.9786    54.87011 0.4216649    -1.412049
+4  105   85   33    249.0381    309.3789    54.68858 0.4677809    -1.481217
+5  106   86   33    248.8063    308.5651    54.12148 0.8050573    -1.444747
+6  110   93   33    249.0306    308.9954    54.75994 0.8041113    -1.356556
+                                                                 serialNumber
+1 0021_0001_dotphotonCompressed_20190614_CRUK15_main488_642_19-06-14_15-23-19
+2 0021_0001_dotphotonCompressed_20190614_CRUK15_main488_642_19-06-14_15-23-19
+3 0021_0001_dotphotonCompressed_20190614_CRUK15_main488_642_19-06-14_15-23-19
+4 0021_0001_dotphotonCompressed_20190614_CRUK15_main488_642_19-06-14_15-23-19
+5 0021_0001_dotphotonCompressed_20190614_CRUK15_main488_642_19-06-14_15-23-19
+6 0021_0001_dotphotonCompressed_20190614_CRUK15_main488_642_19-06-14_15-23-19
+  nProtrusions_cell CoverslipPresent CoverslipDistance OnCoverslip fieldNumber
+1          2.185606                1          86.91548           0          21
+2          1.230679                1          87.11558           0          21
+3          2.185606                0         -54.87011           0          21
+4          2.185606                0         -54.68858           0          21
+5          2.185606                1          85.45115           0          21
+6          1.708143                0         -54.75994           0          21
+     Treatment Row Column Polarity_cell Spreading_cell Protrusivity_cell
+1 Blebbistatin   E      6      1.113163       1.313015          1.371142
+2 Blebbistatin   E      6      1.117710       1.334391          1.429183
+3 Blebbistatin   E      6      1.118643       1.332530          1.491793
+4 Blebbistatin   E      6      1.124685       1.359552          1.438242
+5 Blebbistatin   E      6      1.127566       1.371723          1.381893
+6 Blebbistatin   E      6      1.128277       1.385402          1.483863
+  cellNumber NucleusVolumeFraction Volume_nucleus SurfaceArea_nucleus
+1        219            -0.5244739    -0.07092208          0.02465938
+2        219            -0.6268050    -0.12743366         -0.02767996
+3        219            -0.6506573    -0.21588655         -0.18164324
+4        219            -0.6404080    -0.17657416         -0.09819621
+5        219            -0.5977301    -0.20114440         -0.09954311
+6        219            -0.4928717     0.01015974          0.24657038
+  MajorAxis_nucleus MinorAxis_nucleus secondMajor_nucleus Eccentricity_nucleus
+1         0.4391792        0.46934686          -0.6115969           0.06519065
+2         0.4248366        0.31503324          -0.5796132           0.20973882
+3         0.3811394       -0.19081626          -0.3463858           0.64335745
+4         0.4520008       -0.17068924          -0.2534290           0.66734208
+5         0.2760876       -0.07260893          -0.2588446           0.47276727
+6         0.5335666        0.29156742          -0.1699750           0.31318351
+  secondEccentricity_nucleus Sphericity_nucleus Vol2surf_nucleus xCoord_nucleus
+1                  1.0464137         0.15006912      0.137184345       248.8841
+2                  1.0192900         0.07063223      0.066331187       249.5903
+3                  0.8392206         0.56583647      0.080283933       249.9964
+4                  0.8150249         0.20842705      0.046680629       249.0381
+5                  0.7090064        -0.01780621     -0.024449614       248.8063
+6                  0.8041716        -0.86894194     -0.006720872       249.0306
+  yCoord_nucleus zCoord_nucleus nProtrusions_nucleus Polarity_nucleus
+1       308.8068       52.98712           -1.2967488        0.6251282
+2       308.2057       53.12207           -0.3464679        0.6690352
+3       307.9786       54.87011           -1.2967488        0.7737317
+4       309.3789       54.68858            1.5540940        0.7738717
+5       308.5651       54.12148           -1.2967488        0.6037422
+6       308.9954       54.75994           -0.3464679        0.5749791
+  Spreading_nucleus Protrusivity_nucleus Plate cluster
+1        -0.8914373           -0.7058652    15       4
+2        -0.5621548           -0.7761383    15       4
+3         0.4217956           -1.4581172    15       4
+4         0.4814956           -0.0180541    15       4
+5         0.2493338           -0.2062147    15       4
+6        -0.1035453            0.1792913    15       4
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+[1] "STARTing cell.. 219  With feature... Volume"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.363 0.343 0.367 0.37 0.375 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... Volume"
+[1] "STARTing cell.. 54  With feature... Volume"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.03829 -0.00984 -0.03335 0.02281 0.01051 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... Volume"
+[1] "STARTing cell.. 205  With feature... Volume"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.035 -0.1355 -0.0747 -0.0395 -0.0444 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... Volume"
+[1] "STARTing cell.. 1  With feature... Volume"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.186 0.154 0.225 0.197 0.274 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... Volume"
+[1] "STARTing cell.. 55  With feature... Volume"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.1621 -0.155 -0.1486 -0.0386 -0.0453 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... Volume"
+[1] "STARTing cell.. 112  With feature... Volume"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.10046 -0.00137 0.04316 0.09705 0.05778 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... Volume"
+[1] "STARTing cell.. 219  With feature... SurfaceArea"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.528 0.528 0.525 0.472 0.426 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... SurfaceArea"
+[1] "STARTing cell.. 54  With feature... SurfaceArea"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.00833 -0.00103 -0.03739 0.01829 0.02611 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... SurfaceArea"
+[1] "STARTing cell.. 205  With feature... SurfaceArea"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.1101 -0.2383 -0.119 -0.0835 -0.133 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... SurfaceArea"
+[1] "STARTing cell.. 1  With feature... SurfaceArea"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0105 0.0049 0.0487 -0.0118 0.0446 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... SurfaceArea"
+[1] "STARTing cell.. 55  With feature... SurfaceArea"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.1797 -0.1775 -0.1852 -0.0959 -0.0931 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... SurfaceArea"
+[1] "STARTing cell.. 112  With feature... SurfaceArea"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0485 -0.0777 0.0452 -0.0436 -0.0426 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... SurfaceArea"
+[1] "STARTing cell.. 219  With feature... MajorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.032369 -0.052411 -0.000248 -0.022894 -0.064194 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... MajorAxis"
+[1] "STARTing cell.. 54  With feature... MajorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.502 -0.468 -0.429 -0.341 -0.204 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... MajorAxis"
+[1] "STARTing cell.. 205  With feature... MajorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.1443 -0.2693 -0.1333 -0.0997 -0.1642 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... MajorAxis"
+[1] "STARTing cell.. 1  With feature... MajorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0286 0.0208 0.0786 0.0572 0.0772 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... MajorAxis"
+[1] "STARTing cell.. 55  With feature... MajorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.291 0.2 0.117 0.197 0.227 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... MajorAxis"
+[1] "STARTing cell.. 112  With feature... MajorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.044065 0.000287 0.094451 0.088916 0.08829 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... MajorAxis"
+[1] "STARTing cell.. 219  With feature... MinorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.2292 0.1477 0.1158 -0.028 -0.0474 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... MinorAxis"
+[1] "STARTing cell.. 54  With feature... MinorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0478 -0.0452 -0.1146 -0.1789 -0.3187 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... MinorAxis"
+[1] "STARTing cell.. 205  With feature... MinorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.093 -0.0121 -0.0845 0.0343 0.0768 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... MinorAxis"
+[1] "STARTing cell.. 1  With feature... MinorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0574 -0.0695 -0.1213 -0.1807 -0.2706 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... MinorAxis"
+[1] "STARTing cell.. 55  With feature... MinorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.209 -0.201 -0.188 -0.14 -0.118 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... MinorAxis"
+[1] "STARTing cell.. 112  With feature... MinorAxis"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.1652 0.115 0.0452 0.2061 0.2253 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... MinorAxis"
+[1] "STARTing cell.. 219  With feature... secondMajor"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.149 0.224 0.289 0.341 0.415 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... secondMajor"
+[1] "STARTing cell.. 54  With feature... secondMajor"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.316 0.412 0.337 0.35 0.223 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... secondMajor"
+[1] "STARTing cell.. 205  With feature... secondMajor"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.1111 -0.1194 -0.0862 -0.1058 -0.1401 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... secondMajor"
+[1] "STARTing cell.. 1  With feature... secondMajor"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0994 0.1098 0.1158 0.1167 0.1598 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... secondMajor"
+[1] "STARTing cell.. 55  With feature... secondMajor"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.062 0.0877 0.0594 0.1594 0.1499 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... secondMajor"
+[1] "STARTing cell.. 112  With feature... secondMajor"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0336 0.0568 0.0981 0.1036 0.0103 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... secondMajor"
+[1] "STARTing cell.. 219  With feature... Eccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.1635 0.1352 0.181 0.0356 -0.0139 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... Eccentricity"
+[1] "STARTing cell.. 54  With feature... Eccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.467 -0.432 -0.378 -0.33 -0.233 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... Eccentricity"
+[1] "STARTing cell.. 205  With feature... Eccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.2289 -0.1885 -0.0937 -0.0673 -0.0508 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... Eccentricity"
+[1] "STARTing cell.. 1  With feature... Eccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0489 -0.0876 -0.1558 -0.2363 -0.3851 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... Eccentricity"
+[1] "STARTing cell.. 55  With feature... Eccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0551 -0.0805 -0.0781 -0.0618 -0.0235 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... Eccentricity"
+[1] "STARTing cell.. 112  With feature... Eccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0137 0.0191 0.1455 0.272 0.2691 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... Eccentricity"
+[1] "STARTing cell.. 219  With feature... secondEccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0946 -0.0564 0.1014 0.1889 0.2772 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... secondEccentricity"
+[1] "STARTing cell.. 54  With feature... secondEccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.555 -0.483 -0.402 -0.248 -0.118 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... secondEccentricity"
+[1] "STARTing cell.. 205  With feature... secondEccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.00326 -0.00192 -0.00402 -0.02087 -0.08141 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... secondEccentricity"
+[1] "STARTing cell.. 1  With feature... secondEccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.143 0.121 0.103 0.156 0.201 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... secondEccentricity"
+[1] "STARTing cell.. 55  With feature... secondEccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.1341 0.1353 0.0941 0.1574 0.1808 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... secondEccentricity"
+[1] "STARTing cell.. 112  With feature... secondEccentricity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.1257 -0.0704 -0.0418 -0.0508 -0.0304 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... secondEccentricity"
+[1] "STARTing cell.. 219  With feature... Sphericity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.366 0.361 0.368 0.322 0.263 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... Sphericity"
+[1] "STARTing cell.. 54  With feature... Sphericity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.1444 -0.2152 -0.2695 -0.1575 -0.0967 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... Sphericity"
+[1] "STARTing cell.. 205  With feature... Sphericity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.2502 -0.1635 0.0199 -0.034 -0.022 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... Sphericity"
+[1] "STARTing cell.. 1  With feature... Sphericity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.236 0.226 0.191 0.175 0.171 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... Sphericity"
+[1] "STARTing cell.. 55  With feature... Sphericity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0811 0.1217 0.0321 0.0903 0.129 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... Sphericity"
+[1] "STARTing cell.. 112  With feature... Sphericity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.2792 0.1123 -0.0843 0.014 0.09 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... Sphericity"
+[1] "STARTing cell.. 219  With feature... Vol2surf"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.00457 -0.0277 0.00907 0.01537 -0.02389 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... Vol2surf"
+[1] "STARTing cell.. 54  With feature... Vol2surf"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.299 -0.359 -0.396 -0.294 -0.252 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... Vol2surf"
+[1] "STARTing cell.. 205  With feature... Vol2surf"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.022 0.2051 0.1477 0.0893 0.1963 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... Vol2surf"
+[1] "STARTing cell.. 1  With feature... Vol2surf"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.244 0.202 0.226 0.244 0.274 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... Vol2surf"
+[1] "STARTing cell.. 55  With feature... Vol2surf"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0996 -0.0506 -0.0442 0.0566 0.0676 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... Vol2surf"
+[1] "STARTing cell.. 112  With feature... Vol2surf"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.258 0.104 -0.013 0.183 0.146 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... Vol2surf"
+[1] "STARTing cell.. 219  With feature... xCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.00867 0.02072 0.08003 0.13901 0.19307 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... xCoord"
+[1] "STARTing cell.. 54  With feature... xCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.2153 -0.1429 -0.0589 0.0339 0.1322 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... xCoord"
+[1] "STARTing cell.. 205  With feature... xCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.15258 -0.1256 -0.11113 -0.06783 0.00928 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... xCoord"
+[1] "STARTing cell.. 1  With feature... xCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.05427 0.0385 0.09675 0.11357 0.00362 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... xCoord"
+[1] "STARTing cell.. 55  With feature... xCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.264 -0.153 -0.171 -0.182 -0.11 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... xCoord"
+[1] "STARTing cell.. 112  With feature... xCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0202 0.0883 0.1323 0.1605 0.2163 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... xCoord"
+[1] "STARTing cell.. 219  With feature... yCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.41 -0.427 -0.432 -0.304 -0.321 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... yCoord"
+[1] "STARTing cell.. 54  With feature... yCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.37 -0.363 -0.395 -0.418 -0.364 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... yCoord"
+[1] "STARTing cell.. 205  With feature... yCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.1272 -0.0939 -0.064 -0.0409 -0.0263 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... yCoord"
+[1] "STARTing cell.. 1  With feature... yCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.04053 0.1142 0.01592 0.04519 -0.00153 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... yCoord"
+[1] "STARTing cell.. 55  With feature... yCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.1597 -0.0513 -0.0132 0.2106 0.0823 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... yCoord"
+[1] "STARTing cell.. 112  With feature... yCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.222 0.175 0.123 0.144 0.145 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... yCoord"
+[1] "STARTing cell.. 219  With feature... zCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.1516 -0.1526 0.0178 0.0259 -0.0274 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... zCoord"
+[1] "STARTing cell.. 54  With feature... zCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.07999 -0.00607 0.08443 0.18189 0.28611 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... zCoord"
+[1] "STARTing cell.. 205  With feature... zCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.198 -0.307 -0.282 -0.073 0.111 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... zCoord"
+[1] "STARTing cell.. 1  With feature... zCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0807 -0.076 0.0198 0.1027 0.0272 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... zCoord"
+[1] "STARTing cell.. 55  With feature... zCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.2208 -0.2536 -0.1146 0.0579 0.0145 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... zCoord"
+[1] "STARTing cell.. 112  With feature... zCoord"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.3078 -0.2575 -0.0905 0.0423 0.0208 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... zCoord"
+[1] "STARTing cell.. 219  With feature... nProtrusions"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0124 -0.1431 0.1345 -0.0519 0.0301 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... nProtrusions"
+[1] "STARTing cell.. 54  With feature... nProtrusions"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0442 0.14407 0.11468 0.00322 0.28654 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... nProtrusions"
+[1] "STARTing cell.. 205  With feature... nProtrusions"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0371 0.0436 0.0653 -0.0644 0.0112 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... nProtrusions"
+[1] "STARTing cell.. 1  With feature... nProtrusions"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.1047 -0.145 0.1565 0.0575 -0.1219 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... nProtrusions"
+[1] "STARTing cell.. 55  With feature... nProtrusions"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0587 -0.0668 -0.0748 -0.2121 -0.2145 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... nProtrusions"
+[1] "STARTing cell.. 112  With feature... nProtrusions"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0646 0.194 -0.1051 -0.2435 0.0934 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... nProtrusions"
+[1] "STARTing cell.. 219  With feature... Polarity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0013 -0.0025 0.181 0.1632 0.1791 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... Polarity"
+[1] "STARTing cell.. 54  With feature... Polarity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.559 -0.513 -0.438 -0.332 -0.197 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... Polarity"
+[1] "STARTing cell.. 205  With feature... Polarity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0237 -0.0186 0.0324 0.017 -0.0307 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... Polarity"
+[1] "STARTing cell.. 1  With feature... Polarity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.2409 0.2249 0.1187 0.0505 -0.0388 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... Polarity"
+[1] "STARTing cell.. 55  With feature... Polarity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0404 0.0183 0.002 0.0328 0.0719 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... Polarity"
+[1] "STARTing cell.. 112  With feature... Polarity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.0429 -0.0153 0.0782 0.1075 0.1342 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... Polarity"
+[1] "STARTing cell.. 219  With feature... Spreading"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.2326 0.2362 0.1958 0.0466 0.0487 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... Spreading"
+[1] "STARTing cell.. 54  With feature... Spreading"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.296 -0.26 -0.248 -0.272 -0.257 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... Spreading"
+[1] "STARTing cell.. 205  With feature... Spreading"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.487 -0.379 -0.298 -0.235 -0.158 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... Spreading"
+[1] "STARTing cell.. 1  With feature... Spreading"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.205 -0.268 -0.293 -0.329 -0.451 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... Spreading"
+[1] "STARTing cell.. 55  With feature... Spreading"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.172 -0.183 -0.165 -0.143 -0.122 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... Spreading"
+[1] "STARTing cell.. 112  With feature... Spreading"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.00349 0.02961 0.15655 0.37219 0.30038 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... Spreading"
+[1] "STARTing cell.. 219  With feature... Protrusivity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.1293 0.1386 0.0355 0.055 -0.0353 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 219"
+[1] "ENDing cell.. 219  With feature... Protrusivity"
+[1] "STARTing cell.. 54  With feature... Protrusivity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.026 -0.189 -0.233 -0.124 -0.14 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 54"
+[1] "ENDing cell.. 54  With feature... Protrusivity"
+[1] "STARTing cell.. 205  With feature... Protrusivity"
+List of 6
+ $ acf   : num [1:27, 1, 1] -0.11424 -0.03165 0.04395 -0.00681 -0.01311 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 205"
+[1] "ENDing cell.. 205  With feature... Protrusivity"
+[1] "STARTing cell.. 1  With feature... Protrusivity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.1188 0.033 0.0735 0.1124 0.1401 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 1"
+[1] "ENDing cell.. 1  With feature... Protrusivity"
+[1] "STARTing cell.. 55  With feature... Protrusivity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.224 0.1281 0.0434 0.1482 0.1762 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 55"
+[1] "ENDing cell.. 55  With feature... Protrusivity"
+[1] "STARTing cell.. 112  With feature... Protrusivity"
+List of 6
+ $ acf   : num [1:27, 1, 1] 0.0404 -0.0863 -0.2727 -0.1855 -0.1375 ...
+ $ type  : chr "correlation"
+ $ n.used: int 40
+ $ lag   : num [1:27, 1, 1] -13 -12 -11 -10 -9 -8 -7 -6 -5 -4 ...
+ $ series: chr "X"
+ $ snames: chr "chosenTSone_y_cell & choseTStwo_x_nucleus"
+ - attr(*, "class")= chr "acf"
+[1] "adding Cell to dataframe... 112"
+[1] "ENDing cell.. 112  With feature... Protrusivity"
+[1] "Warning: feature  xCoord has correlation 1 at lag zero and will be removed"
+[2] "Warning: feature  yCoord has correlation 1 at lag zero and will be removed"
+[3] "Warning: feature  zCoord has correlation 1 at lag zero and will be removed"
+> 
+> 
+> 
+> 
+> 
+> base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+> base::cat("lifeTimesChain", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+> ### * <FOOTER>
+> ###
+> cleanEx()
+
+detaching ‘package:stringr’, ‘package:ggdendro’, ‘package:rlang’,
+  ‘package:dplyr’, ‘package:tidyr’
+
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  0.908 0.036 0.943 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
