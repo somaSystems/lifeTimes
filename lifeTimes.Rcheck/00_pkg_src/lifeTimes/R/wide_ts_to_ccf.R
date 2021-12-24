@@ -11,25 +11,23 @@
 #   Install Package:           'Ctrl + Shift + B'
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
-
 #Overall schema
 #1. Before this, make a function to create a wide dataframe
-
 #2. Current Function takes a wide dataframe
 #Column names require i)Unique cellID ii)feature being measured iii) compartment or object being measured
 #to generalise change cell and nucleus to object1 and object2 (or leading and lagging object)
 #to generalise, can just do compare every feature to every other feature for all features (But this is a lot?)
-
 #3. After this create output from wide dataframe
-
 #' Title
 #'
 #' @param wideIDfeatures
 #'
-#' @return
-#' @export
+#' @return df_setOfCCF_forEachFeatureAndCellID
 #'
-#' @examples
+#'
+#'
+#'
+#'
 wide_ts_to_ccf <- function(wideIDfeatures){
   library(dplyr) #load library for filtering
   library(stringr)  #load library to split string

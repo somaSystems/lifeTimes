@@ -54,25 +54,25 @@ example, `clusterPlot(outputCCF, plotType = "rawTraces")` <br>
 
 ## **Examples** 
 
-**Fig 1** Calculated correlation clustered by strength at lag zero  
+**Fig 1** Calculated correlation clustered by strength at lag zero <br>
 <p>
 
 <figure>
-<img src="README_figs/README-clusteredCorrelations.png" style="width:50.0%" alt="Fig 1: An example of clusterPlot(), output" /><figcaption aria-hidden="true">Fig 1: An example of clusterPlot(), output</figcaption>
+<img src="README_figs/README-clusteredCorrelations.png" style="width:50.0%" alt="Fig 1: example of clusterPlot(), output" /><figcaption aria-hidden="true">Fig 1: example of clusterPlot(), output</figcaption>
 </figure>
 
 **Fig 2** Calculated asymmetries between past and future lags, clustered
-by strength of asymmetry  
+by strength of asymmetry <br>
 <p>
 
 <figure>
-<img src="README_figs/README-clusteredCorrelationLags.png" style="width:50.0%" alt="Fig 2: An example of leadLagClusterPlot(), output" /><figcaption aria-hidden="true">Fig 2: An example of leadLagClusterPlot(), output</figcaption>
+<img src="README_figs/README-clusteredCorrelationLags.png" style="width:50.0%" alt="Fig 2: example of leadLagClusterPlot(), output" /><figcaption aria-hidden="true">Fig 2: example of leadLagClusterPlot(), output</figcaption>
 </figure>
 
 **Fig 3** ‘Coupling plots’ representing the strength of correlation at
-lag zero, and the direction of correlation.  
+lag zero, and the direction of correlation. <br>
 <p>
 
 <figure>
-<img src="README_figs/README-couplingPlot.png" style="width:50.0%" alt="Fig 3: An example of couplingPlot(), output" /><figcaption aria-hidden="true">Fig 3: An example of couplingPlot(), output</figcaption>
+<img src="README_figs/README-couplingPlot.png" style="width:50.0%" alt="Fig 3: example of couplingPlot(), output" /><figcaption aria-hidden="true">Fig 3: example of couplingPlot(), output</figcaption>
 </figure>

@@ -2,8 +2,8 @@
     "sortOrder": [
         {
             "columnIndex": 2,
-            "ascending": true
+            "ascending": false
         }
     ],
-    "path": "~/ICR_2021/lifeTimes_package/lifeTimes/man"
+    "path": "~/ICR_2021/lifeTimes_package/lifeTimes/R"
 }
