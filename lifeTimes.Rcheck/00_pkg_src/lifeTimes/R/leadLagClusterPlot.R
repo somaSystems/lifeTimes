@@ -1,3 +1,17 @@
+#' leadLagClusterPlot
+#'
+#'@importFrom ComplexHeatmap Heatmap
+#'@importFrom circlize colorRamp2
+#'
+#'@param join_medianDiff_meanLagRange_outputCCFdata_withMetaData output from
+#'lifeTimesChain()
+#'@param removeFeatureByname name a feature that should be removed from
+#'clustering (eg. because of perfect correlation, high noise, or artefact)
+#'
+#'@export
+#'
+#'
+
 #leadLagClusterPlot !
 
 #Function to cluster contitions (eg. treatments) and variables (eg. feature measurements)
@@ -6,6 +20,7 @@
 ###Toggle these next two lines on and off during testing
 # leadLagPlotInput
 # join_medianDiff_meanLagRange_outputCCFdata_withMetaData
+
 
 leadLagClusterPlot <- function(join_medianDiff_meanLagRange_outputCCFdata_withMetaData, removeFeatureByname){
 
@@ -60,8 +75,8 @@ print(paste("Warning:...",hasNA_So_removedFromMatrix,"...had NA, so removed from
 narm_mw_prePost <- na.omit(mw_prePost)
 
 
-library(ComplexHeatmap)
-library(circlize)
+# library(ComplexHeatmap)
+# library(circlize)
 col_fun = colorRamp2(c(min(narm_mw_prePost), 0,max(narm_mw_prePost)), c("steelblue4", "white", "gold"))
 col_fun(seq(-10, 10))
 

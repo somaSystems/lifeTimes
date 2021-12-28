@@ -15,5 +15,5 @@ Suggests: rmarkdown, knitr
 VignetteBuilder: knitr
 Depends: R (>= 2.10)
 NeedsCompilation: no
-Packaged: 2021-12-23 23:37:34 UTC; ldent
-Built: R 4.1.0; ; 2021-12-23 23:37:41 UTC; unix
+Packaged: 2021-12-28 20:34:38 UTC; ldent
+Built: R 4.1.0; ; 2021-12-28 20:34:43 UTC; unix

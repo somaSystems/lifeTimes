@@ -18,6 +18,47 @@ library('lifeTimes')
 base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
 cleanEx()
+nameEx("couplingPlot")
+### * couplingPlot
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: couplingPlot
+### Title: couplingPlot !
+### Aliases: couplingPlot
+
+### ** Examples
+
+couplingPlot(lifeTimesChain())
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("couplingPlot", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
+nameEx("define_tsMetaData")
+### * define_tsMetaData
+
+flush(stderr()); flush(stdout())
+
+base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+### Name: define_tsMetaData
+### Title: define_tsMetaData
+### Aliases: define_tsMetaData
+
+### ** Examples
+
+define_tsMetaData(timeSeriesData = defaultTimeSeries ,
+columsForMetaData = c("cellNumber","fieldNumber","Treatment","Row","Column","Plate"))
+
+
+
+
+
+base::assign(".dptime", (proc.time() - get(".ptime", pos = "CheckExEnv")), pos = "CheckExEnv")
+base::cat("define_tsMetaData", base::get(".format_ptime", pos = 'CheckExEnv')(get(".dptime", pos = "CheckExEnv")), "\n", file=base::get(".ExTimings", pos = 'CheckExEnv'), append=TRUE, sep="\t")
+cleanEx()
 nameEx("lifeTimesChain")
 ### * lifeTimesChain
 
@@ -31,6 +72,7 @@ base::assign(".ptime", proc.time(), pos = "CheckExEnv")
 ### ** Examples
 
 outPutCCF <- lifeTimesChain()
+
 
 
 

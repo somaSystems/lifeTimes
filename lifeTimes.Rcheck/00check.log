@@ -18,9 +18,9 @@
 * checking serialization versions ... OK
 * checking whether package ‘lifeTimes’ can be installed ... OK
 * checking installed package size ... NOTE
-  installed size is 15.1Mb
+  installed size is 11.8Mb
   sub-directories of 1Mb or more:
-    data      6.2Mb
+    data      2.9Mb
     extdata   8.8Mb
 * checking package directory ... OK
 * checking for future file timestamps ... OK
@@ -38,30 +38,16 @@
 * checking whether the namespace can be loaded with stated dependencies ... OK
 * checking whether the namespace can be unloaded cleanly ... OK
 * checking loading without being on the library search path ... OK
-* checking dependencies in R code ... WARNING
-'library' or 'require' calls not declared from:
-  ‘ComplexHeatmap’ ‘circlize’ ‘dplyr’ ‘ggdendro’ ‘ggplot2’ ‘ggpubr’
-  ‘grid’ ‘rlang’ ‘stringr’ ‘tidyr’
-'library' or 'require' calls in package code:
-  ‘ComplexHeatmap’ ‘circlize’ ‘dplyr’ ‘ggdendro’ ‘ggplot2’ ‘ggpubr’
-  ‘grid’ ‘rlang’ ‘stringr’ ‘tidyr’
-  Please use :: or requireNamespace() instead.
-  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+* checking dependencies in R code ... OK
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
 * checking R code for possible problems ... NOTE
-clusterCCFs: no visible global function definition for ‘filter’
 clusterCCFs: no visible binding for global variable ‘anCCF_LAG’
-clusterCCFs: no visible global function definition for ‘group_by_at’
-clusterCCFs: no visible global function definition for ‘summarise’
 clusterCCFs: no visible binding for global variable ‘anCCF_ACF’
-clusterCCFs: no visible global function definition for ‘left_join’
-clusterCCFs: no visible global function definition for ‘select’
 clusterCCFs: no visible binding for global variable ‘meanLAGzero’
 clusterCCFs: no visible binding for global variable ‘an_CCF_Feature’
 clusterCCFs: no visible binding for global variable ‘Treatment’
-clusterCCFs: no visible global function definition for ‘pivot_wider’
 clusterCCFs: no visible global function definition for ‘hclust’
 clusterCCFs: no visible global function definition for ‘dist’
 clusterCCFs: no visible binding for '<<-' assignment to
@@ -69,7 +55,6 @@ clusterCCFs: no visible binding for '<<-' assignment to
 clusterCCFs: no visible global function definition for ‘as.dendrogram’
 clusterCCFs: no visible binding for '<<-' assignment to
   ‘draw_treatmentDendrogram’
-clusterCCFs: no visible global function definition for ‘ggdendrogram’
 clusterCCFs: no visible binding for global variable
   ‘treatmentDendrogram’
 clusterCCFs: no visible binding for global variable
@@ -80,64 +65,30 @@ clusterCCFs: no visible binding for global variable
   ‘df_clusteredZeroLag_withMetada’
 clusterPlot: no visible binding for global variable
   ‘df_clusteredZeroLag_withMetada’
-clusterPlot: no visible global function definition for ‘ggdendrogram’
 clusterPlot: no visible binding for global variable
   ‘treatmentDendrogram’
 clusterPlot: no visible global function definition for ‘dendro_data’
 clusterPlot: no visible global function definition for ‘segment’
-clusterPlot: no visible global function definition for ‘ggplot’
-clusterPlot: no visible global function definition for ‘geom_segment’
-clusterPlot: no visible global function definition for ‘aes’
 clusterPlot: no visible binding for global variable ‘x’
 clusterPlot: no visible binding for global variable ‘y’
 clusterPlot: no visible binding for global variable ‘xend’
 clusterPlot: no visible binding for global variable ‘yend’
-clusterPlot: no visible global function definition for ‘coord_flip’
-clusterPlot: no visible global function definition for
-  ‘scale_y_continuous’
-clusterPlot: no visible global function definition for ‘labs’
-clusterPlot: no visible global function definition for ‘theme_bw’
-clusterPlot: no visible global function definition for ‘theme’
-clusterPlot: no visible global function definition for ‘element_blank’
-clusterPlot: no visible global function definition for ‘geom_rect’
-clusterPlot: no visible global function definition for ‘geom_line’
-clusterPlot: no visible global function definition for
-  ‘scale_color_viridis_c’
-clusterPlot: no visible global function definition for
-  ‘scale_fill_viridis_c’
-clusterPlot: no visible global function definition for ‘facet_grid’
-clusterPlot: no visible global function definition for ‘vars’
 clusterPlot: no visible binding for global variable ‘an_CCF_Feature’
 clusterPlot: no visible binding for global variable ‘Treatment’
-clusterPlot: no visible global function definition for ‘stat_summary’
-clusterPlot: no visible global function definition for ‘theme_classic’
-clusterPlot: no visible global function definition for ‘ggarrange’
 clusterPlot: no visible global function definition for ‘rremove’
 clusterPlot: no visible binding for global variable ‘anCCF_LAG’
 clusterPlot: no visible binding for global variable ‘anCCF_ACF’
 clusterPlot: no visible binding for global variable ‘an_CCF_ObjectID’
-clusterPlot: no visible global function definition for ‘facet_wrap’
-couplingPlot: no visible global function definition for ‘ggplot’
-couplingPlot: no visible global function definition for ‘annotate’
-couplingPlot: no visible global function definition for ‘geom_point’
-couplingPlot: no visible global function definition for ‘aes’
 couplingPlot: no visible binding for global variable
   ‘medianPrePostPerTF’
 couplingPlot: no visible binding for global variable ‘meanLAGzero’
 couplingPlot: no visible binding for global variable ‘an_CCF_Feature’
-couplingPlot: no visible global function definition for ‘geom_segment’
-couplingPlot: no visible global function definition for
-  ‘scale_color_viridis’
-couplingPlot: no visible global function definition for ‘facet_wrap’
-couplingPlot: no visible global function definition for ‘theme_classic’
-couplingPlot: no visible global function definition for ‘geom_vline’
 defaultData: no visible global function definition for ‘read.csv’
 defaultData: no visible binding for '<<-' assignment to
   ‘objectGroupings’
 defaultData: no visible binding for global variable ‘objectGroupings’
 define_tsMetaData: no visible binding for global variable ‘clustR’
 define_tsMetaData: no visible binding for global variable ‘metaData’
-leadLagClusterPlot: no visible global function definition for ‘filter’
 leadLagClusterPlot: no visible binding for global variable
   ‘removeByname’
 leadLagClusterPlot: no visible binding for global variable
@@ -145,30 +96,16 @@ leadLagClusterPlot: no visible binding for global variable
 leadLagClusterPlot: no visible binding for global variable
   ‘medianPrePostPerTF’
 leadLagClusterPlot: no visible global function definition for ‘ungroup’
-leadLagClusterPlot: no visible global function definition for ‘select’
 leadLagClusterPlot: no visible binding for global variable ‘Treatment’
-leadLagClusterPlot: no visible global function definition for
-  ‘pivot_wider’
 leadLagClusterPlot: no visible global function definition for ‘na.omit’
-leadLagClusterPlot: no visible global function definition for
-  ‘colorRamp2’
-leadLagClusterPlot: no visible global function definition for ‘Heatmap’
-leadLagCorr_diffs: no visible global function definition for ‘arrange’
 leadLagCorr_diffs: no visible binding for global variable
   ‘an_CCF_ObjectID’
 leadLagCorr_diffs: no visible binding for global variable
   ‘an_CCF_Feature’
 leadLagCorr_diffs: no visible binding for global variable ‘Treatment’
 leadLagCorr_diffs: no visible binding for global variable ‘anCCF_LAG’
-leadLagCorr_diffs: no visible global function definition for ‘group_by’
 leadLagCorr_diffs: no visible binding for global variable ‘lagRange’
 leadLagCorr_diffs: no visible binding for global variable ‘anCCF_ACF’
-leadLagCorr_diffs: no visible global function definition for
-  ‘pivot_wider’
-leadLagCorr_diffs: no visible global function definition for
-  ‘left_join’
-leadLagCorr_diffs: no visible global function definition for
-  ‘summarise’
 leadLagCorr_diffs: no visible global function definition for ‘median’
 leadLagCorr_diffs: no visible binding for global variable
   ‘meanPrior_meanPost_diff’
@@ -208,71 +145,43 @@ tsToWide: no visible global function definition for ‘contains’
 tsToWide: no visible binding for global variable ‘cellNumber’
 tsToWide: no visible binding for global variable ‘geomFeatures’
 tsToWide: no visible binding for global variable ‘value’
-wide_ts_to_ccf: no visible global function definition for
-  ‘str_split_fixed’
-wide_ts_to_ccf: no visible global function definition for ‘pull’
-wide_ts_to_ccf: no visible global function definition for ‘ccf’
 wide_ts_to_ccf: no visible binding for global variable ‘na.pass’
 wide_ts_to_ccf: no visible global function definition for ‘str’
 Undefined global functions or variables:
-  CellID_metaData_output Heatmap Treatment aes anCCF_ACF anCCF_LAG
-  an_CCF_Feature an_CCF_ObjectID annotate arrange as.dendrogram ccf
-  cellNumber clustR colorRamp2 contains coord_flip dendro_data
+  CellID_metaData_output Treatment anCCF_ACF anCCF_LAG an_CCF_Feature
+  an_CCF_ObjectID as.dendrogram cellNumber clustR contains dendro_data
   df_clusteredZeroLag_withMetada df_setOfCCF_forEachFeatureAndCellID
-  dist draw_treatmentDendrogram element_blank facet_grid facet_wrap
-  featureSet1 featureSet2 filter geomFeatures geom_line geom_point
-  geom_rect geom_segment geom_vline ggarrange ggdendrogram ggplot
-  group_by group_by_at hclust head
-  join_medianDiff_meanLagRange_outputCCFdata_withMetaData labs lagRange
-  left_join maxTime meanLAGzero meanPrior_meanPost_diff median
+  dist draw_treatmentDendrogram featureSet1 featureSet2 geomFeatures
+  hclust head join_medianDiff_meanLagRange_outputCCFdata_withMetaData
+  lagRange maxTime meanLAGzero meanPrior_meanPost_diff median
   medianPrePostPerTF metaData na.omit na.pass objectGroupings
-  outputCCFdata_withMetaData pivot_wider pull read.csv removeByname
-  rremove scale_color_viridis scale_color_viridis_c
-  scale_fill_viridis_c scale_y_continuous segment select stat_summary
-  str str_split_fixed summarise theme theme_bw theme_classic timePoints
-  treatmentDendrogram ungroup value vars x xend y yend
+  outputCCFdata_withMetaData read.csv removeByname rremove segment str
+  timePoints treatmentDendrogram ungroup value x xend y yend
 Consider adding
-  importFrom("stats", "as.dendrogram", "ccf", "dist", "filter", "hclust",
-             "median", "na.omit", "na.pass")
+  importFrom("stats", "as.dendrogram", "dist", "hclust", "median",
+             "na.omit", "na.pass")
   importFrom("utils", "head", "read.csv", "str")
 to your NAMESPACE file.
-* checking Rd files ... NOTE
-prepare_Rd: define_tsMetaData.Rd:18-20: Dropping empty section \value
-prepare_Rd: define_tsMetaData.Rd:24-26: Dropping empty section \examples
+* checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
 * checking Rd cross-references ... OK
-* checking for missing documentation entries ... WARNING
-Undocumented code objects:
-  ‘clusterData’ ‘mtcars’ ‘widetimeSeries’ ‘x’
-Undocumented data sets:
-  ‘clusterData’ ‘mtcars’ ‘widetimeSeries’ ‘x’
-All user-level objects in a package should have documentation entries.
-See chapter ‘Writing R documentation files’ in the ‘Writing R
-Extensions’ manual.
+* checking for missing documentation entries ... OK
 * checking for code/documentation mismatches ... OK
 * checking Rd \usage sections ... WARNING
-Undocumented arguments in documentation object 'define_tsMetaData'
-  ‘timeSeriesData’
+Undocumented arguments in documentation object 'wide_ts_to_ccf'
+  ‘wideIDfeatures’
 
 Functions with \usage entries need to have the appropriate \alias
 entries, and all their arguments documented.
 The \usage entries must correspond to syntactically valid R code.
 See chapter ‘Writing R documentation files’ in the ‘Writing R
 Extensions’ manual.
-* checking Rd contents ... WARNING
-Argument items with no description in Rd object 'define_tsMetaData':
-  ‘columsForMetaData’
-
-Argument items with no description in Rd object 'wide_ts_to_ccf':
-  ‘wideIDfeatures’
-
+* checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
 * checking contents of ‘data’ directory ... OK
 * checking data for non-ASCII characters ... OK
-* checking LazyData ... WARNING
-  LazyData DB of 6.2 MB without LazyDataCompression set
-  See §1.1.6 of 'Writing R Extensions'
+* checking LazyData ... OK
 * checking data for ASCII and uncompressed saves ... OK
 * checking installed files from ‘inst/doc’ ... OK
 * checking files in ‘vignettes’ ... OK
@@ -283,4 +192,4 @@ Argument items with no description in Rd object 'wide_ts_to_ccf':
 * checking for non-standard things in the check directory ... OK
 * checking for detritus in the temp directory ... OK
 * DONE
-Status: 5 WARNINGs, 3 NOTEs
+Status: 1 WARNING, 2 NOTEs

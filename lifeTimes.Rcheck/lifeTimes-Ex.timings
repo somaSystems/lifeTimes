@@ -1,2 +1,4 @@
 name	user	system	elapsed
-lifeTimesChain	0.768	0.036	0.803	
+couplingPlot	0.817	0.024	0.841	
+define_tsMetaData	0.071	0.064	0.135	
+lifeTimesChain	0.429	0.013	0.441	

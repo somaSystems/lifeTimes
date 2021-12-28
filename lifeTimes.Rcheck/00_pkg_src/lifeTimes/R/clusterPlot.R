@@ -1,7 +1,20 @@
+#' plotChartFromClustered
+#' @import ggplot2
+#' @importFrom ggpubr ggarrange
+#' @importFrom ggdendro ggdendrogram
+#' @param clusteredZeroLag output from lifeTimesChain()
+#' @param plotType choice from c("compoundPlot","draw_treatmentDendrogram",
+#' "plt_dendr","heatmapLagZero","rawTraces","clusteredLines")
+#'
+#' @return a plot of features and treatments clustered by CCF at lag zero
+#' @export
+#'
+#'
+
 # plotChartFromClustered!
 #return plot from function (requires print() apparently)
 #https://stackoverflow.com/questions/11799317/custom-function-ggplot-and-return-values#
-#https://stackoverflow.com/questions/9057006/getting-strings-recognized-as-variable-names-in-r
+#https://stackoverflow.com/questio@s/9057006/getting-strings-recognized-as-variable-names-in-r
 
 clusterPlot <- function(clusteredZeroLag = df_clusteredZeroLag_withMetada, plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
   #create heatmap ggplot
@@ -13,11 +26,9 @@ clusterPlot <- function(clusteredZeroLag = df_clusteredZeroLag_withMetada, plotT
 
   # !!sym(plotType) := eval(parse(text = plotType))
 # ?match.arg()
-  library(ggdendro)
-  library(ggplot2)
 
   #create dendrogram plot
-  draw_treatmentDendrogram <- ggdendrogram(treatmentDendrogram) #dendrogram option 1
+  draw_treatmentDendrogram <- ggdendro::ggdendrogram(treatmentDendrogram) #dendrogram option 1
 
   #create second dendrogram option
   dend_data <- dendro_data(treatmentDendrogram)
@@ -60,13 +71,13 @@ clusterPlot <- function(clusteredZeroLag = df_clusteredZeroLag_withMetada, plotT
   #http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/81-ggplot2-easy-way-to-mix-multiple-graphs-on-the-same-page/
   # combine plots
 
-  library("grid")
+  # library("grid")
   # grid.newpage()
   # print(heatmap_CCF, vp = viewport(x = 0.4, y = 0.5, width = 0.8, height = 1))
   # print(draw_treatmentDendrogram, vp = viewport(x = 0.4, y = 0.9, width = 0.8, height = 1))
 
-  library(ggpubr)
-  compoundPlot <- ggarrange(plt_dendr, heatmapLagZero + rremove("x.text"),
+  # library(ggpubr)
+  compoundPlot <- ggpubr::ggarrange(plt_dendr, heatmapLagZero + rremove("x.text"),
                             heights = c(1, 4),
                             align = "v",
                             # labels = c("A", "B", "C"),
@@ -88,7 +99,6 @@ clusterPlot <- function(clusteredZeroLag = df_clusteredZeroLag_withMetada, plotT
 
   #plot aggregated data and no clustering
 
-  library(ggplot2)
   rawTraces <- ggplot(subset_sum_join_outputCCFdata, aes(x =anCCF_LAG, y = anCCF_ACF, group = an_CCF_ObjectID))+
     geom_line(alpha = 0.1)+
     facet_wrap(~an_CCF_Feature)+
