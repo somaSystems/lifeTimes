@@ -1,9 +1,0 @@
-clusterCCFs             clusterCCFs
-clusterPlot             plotChartFromClustered
-couplingPlot            couplingPlot !
-defaultTimeSeries       This is data to be included in my package
-define_tsMetaData       define_tsMetaData
-leadLagClusterPlot      leadLagClusterPlot
-leadLagCorr_diffs       leadLagCorr_diffs
-lifeTimesChain          lifeTimesChain
-wide_ts_to_ccf          pairedCCFs

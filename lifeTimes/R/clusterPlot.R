@@ -1,14 +1,14 @@
-#' plotChartFromClustered
+#' clusterPlot !
 #' @import ggplot2
 #' @importFrom ggpubr ggarrange rremove
-#' @importFrom ggdendro ggdendrogram ggdendro
+#' @importFrom ggdendro ggdendrogram
 #' @param clusteredZeroLag output from lifeTimesChain()
 #' @param plotType choice from c("compoundPlot","draw_treatmentDendrogram",
 #' "plt_dendr","heatmapLagZero","rawTraces","clusteredLines")
 #'
 #' @return a plot of features and treatments clustered by CCF at lag zero
-#' @export
 #'
+#' @export
 #'
 
 # plotChartFromClustered!

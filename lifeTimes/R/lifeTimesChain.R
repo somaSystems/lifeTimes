@@ -1,4 +1,4 @@
-#' lifeTimesChain
+#' lifeTimesChain !
 #'
 #' @importFrom magrittr %>%
 #'

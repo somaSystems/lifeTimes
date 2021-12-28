@@ -2,7 +2,7 @@
 % Please edit documentation in R/clusterPlot.R
 \name{clusterPlot}
 \alias{clusterPlot}
-\title{plotChartFromClustered}
+\title{clusterPlot !}
 \usage{
 clusterPlot(
   clusteredZeroLag = df_clusteredZeroLag_withMetada,
@@ -20,5 +20,5 @@ clusterPlot(
 a plot of features and treatments clustered by CCF at lag zero
 }
 \description{
-plotChartFromClustered
+clusterPlot !
 }
