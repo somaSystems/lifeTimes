@@ -12,7 +12,6 @@
 #'
 #'
 
-#leadLagClusterPlot !
 
 #Function to cluster contitions (eg. treatments) and variables (eg. feature measurements)
 #by difference in past vs future lags

@@ -3,6 +3,7 @@
 #' @importFrom dplyr filter pull
 #' @importFrom stats ccf
 #'
+#' @param wideIDfeatures widened features from original time series dataframe
 #'
 #' @return df_setOfCCF_forEachFeatureAndCellID
 #'

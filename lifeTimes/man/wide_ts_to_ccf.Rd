@@ -6,6 +6,9 @@
 \usage{
 wide_ts_to_ccf(wideIDfeatures)
 }
+\arguments{
+\item{wideIDfeatures}{widened features from original time series dataframe}
+}
 \value{
 df_setOfCCF_forEachFeatureAndCellID
 }

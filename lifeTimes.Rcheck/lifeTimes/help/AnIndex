@@ -1,9 +1,0 @@
-clusterCCFs	clusterCCFs
-clusterPlot	clusterPlot
-couplingPlot	couplingPlot
-defaultTimeSeries	defaultTimeSeries
-define_tsMetaData	define_tsMetaData
-leadLagClusterPlot	leadLagClusterPlot
-leadLagCorr_diffs	leadLagCorr_diffs
-lifeTimesChain	lifeTimesChain
-wide_ts_to_ccf	wide_ts_to_ccf

@@ -2,7 +2,7 @@
 % Please edit documentation in R/lifeTimesChain.R
 \name{lifeTimesChain}
 \alias{lifeTimesChain}
-\title{lifeTimesChain}
+\title{lifeTimesChain !}
 \usage{
 lifeTimesChain(timeSeriesData = NULL)
 }
