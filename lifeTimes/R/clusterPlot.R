@@ -1,7 +1,7 @@
 #' plotChartFromClustered
 #' @import ggplot2
-#' @importFrom ggpubr ggarrange
-#' @importFrom ggdendro ggdendrogram
+#' @importFrom ggpubr ggarrange rremove
+#' @importFrom ggdendro ggdendrogram ggdendro
 #' @param clusteredZeroLag output from lifeTimesChain()
 #' @param plotType choice from c("compoundPlot","draw_treatmentDendrogram",
 #' "plt_dendr","heatmapLagZero","rawTraces","clusteredLines")

@@ -2,7 +2,7 @@
 #'
 #'@importFrom ComplexHeatmap Heatmap
 #'@importFrom circlize colorRamp2
-#'
+#'@importFrom dplyr ungroup
 #'@param join_medianDiff_meanLagRange_outputCCFdata_withMetaData output from
 #'lifeTimesChain()
 #'@param removeFeatureByname name a feature that should be removed from

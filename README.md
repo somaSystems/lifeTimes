@@ -7,9 +7,6 @@ LGD
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
-[![R build
-status](https://github.com/somaSystems/lifeTimes/workflows/R-CMD-check/badge.svg)](https://github.com/somaSystems/lifeTimes/actions)
-
 ## lifeTimes: correlations in biological series data
 
 This is a package for **detecting** and **visualising** correlations
@@ -23,17 +20,46 @@ development: **Environmentally dependent and independent control of cell
 shape determination by Rho GTPase regulators in melanoma** doi:
 <https://doi.org/10.1101/2021.10.11.463377>
 
+## **Quick start**
+
+Install lifeTimes and run the workflow on built-in dataset
+
+``` r
+#Install lifeTimes and dependencies
+install.packages("lifeTimes")
+library(lifeTimes)
+
+#copy and paste to run on test data
+ltc <- lifeTimesChain()
+clusterPlot(ltc)
+leadLagClusterPlot(ltc)
+couplingPlot(ltc)
+```
+
 ## **How to use** 
 
 To calculate cross correlation, just load the package, assign, and call
-the `outputCCF <- lifeTimesChain()` function. This will chain together
-the lifeTimes workflow on a built in set of default data and return
+the `ltc <- lifeTimesChain()` function. This will chain together the
+lifeTimes workflow on a built in set of default data and return
 calculated cross correlations.<br>
 <p>
 
-To plot cross correlations, just call `clusterPlot(outputCCF)` <br> To
-change the plot style just adjust the `plotType` argument. <br> For
-example, `clusterPlot(outputCCF, plotType = "rawTraces")` <br>
+To plot cross correlations, just call `clusterPlot(ltc)`.
+
+To change the plot style just adjust the `plotType` argument. <br> The
+options are
+`c( "compoundPlot", "draw_treatmentDendrogram", "plt_dendr", "heatmapLagZero", "rawTraces", "clusteredLines")`.
+
+For example, `clusterPlot(ltc, plotType = "rawTraces")` <br>
+<p>
+
+To plot clustered lead vs lag metrics which emphasise the direction of
+coupling, just call `leadLagClusterPlot(ltc)`.
+
+<p>
+
+Finally, to plot coupling plots, incorporating both strength and
+direction of coupling, just call `couplingPlot(ltc)`.
 
 ## **Inputs** 
 
