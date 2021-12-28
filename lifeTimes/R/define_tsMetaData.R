@@ -6,19 +6,25 @@
 #' observation ID number (currently = cellNumber),
 #' fieldNumber, Treatment, Row (optional), Column (optional),
 #' and Plate (optional).
-#' @param columsForMetaData
+#' @param timeSeriesData a dataframe of time series data
+#' @param columsForMetaData a column name or vector of column names to identify metadata columns
 #'
-#' @return
 #'
+#' @return returns a subset of the input data that will be used for metaData of
+#' cross correlations functions
 #'
-#' @examples
+#' @export
+#'
+#' @examples define_tsMetaData(timeSeriesData = defaultTimeSeries ,
+#' columsForMetaData = c("cellNumber","fieldNumber","Treatment","Row","Column","Plate"))
+#'
 #'
 
 #select unique identifying columns and associated metadata
 #This is where metadata are defined and chosen before CCF
 # metaData <<- c("cellNumber","fieldNumber","Treatment","Row","Column","Plate") # list of column names for metadata
 define_tsMetaData <- function(timeSeriesData = clustR , columsForMetaData = metaData) {
-  # library(rlang) # to convert variables to symbols of variables using sym(), and then evaluating these !!
+  # use rlang to convert variables to symbols of variables using sym(), and then evaluating these !!
   # #https://stackoverflow.com/questions/48219732/pass-a-string-as-variable-name-in-dplyrfilter
 
   ensyms_metaData <- rlang::syms(columsForMetaData)

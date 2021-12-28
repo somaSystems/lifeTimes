@@ -7,6 +7,9 @@ LGD
 has not yet been a stable, usable release suitable for the
 public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
+[![R build
+status](https://github.com/somaSystems/lifeTimes/workflows/R-CMD-check/badge.svg)](https://github.com/somaSystems/lifeTimes/actions)
+
 ## lifeTimes: correlations in biological series data
 
 This is a package for **detecting** and **visualising** correlations

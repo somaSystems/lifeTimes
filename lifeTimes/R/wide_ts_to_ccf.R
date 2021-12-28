@@ -1,3 +1,17 @@
+#' pairedCCFs
+#' @importFrom stringr str_split_fixed
+#' @importFrom dplyr filter pull
+#' @importFrom stats ccf
+#'
+#'
+#' @return df_setOfCCF_forEachFeatureAndCellID
+#'
+#'
+#'
+#'
+#'
+#'
+
 # pairedCCFs!
 #
 # This is a function that creates cross correlation data for paired objects in a cell (or other primary object).
@@ -18,23 +32,12 @@
 #to generalise change cell and nucleus to object1 and object2 (or leading and lagging object)
 #to generalise, can just do compare every feature to every other feature for all features (But this is a lot?)
 #3. After this create output from wide dataframe
-#' Title
-#'
-#' @param wideIDfeatures
-#'
-#' @return df_setOfCCF_forEachFeatureAndCellID
-#'
-#'
-#'
-#'
-#'
+
 wide_ts_to_ccf <- function(wideIDfeatures){
-  library(dplyr) #load library for filtering
-  library(stringr)  #load library to split string
 
   #Part 1: This section takes the colnames and splits them into lists of cellIDs and list of feature measures
-  listOfccfCellIDs <- unique(as.data.frame(str_split_fixed(colnames(wideIDfeatures[-1]), "_FeatureID_",2))[,1]) #get unique cellIDs from colnames of wide dataframe
-  listOFccFFeatures <- unique(as.data.frame(str_split_fixed(colnames(wideIDfeatures[-1]), "_FeatureID_",2))[,2])#get cell Features from colnames of wide dataframe
+  listOfccfCellIDs <- unique(as.data.frame(stringr::str_split_fixed(colnames(wideIDfeatures[-1]), "_FeatureID_",2))[,1]) #get unique cellIDs from colnames of wide dataframe
+  listOFccFFeatures <- unique(as.data.frame(stringr::str_split_fixed(colnames(wideIDfeatures[-1]), "_FeatureID_",2))[,2])#get cell Features from colnames of wide dataframe
 
   #Part 2: This section finds the feautres that are measured for BOTH cell and nucleus so that these can be compared in the function
   nc_listOFccFFeatures <-  as.data.frame(listOFccFFeatures) %>%  #make list of CCF features as a dataframe
@@ -60,12 +63,12 @@ wide_ts_to_ccf <- function(wideIDfeatures){
 
   #Select the two time series to be compared, by using the unique column names to select them
   #NB Currently using "pull" here to make data into vector isntead of dataframe but this function might be slow (unlist()) may be an alternative
-  chosenTSone_y_cell <- pull(wideIDfeatures[,lookupCell]) # chosenTSone_y_cell
-  choseTStwo_x_nucleus <- pull(wideIDfeatures[,lookupNucleus]) # chosenTSone_x_nucleus
+  chosenTSone_y_cell <- dplyr::pull(wideIDfeatures[,lookupCell]) # chosenTSone_y_cell
+  choseTStwo_x_nucleus <- dplyr::pull(wideIDfeatures[,lookupNucleus]) # chosenTSone_x_nucleus
 
   #Part 4: Run nucleus and cell components of a feature for the current cell, through the CCF function
   #Na is currently set to pass
-  particularCellFeatureCCF <- ccf(chosenTSone_y_cell, choseTStwo_x_nucleus, plot = FALSE, na.action = na.pass)
+  particularCellFeatureCCF <- stats::ccf(chosenTSone_y_cell, choseTStwo_x_nucleus, plot = FALSE, na.action = na.pass)
   str(particularCellFeatureCCF)
 
   #Extract the output of the CCF function and create a dataframe entry

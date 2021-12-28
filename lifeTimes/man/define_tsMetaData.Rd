@@ -7,7 +7,9 @@
 define_tsMetaData(timeSeriesData = clustR, columsForMetaData = metaData)
 }
 \arguments{
-\item{columsForMetaData}{}
+\item{timeSeriesData}{a dataframe of time series data}
+
+\item{columsForMetaData}{a column name or vector of column names to identify metadata columns}
 
 \item{clustR}{A time series dataset (eg.dataframe)
 with variables labelling observations by;
@@ -16,11 +18,15 @@ fieldNumber, Treatment, Row (optional), Column (optional),
 and Plate (optional).}
 }
 \value{
-
+returns a subset of the input data that will be used for metaData of
+cross correlations functions
 }
 \description{
 define_tsMetaData
 }
 \examples{
+define_tsMetaData(timeSeriesData = defaultTimeSeries ,
+columsForMetaData = c("cellNumber","fieldNumber","Treatment","Row","Column","Plate"))
+
 
 }

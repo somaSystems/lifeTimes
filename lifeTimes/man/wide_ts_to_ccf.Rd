@@ -2,16 +2,13 @@
 % Please edit documentation in R/wide_ts_to_ccf.R
 \name{wide_ts_to_ccf}
 \alias{wide_ts_to_ccf}
-\title{Title}
+\title{pairedCCFs}
 \usage{
 wide_ts_to_ccf(wideIDfeatures)
-}
-\arguments{
-\item{wideIDfeatures}{}
 }
 \value{
 df_setOfCCF_forEachFeatureAndCellID
 }
 \description{
-Title
+pairedCCFs
 }

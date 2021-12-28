@@ -17,9 +17,8 @@
 
 
   tsToWide <- function(dataToMakeWide = clustR, feature1 = featureSet1, feature2 = featureSet2, timepoints = timePoints, maxTimes = maxTime) {
-  # library(rlang) # to convert variables to symbols of variables using sym(), and then evaluating these !!
+  # use rlang to convert variables to symbols of variables using sym(), and then evaluating these !!
   #https://stackoverflow.com/questions/48219732/pass-a-string-as-variable-name-in-dplyrfilter
-  # library(tidyr)
 
   long_clustR <- dataToMakeWide %>%
   tidyr::pivot_longer( #Make geomFeatures column of features containing object measurements

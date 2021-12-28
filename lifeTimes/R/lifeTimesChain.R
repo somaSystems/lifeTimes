@@ -18,6 +18,7 @@
 #' outPutCCF <- lifeTimesChain()
 #'
 #'
+#'
 
 lifeTimesChain<- function(timeSeriesData = NULL){
   print(paste("timeSeriesData is null?",is.null(timeSeriesData)))

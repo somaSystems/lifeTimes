@@ -1,4 +1,13 @@
-# clusterCCFs !
+#' clusterCCFs
+#' @importFrom dplyr filter group_by_at summarise left_join select
+#' @importFrom tidyr pivot_wider
+#' @importFrom ggdendro ggdendrogram
+#' @param outputCCFdata_withMetaData output of CCF algorith, with metaData
+#' attached.
+#' @param clustGroups groups chosen for clustering (eg. Feature and Treatment)
+#'
+#'
+#' @export
 
 #TODO: in future can make summary fo cluster by different options, eg. cluster by max lag rather than lag 0, or cluster by other thing
 # getwd()
@@ -22,22 +31,23 @@
 #https://jcoliver.github.io/learn-r/008-ggplot-dendrograms-and-heatmaps.html
 
 
+
 clusterCCFs <- function(outputCCFdata_withMetaData, clustGroups = defaultClustGroups){
 
 #define global variables to resolve NOTES in R CMD check:
 # globalVariables(c("anCCF_LAG", "anCCF_ACF", "meanLAGzero","an_CCF_Feature", "Treatment"))
-library(rlang)
-library(tidyr)
-library(ggdendro)
+# library(rlang)
+# library(tidyr)
+# library(ggdendro)
 
 defaultClustGroups <- c("Treatment","an_CCF_Feature")
 
 mean_ccfLAGzero <- outputCCFdata_withMetaData %>%
-  filter(anCCF_LAG == 0)%>% #filter lag is 0
-  group_by_at(defaultClustGroups)%>% #group by vector of cluster groups
-  summarise(meanLAGzero = mean(anCCF_ACF, na.rm = TRUE)) #summarise the mean at lag 0
+  dplyr::filter(anCCF_LAG == 0)%>% #filter lag is 0
+  dplyr::group_by_at(defaultClustGroups)%>% #group by vector of cluster groups
+  dplyr::summarise(meanLAGzero = mean(anCCF_ACF, na.rm = TRUE)) #summarise the mean at lag 0
 
-sum_outputCCFdata_withMetaData <- left_join(outputCCFdata_withMetaData, mean_ccfLAGzero, by = c("Treatment", "an_CCF_Feature")) # join mean lag to input dataframe for clustering
+sum_outputCCFdata_withMetaData <- dplyr::left_join(outputCCFdata_withMetaData, mean_ccfLAGzero, by = c("Treatment", "an_CCF_Feature")) # join mean lag to input dataframe for clustering
 
 #remove features that are same for cell and nucleus #Todo, remove unused factor levels eg. coords
 identicalMeasuresAt0 <- sum_outputCCFdata_withMetaData[sum_outputCCFdata_withMetaData$meanLAGzero ==1, ]
@@ -45,18 +55,18 @@ unq_identicalFeatures <- c(unique(identicalMeasuresAt0$an_CCF_Feature))
 print(paste("Warning: feature ",unq_identicalFeatures,"has correlation 1 at lag zero and will be removed"))
 # subset_sum_outputCCFdata_withMetaData <- sum_outputCCFdata_withMetaData[sum_outputCCFdata_withMetaData$meanLAGzero !=1, ] #subset to remove perfectly correlated features
 # unique(subset_sum_outputCCFdata_withMetaData$an_CCF_Feature)
-sum_outputCCFdata_withMetaData
+
 subset_sum_outputCCFdata_withMetaData <- sum_outputCCFdata_withMetaData[!grepl(paste(unq_identicalFeatures, collapse="|"), sum_outputCCFdata_withMetaData$an_CCF_Feature),] #https://stackoverflow.com/questions/38724690/r-filter-rows-that-contain-a-string-from-a-vector
-subset_sum_outputCCFdata_withMetaData
+
 #create a matrix of mean correlation at lag zero in preparation to cluster cell and nuclear correlations
 unq_subset_sum_join_outputCCFdata<- unique(subset_sum_outputCCFdata_withMetaData) # get unique value for each cell and lag and feature etc (some of these may be duplicated if plate or metadata is duplicated)
 
 subset_sum_join_outputCCFdata <- subset_sum_outputCCFdata_withMetaData #update this later so that no assignment needed in code below
 
 m_wide_subset_sum_join_outputCCFdata <- subset_sum_join_outputCCFdata %>% #make wider, put treatment as colnames, put values as lag0
-  select(meanLAGzero,an_CCF_Feature,Treatment)%>%
+  dplyr::select(meanLAGzero,an_CCF_Feature,Treatment)%>%
   unique()%>%
-  pivot_wider(
+  tidyr::pivot_wider(
     id_col = c("meanLAGzero","an_CCF_Feature","Treatment"),
     names_from = "Treatment",
     values_from = "meanLAGzero")
