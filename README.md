@@ -22,8 +22,8 @@ shape determination by Rho GTPase regulators in melanoma** doi:
 
 ## **Quick start**
 
-Download the code for lifeTimes and these commands to try the workflow
-on a built in dataset
+Download the code for lifeTimes and run these commands to try the
+workflow on a built-in dataset
 
 ``` r
 # Extract and unzip the code
