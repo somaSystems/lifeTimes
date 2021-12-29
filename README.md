@@ -15,9 +15,9 @@ between objects in biological series data.
 ## Citation
 
 **lifeTimes** is available for everyone. If you find it useful for your
-research please be so kind as to cite the work that motivated its
-development: **Environmentally dependent and independent control of cell
-shape determination by Rho GTPase regulators in melanoma** doi:
+research please cite the work that motivated its development:
+**Environmentally dependent and independent control of cell shape
+determination by Rho GTPase regulators in melanoma.** doi:
 <https://doi.org/10.1101/2021.10.11.463377>
 
 ## **Quick start**
@@ -49,11 +49,11 @@ calculated cross correlations.<br>
 
 To plot cross correlations, just call `clusterPlot(ltc)`.
 
-To change the plot style just adjust the `plotType` argument. <br> The
+To change the plot style just adjust the `plotType` argument. The
 options are
 `c( "compoundPlot", "draw_treatmentDendrogram", "plt_dendr", "heatmapLagZero", "rawTraces", "clusteredLines")`.
+For example, `clusterPlot(ltc, plotType = "rawTraces")`
 
-For example, `clusterPlot(ltc, plotType = "rawTraces")` <br>
 <p>
 
 To plot clustered lead vs lag metrics which emphasise the direction of
