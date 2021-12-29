@@ -1,7 +1,7 @@
 #' clusterPlot !
 #' @import ggplot2
 #' @importFrom ggpubr ggarrange rremove
-#' @importFrom ggdendro ggdendrogram
+#' @importFrom ggdendro ggdendrogram dendro_data segment
 #' @param clusteredZeroLag output from lifeTimesChain()
 #' @param plotType choice from c("compoundPlot","draw_treatmentDendrogram",
 #' "plt_dendr","heatmapLagZero","rawTraces","clusteredLines")
@@ -23,7 +23,7 @@ clusterPlot <- function(clusteredZeroLag = df_clusteredZeroLag_withMetada, plotT
 
   plotType <- match.arg(plotType)
   ensym_plotType <- rlang::sym(plotType)
-
+zxc
   # !!sym(plotType) := eval(parse(text = plotType))
 # ?match.arg()
 
@@ -31,11 +31,11 @@ clusterPlot <- function(clusteredZeroLag = df_clusteredZeroLag_withMetada, plotT
   draw_treatmentDendrogram <- ggdendro::ggdendrogram(treatmentDendrogram) #dendrogram option 1
 
   #create second dendrogram option
-  dend_data <- dendro_data(treatmentDendrogram)
+  dend_data <- ggdendro::dendro_data(treatmentDendrogram)
   # Setup the data, so that the layout is inverted (this is more
   # "clear" than simply using coord_flip())
   segment_data <- with(
-    segment(dend_data),
+    ggdendro::segment(dend_data),
     data.frame(x = y, y = x, xend = yend, yend = xend))
 
   # Use the dendrogram label data to position the gene labels
