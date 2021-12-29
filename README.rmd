@@ -24,7 +24,7 @@ Citation
 **Quick start**  
 ----
 
-Download the code for lifeTimes and these commands to try the workflow on a built in dataset
+Download the code for lifeTimes and run these commands to try the workflow on a built-in dataset
 
 ```{r include=TRUE, eval = FALSE}
 # Extract and unzip the code
