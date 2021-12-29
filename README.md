@@ -22,18 +22,21 @@ shape determination by Rho GTPase regulators in melanoma** doi:
 
 ## **Quick start**
 
-Install lifeTimes and run the workflow on built-in dataset
+Download the code for lifeTimes and these commands to try the workflow
+on a built in dataset
 
 ``` r
-#Install lifeTimes and dependencies
-install.packages("lifeTimes")
-library(lifeTimes)
+# Extract and unzip the code
+# navigate into the top level directory 
+# run installation:
+
+install()
 
 #copy and paste to run on test data
-ltc <- lifeTimesChain()
-clusterPlot(ltc)
-leadLagClusterPlot(ltc)
-couplingPlot(ltc)
+ltc <- lifeTimesChain() #calculate cross correlation
+clusterPlot(ltc) #plot clustered correlations
+leadLagClusterPlot(ltc) #plot direction of correlations
+couplingPlot(ltc) # plot strength and direction of correlation
 ```
 
 ## **How to use** 
