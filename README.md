@@ -3,9 +3,9 @@ README
 LGD
 19/12/2021
 
-[![Project Status: WIP – Initial development is in progress, but there
-has not yet been a stable, usable release suitable for the
-public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 ## lifeTimes: correlations in biological series data
 
@@ -15,9 +15,9 @@ between objects in biological series data.
 ## Citation
 
 **lifeTimes** is available for everyone. If you find it useful for your
-research please be so kind as to cite the work that motivated its
-development: **Environmentally dependent and independent control of cell
-shape determination by Rho GTPase regulators in melanoma** doi:
+research please cite the work that motivated its development:
+**Environmentally dependent and independent control of cell shape
+determination by Rho GTPase regulators in melanoma.** doi:
 <https://doi.org/10.1101/2021.10.11.463377>
 
 ## **Quick start**
@@ -49,11 +49,11 @@ calculated cross correlations.<br>
 
 To plot cross correlations, just call `clusterPlot(ltc)`.
 
-To change the plot style just adjust the `plotType` argument. <br> The
+To change the plot style just adjust the `plotType` argument. The
 options are
 `c( "compoundPlot", "draw_treatmentDendrogram", "plt_dendr", "heatmapLagZero", "rawTraces", "clusteredLines")`.
+For example, `clusterPlot(ltc, plotType = "rawTraces")`
 
-For example, `clusterPlot(ltc, plotType = "rawTraces")` <br>
 <p>
 
 To plot clustered lead vs lag metrics which emphasise the direction of
