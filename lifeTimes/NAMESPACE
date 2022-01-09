@@ -2,8 +2,12 @@
 
 export(lts_clusterPlot)
 export(lts_defineVars)
+export(lts_leadLagClusterPlot)
 import(ggplot2)
 import(magrittr)
+importFrom(ComplexHeatmap,Heatmap)
+importFrom(circlize,colorRamp2)
+importFrom(dplyr,ungroup)
 importFrom(ggdendro,dendro_data)
 importFrom(ggdendro,ggdendrogram)
 importFrom(ggdendro,segment)
