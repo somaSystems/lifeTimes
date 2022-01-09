@@ -96,7 +96,7 @@ lts_tsToWide <- function(.lts_variables = lts_variables){
 
   return(lts_cast_ts)
 }
-lts_cast_ts <<- lts_tsToWide()
+lts_cast_ts <- lts_tsToWide()
 
 
 
@@ -146,7 +146,7 @@ if(missing(.lts_variables)){ lts_variables <- lts_defineVars()}
   }
   return(lts_ccf_list)
 }
-lts_ccf_list_out <<- lts_wide_ts_to_ccf()
+lts_ccf_list_out <- lts_wide_ts_to_ccf()
 
 
 
@@ -166,7 +166,7 @@ lts_ccf_df <- function(.lts_ccflist = lts_ccf_list_out){
 
   return(lts_dfccf)
 }
-lts_dfccf <<- lts_ccf_df()
+lts_dfccf <- lts_ccf_df()
 
 
 
@@ -183,14 +183,14 @@ lts_metaData_ccf_join <- function(.lts_dfccf = lts_dfccf, .lts_variables = lts_v
 
   if(!is.null(lts_variables$lts_metaData)){
     unq_metaData <- unique(.lts_variables$lts_data[, c(.lts_variables$lts_metaData, .lts_variables$lts_uniqueID_colname)])  #uses metaData
-    lts_ccfWithMetaData_compareBy <<- dplyr::left_join(lts_ccfWith_compareBy, unq_metaData, by = "key_num")
+    lts_ccfWithMetaData_compareBy <- dplyr::left_join(lts_ccfWith_compareBy, unq_metaData, by = "key_num")
   } else
   { lts_ccfWithMetaData_compareBy <- lts_ccfWith_compareBy
   }
 
   return(lts_ccfWithMetaData_compareBy)
 }
-lts_ccfWithMetaData_compareBy <<- lts_metaData_ccf_join()
+lts_ccfWithMetaData_compareBy <- lts_metaData_ccf_join()
 
 
 
@@ -334,7 +334,7 @@ lts_clusterCCFs <- function(.lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
 
   return(lts_clusterOutput)
 }
-lts_clusterOutput <<- lts_clusterCCFs()
+lts_clusterOutput <- lts_clusterCCFs()
 
 
 
@@ -464,6 +464,6 @@ leadLagCorr_diffs <- function(
 
 lts_clusterOutput_LAGranges <<- leadLagCorr_diffs()
 
-return(lts_clusterOutput_LAGranges)
+
 
 
