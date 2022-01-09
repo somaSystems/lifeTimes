@@ -47,9 +47,9 @@ Finally, to plot coupling plots, incorporating both strength and direction of co
 
 ## **Examples**
 
-Example data are yearly correlations of rainfall and river flow rates for two different rivers in the United Kingdom, the Ash and Thames rivers. Correlations are calculated and plotted separately based on two explanatory variables, season (summer, autumn, winter, spring), and catchment region (Mardock, Kingston).
+Example data are yearly cross correlation functions (CCFs) of rainfall and river flow rates for two different rivers in the United Kingdom, the Ash and Thames rivers. CCFs are calculated and plotted separately based on two explanatory variables, season (summer, autumn, winter, spring), and catchment region (Mardock, Kingston).
 
-**Fig 1** Calculated correlation clustered by strength at lag zero
+**Fig 1** Calculated cross correlations clustered by strength at lag zero
 
 <p>
 <img src="README_figs/clusterPlots.png" alt="Fig 1A: example of clusterPlot(), output" style="width:60.0%" />
