@@ -7,6 +7,12 @@ LGD
 
 ## Notes on developming lifeTimes
 
+## **Refactored code**
+
+This version of lifeTimes is refactored.
+The main function is now designed to take use input.
+The core functions are written with the aim to be able to take a range of user input, and adjust dynamically.
+
 ## **Description of functions**
 
 The package currently has 4 user exposed functions.
