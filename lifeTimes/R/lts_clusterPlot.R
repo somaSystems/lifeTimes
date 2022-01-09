@@ -16,7 +16,7 @@
 #' @return a plot of features and treatments clustered by CCF at lag zero
 #'
 #' @export
-#'
+#' @example lts_clusterPlot( outPutCCF <- lifeTimesChain() )
 
 # lts_clusterOutput
 

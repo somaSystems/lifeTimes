@@ -3,6 +3,8 @@
 #'@importFrom ComplexHeatmap Heatmap
 #'@importFrom circlize colorRamp2
 #'@importFrom dplyr ungroup
+#'@importFrom magrittr %>%
+#'@import magrittr
 #'@param .lts_clusterOutput_LAGranges output from
 #'lifeTimesChain()
 #'@param .removeInstanceOfCategoricalByName name a feature that should be removed from
@@ -12,7 +14,7 @@
 #'
 #'@export
 #'
-#'
+#'@example lts_leadLagClusterPlot( outPutCCF <- lifeTimesChain() )
 
 
 #Function to cluster contitions (eg. treatments) and variables (eg. feature measurements)
@@ -59,14 +61,14 @@ lts_leadLagClusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOut
 
     #remove feature if has NA
 
-    toRemove <-  subset_meanLagRange_join_outputCCFdata %>%
+    toRemove <-  sub_lts_final_clusters %>%
       dplyr::filter(is.na(medianPrePostPerTF)) # NB: could remove this step
 
     if(nrow(toRemove)>0){
       print(paste("There are...",nrow(toRemove),"observations with NA. Removing...",toRemove$key_num))
     }
 
-    rmna_subset_meanLagRange_join_outputCCFdata <-  subset_meanLagRange_join_outputCCFdata %>%
+    rmna_subset_meanLagRange_join_outputCCFdata <-  sub_lts_final_clusters %>%
       dplyr::filter(!is.na(medianPrePostPerTF)) # NB: could remove this step
 
     # View(rmna_diffIn_Pre_vs_Postcorrelation)

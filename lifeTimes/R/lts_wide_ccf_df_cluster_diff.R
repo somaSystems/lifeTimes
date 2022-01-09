@@ -1,6 +1,7 @@
 #' lts_wide_ts_to_ccf
 #' @import magrittr
 #' @importFrom magrittr "%>%"
+#' @importFrom magrittr %>%
 #' @param .tsData tidy time series data
 #' @param .time name of the "time" variable
 #' @param .compare_categorical names of categorical or explanatory variables to compare CCFs by. In future releases of this function, if there is only one explanatory variable, it will be possible to include a key of set of ".pairedComparisons".
@@ -198,7 +199,7 @@ lts_clusterCCFs <- function(.lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
   .lts_variables = lts_variables,
   .chosenLAGforClustering = modeMaxCorrLAG){
 
-  .lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
+  # .lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
   # .lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
    # .lts_variables = lts_variables$lts_compare_by
 
@@ -452,7 +453,7 @@ leadLagCorr_diffs <- function(
 
 
   #consider appending to input list and returning appended list
-  .lts_clusterOutput_withDiffs <- c(lts_clusterOutput,
+  .lts_clusterOutput_withDiffs <- c(.lts_clusterOutput,
                                     list(medDiff_meanLag_lts_clusterCCFs = medDiff_meanLag_lts_clusterCCFs))
 
 
