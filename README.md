@@ -25,7 +25,7 @@ Download the code for lifeTimes and run these commands to try the workflow on a 
 install()
 
 #copy and paste to run on test data
-ltc <- lifeTimesChain() #calculate cross correlation
+ltc <- lifeTimesInput() #calculate cross correlation
 lts_clusterPlot(ltc) #plot clustered correlations
 lts_leadLagClusterPlot(ltc) #plot direction of correlations
 lts_couplingPlot(ltc) # plot strength and direction of correlation
