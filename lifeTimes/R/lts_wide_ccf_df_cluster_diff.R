@@ -464,5 +464,5 @@ leadLagCorr_diffs <- function(
 lts_clusterOutput_LAGranges <<- leadLagCorr_diffs()
 
 return(lts_clusterOutput_LAGranges)
-# }
-# lts <- lifeTimesChain()
+
+

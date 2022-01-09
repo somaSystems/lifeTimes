@@ -9,7 +9,6 @@
 #'
 #' @param .lts_variables user input mapping data to lifeTimes function arguments
 #'
-#' @param clusteredZeroLag output from lifeTimesChain()
 #'
 #' @param plotType choice from c("compoundPlot","draw_treatmentDendrogram",
 #' "plt_dendr","heatmapLagZero","rawTraces","clusteredLines")

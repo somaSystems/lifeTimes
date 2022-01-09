@@ -12,10 +12,12 @@ lts_clusterPlot(
 )
 }
 \arguments{
+\item{.lts_clusterOutput_LAGranges}{output from the lifeTimes main workflow}
+
+\item{.lts_variables}{user input mapping data to lifeTimes function arguments}
+
 \item{plotType}{choice from c("compoundPlot","draw_treatmentDendrogram",
 "plt_dendr","heatmapLagZero","rawTraces","clusteredLines")}
-
-\item{clusteredZeroLag}{output from lifeTimesChain()}
 }
 \value{
 a plot of features and treatments clustered by CCF at lag zero
