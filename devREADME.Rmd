@@ -1,0 +1,40 @@
+---
+title: "development README"
+author: "LGD"
+date: "9/01/2022"
+output: rmarkdown::github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.path = "README_figs/README-")
+```
+
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
+
+## lifeTimes: correlations in biological series data
+
+This is a package for **detecting** and **visualising** correlations between objects in (biological) series data. 
+
+**Description**
+--------
+The package currently has 5 user exposed functions.  
+
+1. ``lts_lifeTimesChain``The purpose of this function is to process user input by call each of the computational functions in the correct order.
+2. ``lts_clusterPlot(), lts_leadLagClusterPlot(), lts_couplingPlot()``. The purpose of these functions is to plot the output of ``lts_lifeTimesChain``
+
+Currently all input is default data, but there will be two types of user input. 
+1. Time series data
+2. User defined variables, which tell the functions called by lts_lifeTimesChain() how to process the time series data.
+
+Currently, both types of user can be put input into ``lts_defineVars()``, which is the first function called by ``lts_lifeTimesChain()``.
+
+**Outputs**
+--------
+i.      Calculated correlations clustered by strength at lag zero  
+ii.     Calculated asymmetries between past and future lags, clustered by strength of asymmetry  
+iii.    'Coupling plots' representing the strength of correlation at lag zero, and the direction of correlation  
+
+
+
+
