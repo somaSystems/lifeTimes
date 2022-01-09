@@ -1,6 +1,0 @@
-"0","```r
-outputCCFdata$an_CCF_ObjectID <- as.numeric(outputCCFdata$an_CCF_ObjectID)
-
-unq_CellID_metaData <- unique(CellID_metaData)
-head(unq_CellID_metaData)
-```"

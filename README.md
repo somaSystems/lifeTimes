@@ -3,27 +3,19 @@ README
 LGD
 19/12/2021
 
-[![Project Status: Active – The project has reached a stable, usable
-state and is being actively
-developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 ## lifeTimes: correlations in biological series data
 
-This is a package for **detecting** and **visualising** correlations
-between objects in biological series data.
+This is a package for **detecting** and **visualising** correlations between objects in biological series data.
 
 ## Citation
 
-**lifeTimes** is available for everyone. If you find it useful for your
-research please cite the work that motivated its development:
-**Environmentally dependent and independent control of cell shape
-determination by Rho GTPase regulators in melanoma.** doi:
-<https://doi.org/10.1101/2021.10.11.463377>
+**lifeTimes** is available for everyone. If you find it useful for your research please cite the work that motivated its development: **Environmentally dependent and independent control of cell shape determination by Rho GTPase regulators in melanoma.** doi: <https://doi.org/10.1101/2021.10.11.463377>
 
 ## **Quick start**
 
-Download the code for lifeTimes and run these commands to try the
-workflow on a built-in dataset
+Download the code for lifeTimes and run these commands to try the workflow on a built-in dataset
 
 ``` r
 # Extract and unzip the code
@@ -33,87 +25,66 @@ workflow on a built-in dataset
 install()
 
 #copy and paste to run on test data
-ltc <- lifeTimesChain() #calculate cross correlation
-clusterPlot(ltc) #plot clustered correlations
-leadLagClusterPlot(ltc) #plot direction of correlations
-couplingPlot(ltc) # plot strength and direction of correlation
+ltc <- lifeTimesInput() #calculate cross correlation
+lts_clusterPlot(ltc) #plot clustered correlations
+lts_leadLagClusterPlot(ltc) #plot direction of correlations
+lts_couplingPlot(ltc) # plot strength and direction of correlation
 ```
 
-## **How to use** 
+## **How to use**
 
-To calculate cross correlation, just load the package, assign, and call
-the `ltc <- lifeTimesChain()` function. This will chain together the
-lifeTimes workflow on a built in set of default data and return
-calculated cross correlations.<br>
+To calculate cross correlation, just load the package, assign, and call the `ltc <- lifeTimesChain()` function. This will chain together the lifeTimes workflow on a built in set of default data and return calculated cross correlations.
 <p>
-
 To plot cross correlations, just call `clusterPlot(ltc)`.
 
-To change the plot style just adjust the `plotType` argument. The
-options are
-`c( "compoundPlot", "draw_treatmentDendrogram", "plt_dendr", "heatmapLagZero", "rawTraces", "clusteredLines")`.
-For example, `clusterPlot(ltc, plotType = "rawTraces")`
+To change the plot style just adjust the `plotType` argument. The options are `c( "compoundPlot", "draw_treatmentDendrogram", "plt_dendr", "heatmapLagZero", "rawTraces", "clusteredLines")`. For example, `clusterPlot(ltc, plotType = "rawTraces")`
 
 <p>
-
-To plot clustered lead vs lag metrics which emphasise the direction of
-coupling, just call `leadLagClusterPlot(ltc)`.
+To plot clustered lead vs lag metrics which emphasise the direction of coupling, just call `leadLagClusterPlot(ltc)`.
 
 <p>
+Finally, to plot coupling plots, incorporating both strength and direction of coupling, just call `couplingPlot(ltc)`.
 
-Finally, to plot coupling plots, incorporating both strength and
-direction of coupling, just call `couplingPlot(ltc)`.
+## **Examples**
 
-## **Inputs** 
-
-1.   Evenly spaced series data (eg. can be time or space series)
-
-2.  Label of the measurements taken. (eg. can be shape or signal intensity)
-
-3.  Labels for the objects to be compared (eg. cytoplasm and nuclear
-    compartments)
-
-4.  Higher level groupings for comparing objects (eg. compare objects per cell/organism/treatment/community)
-
-## **Outputs** 
-
-1.   Calculated correlations clustered by strength at lag zero\n
-
-2.  Calculated asymmetries between past and future lags, clustered by strength of asymmetry\n
-
-3.  ‘Coupling plots’ representing the strength of correlation at lag
-    zero, and the direction of correlation
-
-## **Examples** 
+Example data are yearly correlations of rainfall and river flow rates for two different rivers in the United Kingdom, the Ash and Thames rivers. Correlations are calculated and plotted separately based on two explanatory variables, season (summer, autumn, winter, spring), and catchment region (Mardock, Kingston).
 
 **Fig 1** Calculated correlation clustered by strength at lag zero
 
 <p>
+<img src="README_figs/clusterPlots.png" alt="Fig 1A: example of clusterPlot(), output" style="width:60.0%" />
+<p>
+<p>
+**Fig 2** Calculated asymmetries between past and future lags, clustered by strength of asymmetry
 
-<figure>
-<img src="README_figs/README-clusteredCorrelations.png" style="width:50.0%" alt="Fig 1: example of clusterPlot(), output" /><figcaption aria-hidden="true">Fig 1: example of clusterPlot(), output</figcaption>
-</figure>
+<p>
+<img src="README_figs/leadLagPlot.png" alt="Fig 2: example of leadLagClusterPlot(), output" style="width:50.0%" />
 
 <p>
 <p>
-
-**Fig** 2Calculated asymmetries between past and future lags, clustered
-by strength of asymmetry
+**Fig 3** 'Coupling plots' representing the strength of correlation at lag zero, and the direction of correlation.
 
 <p>
+<img src="README_figs/couplingPlot.png" alt="Fig 3: example of couplingPlot(), output" style="width:40.0%" />
 
-<figure>
-<img src="README_figs/README-clusteredCorrelationLags.png" style="width:50.0%" alt="Fig 2: example of leadLagClusterPlot(), output" /><figcaption aria-hidden="true">Fig 2: example of leadLagClusterPlot(), output</figcaption>
-</figure>
+**Fig 4** Ariel images of the Ash, and Thames rivers.
 
-<p>
-<p>
+<img src="README_figs/riverCatchments.png" alt="Fig 4: example of couplingPlot(), output" style="width:60.0%" />
 
-**Fig 3** ‘Coupling plots’ representing the strength of correlation at
-lag zero, and the direction of correlation.
+## **Inputs**
 
-<p>
+1.  Evenly spaced series data (eg. can be time or space series)
 
-<figure>
-<img src="README_figs/README-couplingPlot.png" style="width:50.0%" alt="Fig 3: example of couplingPlot(), output" /><figcaption aria-hidden="true">Fig 3: example of couplingPlot(), output</figcaption>
-</figure>
+2.  Label of the measurements taken. (eg. can be shape or signal intensity)
+
+3.  Labels for the objects to be compared (eg. cytoplasm and nuclear compartments)
+
+4.  Higher level groupings for comparing objects (eg. compare objects per cell/organism/treatment/community)
+
+## **Outputs**
+
+1.  Calculated correlations clustered by strength at lag zero  
+
+2.  Calculated asymmetries between past and future lags, clustered by strength of asymmetry  
+
+3.  'Coupling plots' representing the strength of correlation at lag zero, and the direction of correlation

@@ -1,4 +1,0 @@
-"0","```r
-
-join_outputCCFdata <- left_join(outputCCFdata, unq_CellID_metaData, by = c(\"an_CCF_ObjectID\"=\"cellNumber\"))
-```"
