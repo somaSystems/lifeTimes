@@ -1,0 +1,151 @@
+* using log directory ‘/Users/lucasdent/R_2022/lifeTimesRefactor/lifeTimes.Rcheck’
+* using R version 4.1.2 (2021-11-01)
+* using platform: x86_64-apple-darwin17.0 (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --as-cran’
+* checking for file ‘lifeTimes/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘lifeTimes’ version ‘0.1.0’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking serialization versions ... OK
+* checking whether package ‘lifeTimes’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking for future file timestamps ... OK
+* checking ‘build’ directory ... OK
+* checking DESCRIPTION meta-information ... OK
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+leadLagCorr_diffs: no visible binding for global variable
+  ‘lts_clusterOutput’
+leadLagCorr_diffs: no visible binding for global variable
+  ‘lts_variables’
+leadLagCorr_diffs: no visible binding for global variable ‘key_num’
+leadLagCorr_diffs: no visible binding for global variable ‘theFeature’
+leadLagCorr_diffs: no visible binding for global variable ‘theLAG’
+leadLagCorr_diffs: no visible binding for global variable ‘lagRange’
+leadLagCorr_diffs: no visible binding for global variable ‘theCCF’
+leadLagCorr_diffs: missing arguments not allowed in calls to ‘c’
+leadLagCorr_diffs: no visible binding for global variable
+  ‘meanCorrforLAGrange’
+leadLagCorr_diffs: no visible global function definition for ‘median’
+leadLagCorr_diffs: no visible binding for global variable
+  ‘meanPrior_meanPost_diff’
+lts_ccf_df: no visible binding for global variable ‘lts_ccf_list_out’
+lts_clusterCCFs: no visible binding for global variable
+  ‘lts_ccfWithMetaData_compareBy’
+lts_clusterCCFs: no visible binding for global variable ‘lts_variables’
+lts_clusterCCFs: no visible binding for global variable ‘theLAG’
+lts_clusterCCFs: no visible binding for global variable ‘theCCF’
+lts_clusterCCFs: no visible binding for global variable
+  ‘identicalMeasuresAt’
+lts_clusterCCFs: no visible binding for global variable
+  ‘unq_identicalFeatures’
+lts_clusterCCFs: no visible global function definition for ‘str’
+lts_clusterCCFs: no visible global function definition for ‘hclust’
+lts_clusterCCFs: no visible global function definition for ‘dist’
+lts_clusterPlot: no visible binding for global variable
+  ‘lts_clusterOutput_LAGranges’
+lts_clusterPlot: no visible binding for global variable ‘lts_variables’
+lts_clusterPlot: no visible binding for '<<-' assignment to
+  ‘treatmentDendrogram’
+lts_clusterPlot: no visible global function definition for
+  ‘as.dendrogram’
+lts_clusterPlot: no visible global function definition for ‘hclust’
+lts_clusterPlot: no visible global function definition for ‘dist’
+lts_clusterPlot: no visible binding for '<<-' assignment to
+  ‘draw_treatmentDendrogram’
+lts_clusterPlot: no visible binding for global variable
+  ‘treatmentDendrogram’
+lts_clusterPlot: no visible binding for global variable
+  ‘draw_treatmentDendrogram’
+lts_clusterPlot: no visible binding for global variable ‘x’
+lts_clusterPlot: no visible binding for global variable ‘y’
+lts_clusterPlot: no visible binding for global variable ‘xend’
+lts_clusterPlot: no visible binding for global variable ‘yend’
+lts_clusterPlot: no visible global function definition for ‘str’
+lts_clusterPlot: no visible binding for global variable
+  ‘meanCorrAtModeMaxLAG’
+lts_clusterPlot: no visible binding for global variable ‘theLAG’
+lts_clusterPlot: no visible binding for global variable ‘theCCF’
+lts_clusterPlot: no visible binding for global variable ‘key_num’
+lts_defineVars: no visible global function definition for ‘read.csv’
+lts_metaData_ccf_join: no visible binding for global variable
+  ‘lts_dfccf’
+lts_metaData_ccf_join: no visible binding for global variable
+  ‘lts_variables’
+lts_tsToWide: no visible binding for global variable ‘lts_variables’
+lts_tsToWide: no visible binding for global variable ‘melted_var’
+lts_tsToWide: no visible binding for global variable ‘melted_measures’
+lts_wide_ts_to_ccf: no visible binding for global variable
+  ‘lts_cast_ts’
+lts_wide_ts_to_ccf: no visible binding for global variable ‘na.pass’
+Undefined global functions or variables:
+  as.dendrogram dist draw_treatmentDendrogram hclust
+  identicalMeasuresAt key_num lagRange lts_cast_ts
+  lts_ccfWithMetaData_compareBy lts_ccf_list_out lts_clusterOutput
+  lts_clusterOutput_LAGranges lts_dfccf lts_variables
+  meanCorrAtModeMaxLAG meanCorrforLAGrange meanPrior_meanPost_diff
+  median melted_measures melted_var na.pass read.csv str theCCF
+  theFeature theLAG treatmentDendrogram unq_identicalFeatures x xend y
+  yend
+Consider adding
+  importFrom("stats", "as.dendrogram", "dist", "hclust", "median",
+             "na.pass")
+  importFrom("utils", "read.csv", "str")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd line widths ... OK
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... WARNING
+Undocumented arguments in documentation object 'lts_clusterPlot'
+  ‘.lts_clusterOutput_LAGranges’ ‘.lts_variables’
+Documented arguments not in \usage in documentation object 'lts_clusterPlot':
+  ‘clusteredZeroLag’
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking contents of ‘data’ directory ... OK
+* checking data for non-ASCII characters ... OK
+* checking LazyData ... OK
+* checking data for ASCII and uncompressed saves ... OK
+* checking installed files from ‘inst/doc’ ... OK
+* checking files in ‘vignettes’ ... OK
+* checking examples ... OK
+* checking for unstated dependencies in vignettes ... OK
+* checking package vignettes in ‘inst/doc’ ... OK
+* checking re-building of vignette outputs ... OK
+* checking for non-standard things in the check directory ... OK
+* checking for detritus in the temp directory ... OK
+* DONE
+Status: 1 WARNING, 1 NOTE

@@ -1,0 +1,7 @@
+catchmentsAndRivers     Rainfall and riverflow data for two separate
+                        catchment regions.
+lts_clusterOutput_LAGranges
+                        Cross correlations output data of rainfall and
+                        riverflow, for two different river catchments
+lts_clusterPlot         lts_clusterPlot
+lts_defineVars          lts_wide_ts_to_ccf

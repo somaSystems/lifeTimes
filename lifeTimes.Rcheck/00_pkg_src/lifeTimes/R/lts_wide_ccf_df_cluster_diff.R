@@ -52,7 +52,7 @@ lts_defineVars <- function(.tsData = NULL,
 
   return(lts_variables)
 }
-lts_variables <-lts_defineVars()
+lts_variables <<-lts_defineVars()
 
 
 
