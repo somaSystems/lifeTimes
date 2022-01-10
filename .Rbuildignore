@@ -1,0 +1,9 @@
+^\.github$
+^.*\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^development.md$
+^LICENSE\.md$
+^doc$
+^Meta$
+^lts_generate_defaultOutputData.R$

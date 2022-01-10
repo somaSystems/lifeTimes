@@ -5,7 +5,7 @@ LGD
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
-## Notes on developming lifeTimes
+## Notes on developing lifeTimes
 
 ## **Refactored code**
 
