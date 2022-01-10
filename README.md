@@ -52,24 +52,24 @@ Example data are yearly cross correlation functions (CCFs) of rainfall and river
 **Fig 1** Calculated cross correlations clustered by strength at lag zero
 
 <p>
-<img src="README_figs/clusterPlots.png" alt="Fig 1A: example of clusterPlot(), output" style="width:60.0%" />
+<img src="man/figures/clusterPlots.png" alt="Fig 1A: example of clusterPlot(), output" style="width:60.0%" />
 <p>
 <p>
 **Fig 2** Calculated asymmetries between past and future lags, clustered by strength of asymmetry
 
 <p>
-<img src="README_figs/leadLagPlot.png" alt="Fig 2: example of leadLagClusterPlot(), output" style="width:50.0%" />
+<img src="man/figures/leadLagPlot.png" alt="Fig 2: example of leadLagClusterPlot(), output" style="width:50.0%" />
 
 <p>
 <p>
 **Fig 3** 'Coupling plots' representing the strength of correlation at lag zero, and the direction of correlation.
 
 <p>
-<img src="README_figs/couplingPlot.png" alt="Fig 3: example of couplingPlot(), output" style="width:40.0%" />
+<img src="man/figures/couplingPlot.png" alt="Fig 3: example of couplingPlot(), output" style="width:40.0%" />
 
 **Fig 4** Ariel images of the Ash, and Thames rivers.
 
-<img src="README_figs/riverCatchments.png" alt="Fig 4: example of couplingPlot(), output" style="width:60.0%" />
+<img src="man/figures/riverCatchments.png" alt="Fig 4: example of couplingPlot(), output" style="width:60.0%" />
 
 ## **Inputs**
 
