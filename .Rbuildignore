@@ -7,3 +7,4 @@
 ^doc$
 ^Meta$
 ^lts_generate_defaultOutputData.R$
+^data-raw$

@@ -1,4 +1,4 @@
-#' lts_lifeTimesInput
+#' lts_input
 #' @import magrittr
 #' @importFrom magrittr "%>%"
 #' @importFrom magrittr %>%
@@ -12,11 +12,13 @@
 #' @return a list that includes time series data, and strings from user input that map variables in the time series data to input in lifeTimes functions. Eg. which column of dataframe is the unit of "time", which is the categorical variables, and which are the variables to compare when generating CCFs.
 #' @export
 #'
+#' @examples lts_input()
+#'
 # examples lts_wide_ts_to_ccf(lts_cast_ts <- lts_tsToWide(),lts_variables <- lts_defineVars())
 #'
 
 
-lts_lifeTimesInput <- function(.tsData = NULL,
+lts_input <- function(.tsData = NULL,
                            .time = c("dayOfseason"),
                            .compare_categorical = c("season","catchmentRegion"), #Categorical variables
                            .pairedComparisons = list(
@@ -25,8 +27,9 @@ lts_lifeTimesInput <- function(.tsData = NULL,
                            .metaData = NULL) {
 
   # if(is.null(.tsData)){.tsData <- load(file = "data/catchmentsAndRivers.rda")}
-  if(is.null(.tsData)){.tsData <- read.csv(system.file("extdata","key_tidy_candr.csv",package = "lifeTimes", mustWork = TRUE)) #use this until internal data works
-  }
+  if(is.null(.tsData)){.tsData <- lts_catchmentsAndRivers}
+
+    # read.csv(system.file("extdata","key_tidy_candr.csv",package = "lifeTimes", mustWork = TRUE)) #use this until internal data works
 
   lts_variables <- list(lts_data = .tsData, #create list of variables
                         lts_time = .time,
@@ -38,7 +41,7 @@ lts_lifeTimesInput <- function(.tsData = NULL,
 
   lts_variables$lts_data[,lts_variables$lts_compare_by ] <- lapply(   lts_variables$lts_data[,lts_variables$lts_compare_by ] , factor) #make compare_by variables, as factors
 
-  lts_variables <-lts_variables
+  lts_defaultVariables <-lts_variables
 
   lts_tsToWide() %>%
     lts_wide_ts_to_ccf() %>%

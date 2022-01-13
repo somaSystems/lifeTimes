@@ -14,7 +14,7 @@
 #'
 #'@export
 #'
-#'@example lts_leadLagClusterPlot( outPutCCF <- lifeTimesChain() )
+#'
 
 
 #Function to cluster contitions (eg. treatments) and variables (eg. feature measurements)
@@ -26,9 +26,17 @@
 
 
 lts_leadLagClusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges,
-                               .lts_variables = lts_variables,
+                               .lts_variables = NULL,
                                .removeInstanceOfCategoricalByName = NULL,
                                .categoryToRemoveInstanceFrom = NULL){
+
+
+  if(is.null(.lts_variables)){
+    # print(paste("not_assigned:",lts_defaultVariables))
+    .lts_variables <- lts_defaultVariables
+    # print(paste("assigned:",.lts_variables))
+  }
+
   #
   #
   # subset_meanLagRange_join_outputCCFdata <-
@@ -78,7 +86,7 @@ lts_leadLagClusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOut
 
     filt_rmna_subset_meanLagRange_join_outputCCFdata<- rmna_subset_meanLagRange_join_outputCCFdata %>%
       dplyr::ungroup()%>%
-      dplyr::select(lts_variables$lts_compare_by,medianPrePostPerTF)
+      dplyr::select(.lts_variables$lts_compare_by,medianPrePostPerTF)
 
     unq_filt_rmna_subset_meanLagRange_join_outputCCFdata <- unique(filt_rmna_subset_meanLagRange_join_outputCCFdata) #filtering before make matrix
     # filteredForM_diffIn_Pre_vs_Postcorrelation
@@ -87,7 +95,7 @@ lts_leadLagClusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOut
 
     wide_unq_filt_rmna_subset_meanLagRange_join_outputCCFdata <- tidyr::pivot_wider(
       unq_filt_rmna_subset_meanLagRange_join_outputCCFdata,
-      names_from = lts_variables$lts_compare_by[1],
+      names_from = .lts_variables$lts_compare_by[1],
       values_from = medianPrePostPerTF)
     mw_prePost <- as.matrix(wide_unq_filt_rmna_subset_meanLagRange_join_outputCCFdata[-1])
     rownames(mw_prePost) <- wide_unq_filt_rmna_subset_meanLagRange_join_outputCCFdata[[1]]

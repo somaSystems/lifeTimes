@@ -16,15 +16,21 @@
 #' @return a plot of features and treatments clustered by CCF at lag zero
 #'
 #' @export
-#' @example lts_clusterPlot( outPutCCF <- lifeTimesChain() )
+#'
 
 # lts_clusterOutput
 
 lts_clusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges,
-                            .lts_variables = lts_variables,
+                            .lts_variables = NULL,
                             plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
 
   # if(is.null(.lts_clusterOutput_LAGranges)){.lts_clusterOutput_LAGranges <- lts_clusterOutput_LAGranges.rda", package = "lifeTimes")) #use this until internal data works
+
+  if(is.null(.lts_variables)){
+    # print(paste("not_assigned:",lts_defaultVariables))
+    .lts_variables <- lts_defaultVariables
+    # print(paste("assigned:",.lts_variables))
+  }
 
   # lts_clusterOutput_LAGranges
 if(missing(.lts_clusterOutput_LAGranges)){
