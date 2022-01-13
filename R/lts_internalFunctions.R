@@ -1,4 +1,4 @@
-#' lts_wide_ts_to_ccf
+#' lts_internalFunctions
 #' @import magrittr
 #' @importFrom magrittr "%>%"
 #' @importFrom magrittr %>%
