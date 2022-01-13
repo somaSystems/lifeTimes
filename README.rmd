@@ -34,30 +34,30 @@ Download the code for lifeTimes and run these commands to try the workflow on a 
 install()
 
 #copy and paste to run on test data
-ltc <- lifeTimesInput() #calculate cross correlation
-lts_clusterPlot(ltc) #plot clustered correlations
-lts_leadLagClusterPlot(ltc) #plot direction of correlations
-lts_couplingPlot(ltc) # plot strength and direction of correlation
+lts <- lts_input() #calculate cross correlation
+lts_clusterPlot(lts) #plot clustered correlations
+lts_leadLagClusterPlot(lts) #plot direction of correlations
+lts_couplingPlot(lts) # plot strength and direction of correlation
 
 ```
   
   
 **How to use**
 ------
-To calculate cross correlation, just load the package, assign, and call the  ``ltc <- lifeTimesChain()`` function. 
+To calculate cross correlation, just load the package, assign, and call the  ``lts <- lts_input()`` function. 
 This will chain together the lifeTimes workflow on a built in set of default data and return calculated cross correlations.
 <p>
-To plot cross correlations, just call ``clusterPlot(ltc)``.  
+To plot cross correlations, just call ``clusterPlot(lts)``.  
 
 To change the plot style just adjust the ``plotType`` argument. The options are ``c( "compoundPlot", "draw_treatmentDendrogram", "plt_dendr", "heatmapLagZero", "rawTraces", "clusteredLines")``. For example, ``clusterPlot(ltc, plotType = "rawTraces")``  
 
 <p>
 To plot clustered lead vs lag metrics which emphasise the direction of coupling, 
-just call ``leadLagClusterPlot(ltc)``.  
+just call ``leadLagClusterPlot(lts)``.  
 
 <p>
 Finally, to plot coupling plots, incorporating both strength and direction 
-of coupling, just call ``couplingPlot(ltc)``.
+of coupling, just call ``couplingPlot(lts)``.
 
 **Examples**
 --------
