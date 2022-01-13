@@ -2,9 +2,8 @@
 
 export(lts_clusterPlot)
 export(lts_couplingPlot)
-export(lts_defineVars)
+export(lts_input)
 export(lts_leadLagClusterPlot)
-export(lts_lifeTimesInput)
 import(ggplot2)
 import(magrittr)
 importFrom(ComplexHeatmap,Heatmap)

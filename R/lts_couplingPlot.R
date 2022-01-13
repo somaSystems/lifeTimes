@@ -11,18 +11,25 @@
 #'
 #' @export
 #'
-#' @example lts_couplingPlot(outPutCCF <- lifeTimesChain() )
 #'
 #'
 #'
 
-lts_couplingPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges, .lts_variables = lts_variables){
+lts_couplingPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges, .lts_variables = NULL){
 # .lts_variables = lts_variables
 # .lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges
-.lts_final_clusters <- lts_clusterOutput_LAGranges$medDiff_meanLag_lts_clusterCCFs
 
-category1 <-  lts_variables$lts_compare_by[[1]]
-category2 <-  lts_variables$lts_compare_by[[2]]
+
+  if(is.null(.lts_variables)){
+    # print(paste("not_assigned:",lts_defaultVariables))
+    .lts_variables <- lts_defaultVariables
+    # print(paste("assigned:",.lts_variables))
+  }
+
+.lts_final_clusters <- .lts_clusterOutput_LAGranges$medDiff_meanLag_lts_clusterCCFs
+
+category1 <-  .lts_variables$lts_compare_by[[1]]
+category2 <-  .lts_variables$lts_compare_by[[2]]
 .lts_final_clusters[.lts_final_clusters$theLAG == .lts_clusterOutput_LAGranges$modeMaxCorrLAG,]
 
 berryTwig <- ggplot(data = .lts_final_clusters[.lts_final_clusters$theLAG == 1,])+

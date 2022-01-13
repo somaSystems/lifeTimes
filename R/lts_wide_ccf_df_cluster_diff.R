@@ -2,68 +2,67 @@
 #' @import magrittr
 #' @importFrom magrittr "%>%"
 #' @importFrom magrittr %>%
-#' @param .tsData tidy time series data
-#' @param .time name of the "time" variable
-#' @param .compare_categorical names of categorical or explanatory variables to compare CCFs by. In future releases of this function, if there is only one explanatory variable, it will be possible to include a key of set of ".pairedComparisons".
-#' @param .pairedComparisons a single pair or list of pairs, of names of variables to generate cross correlations for.
-#' @param .uniqueID_colname name of colum with unique identifier
-#' @param .metaData name of columns with metaData
-#'
+#' @param .lts_variables user description of variables taken from "lts_input()", otherwise taken from built in default set of variables.
 #' @return a list that includes time series data, and strings from user input that map variables in the time series data to input in lifeTimes functions. Eg. which column of dataframe is the unit of "time", which is the categorical variables, and which are the variables to compare when generating CCFs.
-#' @export
 #'
-#' @examples lts_defineVars(catchmentsAndRivers)
+#'
+#'
 # examples lts_wide_ts_to_ccf(lts_cast_ts <- lts_tsToWide(),lts_variables <- lts_defineVars())
 #'
 
 # lifeTimesChain <- function(){
+# #
+# lts_defineVars <- function(.tsData = NULL,
+#                            .time = c("dayOfseason"),
+#                            .compare_categorical = c("season","catchmentRegion"), #Categorical variables
+#                            .pairedComparisons = list(
+#                              pair_1 =list(x = "rainfall_cm", y = "flow_m3s")), #pairedVarCCF
+#                            .uniqueID_colname = "key_num",
+#                            .metaData = NULL){
+#
+#   # if(is.null(.tsData)){.tsData <- load(file = "data/catchmentsAndRivers.rda")}
+#   if(is.null(.tsData)){.tsData <- read.csv(system.file("extdata","key_tidy_candr.csv",package = "lifeTimes", mustWork = TRUE)) #use this until internal data works
+#   }
+#
+#
+#   # .tsData = catchmentsAndRivers
+#   # .time = c("dayOfseason")
+#   # .compare_categorical = c("season","catchmentRegion") #Categorical variables
+#   # .pairedComparisons = list(
+#   #   pair_1 =list(x = "rainfall_cm", y = "flow_m3s")) #pairedVarCCF
+#   # .uniqueID_colname = "key_num"
+#   # .metaData = NULL
+#
+#   lts_variables <- list(lts_data = .tsData, #create list of variables
+#                         lts_time = .time,
+#                         lts_compare_by = .compare_categorical,
+#                         lts_pariedComparisons = .pairedComparisons,
+#                         lts_uniqueID_colname = .uniqueID_colname,
+#                         lts_metaData = .metaData)
+#
+#
+#   lts_variables$lts_data[,lts_variables$lts_compare_by ] <- lapply(   lts_variables$lts_data[,lts_variables$lts_compare_by ] , factor) #make compare_by variables, as factors
+#
+#
+#
+#   return(lts_variables)
+# }
+# lts_variables <-lts_defineVars()
 
-lts_defineVars <- function(.tsData = NULL,
-                           .time = c("dayOfseason"),
-                           .compare_categorical = c("season","catchmentRegion"), #Categorical variables
-                           .pairedComparisons = list(
-                             pair_1 =list(x = "rainfall_cm", y = "flow_m3s")), #pairedVarCCF
-                           .uniqueID_colname = "key_num",
-                           .metaData = NULL){
+
+lts_tsToWide <- function(.lts_variables = NULL) {
 
   # if(is.null(.tsData)){.tsData <- load(file = "data/catchmentsAndRivers.rda")}
-  if(is.null(.tsData)){.tsData <- read.csv(system.file("extdata","key_tidy_candr.csv",package = "lifeTimes", mustWork = TRUE)) #use this until internal data works
-  }
 
-
-  # .tsData = catchmentsAndRivers
-  # .time = c("dayOfseason")
-  # .compare_categorical = c("season","catchmentRegion") #Categorical variables
-  # .pairedComparisons = list(
-  #   pair_1 =list(x = "rainfall_cm", y = "flow_m3s")) #pairedVarCCF
-  # .uniqueID_colname = "key_num"
-  # .metaData = NULL
-
-  lts_variables <- list(lts_data = .tsData, #create list of variables
-                        lts_time = .time,
-                        lts_compare_by = .compare_categorical,
-                        lts_pariedComparisons = .pairedComparisons,
-                        lts_uniqueID_colname = .uniqueID_colname,
-                        lts_metaData = .metaData)
-
-
-  lts_variables$lts_data[,lts_variables$lts_compare_by ] <- lapply(   lts_variables$lts_data[,lts_variables$lts_compare_by ] , factor) #make compare_by variables, as factors
-
-
-
-  return(lts_variables)
-}
-lts_variables <-lts_defineVars()
-
-
-
-lts_tsToWide <- function(.lts_variables = lts_variables){
-
-  # if(is.null(.lts_variables)){
-  #   .lts_variables = lts_variables
-  # }
+  if(is.null(.lts_variables)){
+    # print(paste("not_assigned:",lts_defaultVariables))
+     .lts_variables <- lts_defaultVariables
+     # print(paste("assigned:",.lts_variables))
+     }
+  # read.csv(system.file("extdata","key_tidy_candr.csv",package = "lifeTimes", mustWork = TRUE)) #use this until internal data works
 
   variablesToCompare <- unlist(.lts_variables$lts_pariedComparisons, use.names = FALSE)
+
 
 
   #tidyData_melt (melt compareVariables)
@@ -86,7 +85,7 @@ lts_tsToWide <- function(.lts_variables = lts_variables){
   lts_cast_ts <- melt_ts %>% tidyr::pivot_wider(
     id_cols = c(.lts_variables$lts_uniqueID_colname,
                 .lts_variables$lts_time) ,
-    names_from = c(lts_variables$lts_uniqueID_colname,
+    names_from = c(.lts_variables$lts_uniqueID_colname,
                    .lts_variables$lts_compare_by,
                    melted_var),
     names_sep = "/",
@@ -95,24 +94,28 @@ lts_tsToWide <- function(.lts_variables = lts_variables){
   # cast_ts
 
   return(lts_cast_ts)
-}
-lts_cast_ts <- lts_tsToWide()
+  }
+
+# lts_cast_ts <- lts_tsToWide()
 
 
 
-lts_wide_ts_to_ccf<- function(.lts_cast_ts = lts_cast_ts, .lts_variables = lts_variables) {
+lts_wide_ts_to_ccf<- function(.lts_cast_ts = lts_cast_ts, .lts_variables = NULL) {
 
-
-if(missing(.lts_variables)){ lts_variables <- lts_defineVars()}
   # .cast_ts = cast_ts
   # .lts_variables = lts_variables
+
+  if(is.null(.lts_variables)){
+    # print(paste("not_assigned:",lts_defaultVariables))
+    .lts_variables <- lts_defaultVariables
+  }
 
 
   .key_unqIDcombo <- unique(.lts_variables$lts_data[c("uniqueID","key_num")])
   .unqNameKey <- .key_unqIDcombo$uniqueID
   .unqNumKey <- .key_unqIDcombo$key_num
 
-  .pairedComparisons =   lts_variables$lts_pariedComparisons
+  .pairedComparisons =   .lts_variables$lts_pariedComparisons
 
    #TODO fix this to make it dynamic
   lts_ccf_list <- vector("list", ncol(.lts_cast_ts[-1])/2)  # 1. output
@@ -146,7 +149,7 @@ if(missing(.lts_variables)){ lts_variables <- lts_defineVars()}
   }
   return(lts_ccf_list)
 }
-lts_ccf_list_out <- lts_wide_ts_to_ccf()
+# lts_ccf_list_out <- lts_wide_ts_to_ccf()
 
 
 
@@ -166,13 +169,19 @@ lts_ccf_df <- function(.lts_ccflist = lts_ccf_list_out){
 
   return(lts_dfccf)
 }
-lts_dfccf <- lts_ccf_df()
+# lts_dfccf <- lts_ccf_df()
 
 
 
 
 
-lts_metaData_ccf_join <- function(.lts_dfccf = lts_dfccf, .lts_variables = lts_variables){
+lts_metaData_ccf_join <- function(.lts_dfccf = lts_dfccf, .lts_variables = NULL){
+
+
+  if(is.null(.lts_variables)){
+    # print(paste("not_assigned:",lts_defaultVariables))
+    .lts_variables <- lts_defaultVariables
+  }
 
   # .lts_dfccf = lts_dfccf
   # .lts_variables = lts_variables
@@ -181,7 +190,7 @@ lts_metaData_ccf_join <- function(.lts_dfccf = lts_dfccf, .lts_variables = lts_v
 
   lts_ccfWith_compareBy <- dplyr::left_join(.lts_dfccf, unq_compareBy, by = "key_num") #join categoricals
 
-  if(!is.null(lts_variables$lts_metaData)){
+  if(!is.null(.lts_variables$lts_metaData)){
     unq_metaData <- unique(.lts_variables$lts_data[, c(.lts_variables$lts_metaData, .lts_variables$lts_uniqueID_colname)])  #uses metaData
     lts_ccfWithMetaData_compareBy <- dplyr::left_join(lts_ccfWith_compareBy, unq_metaData, by = "key_num")
   } else
@@ -190,20 +199,27 @@ lts_metaData_ccf_join <- function(.lts_dfccf = lts_dfccf, .lts_variables = lts_v
 
   return(lts_ccfWithMetaData_compareBy)
 }
-lts_ccfWithMetaData_compareBy <- lts_metaData_ccf_join()
+# lts_ccfWithMetaData_compareBy <- lts_metaData_ccf_join()
 
 
 
 
 lts_clusterCCFs <- function(.lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy,
-  .lts_variables = lts_variables,
+  .lts_variables = NULL,
   .chosenLAGforClustering = modeMaxCorrLAG){
+
+
+
+  if(is.null(.lts_variables)){
+    # print(paste("not_assigned:",lts_defaultVariables))
+    .lts_variables <- lts_defaultVariables
+  }
 
   # .lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
   # .lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
    # .lts_variables = lts_variables$lts_compare_by
 
-   .lts_compare_by <- lts_variables$lts_compare_by
+   .lts_compare_by <- .lts_variables$lts_compare_by
 
 
   #groups by categorical variaables and LAGs and gets mean correlation for each lag
@@ -334,14 +350,22 @@ lts_clusterCCFs <- function(.lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
 
   return(lts_clusterOutput)
 }
-lts_clusterOutput <- lts_clusterCCFs()
+# lts_clusterOutput <- lts_clusterCCFs()
 
 
 
 
 leadLagCorr_diffs <- function(
   .lts_clusterOutput = lts_clusterOutput,
-  .lts_variables = lts_variables){
+  .lts_variables = NULL){
+
+
+
+  if(is.null(.lts_variables)){
+    # print(paste("not_assigned:",lts_defaultVariables))
+    .lts_variables <- lts_defaultVariables
+  }
+
   # #
   # .lts_clusterCCFs = lts_clusterOutput
   # .lts_variables = lts_variables
@@ -462,7 +486,7 @@ leadLagCorr_diffs <- function(
   return(lts_clusterOutput_LAGranges)
 }
 
-lts_clusterOutput_LAGranges <<- leadLagCorr_diffs()
+# lts_clusterOutput_LAGranges <<- leadLagCorr_diffs()
 
 
 

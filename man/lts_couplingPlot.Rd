@@ -6,7 +6,7 @@
 \usage{
 lts_couplingPlot(
   .lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges,
-  .lts_variables = lts_variables
+  .lts_variables = NULL
 )
 }
 \arguments{

@@ -6,7 +6,7 @@
 \usage{
 lts_clusterPlot(
   .lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges,
-  .lts_variables = lts_variables,
+  .lts_variables = NULL,
   plotType = c("compoundPlot", "draw_treatmentDendrogram", "plt_dendr",
     "heatmapLagZero", "rawTraces", "clusteredLines")
 )
