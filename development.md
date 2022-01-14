@@ -19,8 +19,8 @@ Functions and objects created by lifeTimes are (mostly) prefixed by
 packages. Function arguments and variables in functions created by
 lifeTimes, are prefixed by “.” in the function arguments definition, and
 throughout the body of the function. The idea is that the “.” prefix
-helps distinguish “algebraic variables” from “concrete”“objects in the
-body of the function. Examples are”.lts\_variables“. The”." has not
+helps distinguish “algebraic variables” from “concrete” objects in the
+body of the function. Examples are “.lts\_variables”. The “.” has not
 special meaning it is an arbitrary symbol.
 
 ## User exposed functions
