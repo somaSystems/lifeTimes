@@ -100,7 +100,7 @@ lts_tsToWide <- function(.lts_variables = NULL) {
 
 
 
-lts_wide_ts_to_ccf<- function(.lts_cast_ts = lts_cast_ts, .lts_variables = NULL) {
+lts_wide_ts_to_ccf<- function(.lts_cast_ts = lts_cast_ts, .lts_variables = lts_variables) {
 
   # .cast_ts = cast_ts
   # .lts_variables = lts_variables
@@ -110,14 +110,17 @@ lts_wide_ts_to_ccf<- function(.lts_cast_ts = lts_cast_ts, .lts_variables = NULL)
     .lts_variables <- lts_defaultVariables
   }
 
+  Lts_CCFunqVars <- as.data.frame(c(.lts_variables$lts_data[,c( .lts_variables$lts_uniqueID_colname, .lts_variables$lts_compare_by)]))
+  Lts_CCFunqVars[,.lts_variables$lts_compare_by] <- lapply(Lts_CCFunqVars[,.lts_variables$lts_compare_by],  as.character)
+  Lts_CCFunqVars$unqCCFtsLabel <- apply(Lts_CCFunqVars, 1, function(x) paste(x, collapse="_"))
 
-  .key_unqIDcombo <- unique(.lts_variables$lts_data[c("uniqueID","key_num")])
-  .unqNameKey <- .key_unqIDcombo$uniqueID
+  .key_unqIDcombo <- unique(Lts_CCFunqVars[c("unqCCFtsLabel","key_num")])
+  .unqNameKey <- .key_unqIDcombo$unqCCFtsLabel
   .unqNumKey <- .key_unqIDcombo$key_num
 
   .pairedComparisons =   .lts_variables$lts_pariedComparisons
 
-   #TODO fix this to make it dynamic
+  #TODO fix this to make it dynamic
   lts_ccf_list <- vector("list", ncol(.lts_cast_ts[-1])/2)  # 1. output
 
   for(keyIndex in seq_along(.key_unqIDcombo$key_num)){ #get the index number of the key
@@ -127,9 +130,9 @@ lts_wide_ts_to_ccf<- function(.lts_cast_ts = lts_cast_ts, .lts_variables = NULL)
     for(pair in .pairedComparisons){ #key contains place and season (compare by), so now just do all paired comparisons
       print(paste("Started adding...", key_name, sep = "...")) #print stage of loop
       chosenObs_y <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
-                                grepl(c(pair$y), names(.lts_cast_ts))]  # also gets column with pair y
+                                    grepl(c(pair$y), names(.lts_cast_ts))]  # also gets column with pair y
       chosenObs_x <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
-                                grepl(c(pair$x), names(.lts_cast_ts))] #sequence of 91 measures
+                                    grepl(c(pair$x), names(.lts_cast_ts))] #sequence of 91 measures
 
       instanceOfCCF <- stats::ccf(chosenObs_y, chosenObs_x, plot = FALSE, na.action = na.pass) #calculate CCF for chosen pairing
 
@@ -149,6 +152,7 @@ lts_wide_ts_to_ccf<- function(.lts_cast_ts = lts_cast_ts, .lts_variables = NULL)
   }
   return(lts_ccf_list)
 }
+
 # lts_ccf_list_out <- lts_wide_ts_to_ccf()
 
 

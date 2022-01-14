@@ -27,7 +27,7 @@ lts_input <- function(.tsData = NULL,
                            .metaData = NULL) {
 
   # if(is.null(.tsData)){.tsData <- load(file = "data/catchmentsAndRivers.rda")}
-  if(is.null(.tsData)){.tsData <- lts_catchmentsAndRivers}
+  if(is.null(.tsData)){.tsData <- catchmentsAndRivers}
 
     # read.csv(system.file("extdata","key_tidy_candr.csv",package = "lifeTimes", mustWork = TRUE)) #use this until internal data works
 
@@ -41,16 +41,16 @@ lts_input <- function(.tsData = NULL,
 
   lts_variables$lts_data[,lts_variables$lts_compare_by ] <- lapply(   lts_variables$lts_data[,lts_variables$lts_compare_by ] , factor) #make compare_by variables, as factors
 
-  lts_defaultVariables <-lts_variables
+  lts_inputVars <-lts_variables
 
-  lts_tsToWide() %>%
-    lts_wide_ts_to_ccf() %>%
+  lts_tsToWide(lts_inputVars) %>%
+    lts_wide_ts_to_ccf(.lts_variables = lts_inputVars) %>%
     lts_ccf_df() %>%
-    lts_metaData_ccf_join() %>%
-    lts_clusterCCFs() %>%
-    leadLagCorr_diffs() -> timesChainOutput
+    lts_metaData_ccf_join(.lts_variables = lts_inputVars) %>%
+    lts_clusterCCFs(.lts_variables = lts_inputVars) %>%
+    leadLagCorr_diffs(.lts_variables = lts_inputVars) -> lts_Output
 
-  return(timesChainOutput)
+  return(lts_Output)
 
 }
 
