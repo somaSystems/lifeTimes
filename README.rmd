@@ -30,15 +30,12 @@ Download the code for lifeTimes and run these commands to try the workflow on a 
 # Extract and unzip the code
 # navigate into the top level directory 
 # run installation:
-
 install()
-
 #copy and paste to run on test data
 lts <- lts_input() #calculate cross correlation
 lts_clusterPlot(lts) #plot clustered correlations
 lts_leadLagClusterPlot(lts) #plot direction of correlations
 lts_couplingPlot(lts) # plot strength and direction of correlation
-
 ```
   
   
@@ -106,3 +103,8 @@ iii.    'Coupling plots' representing the strength of correlation at lag zero, a
 
 
 
+© 2022 GitHub, Inc.
+Terms
+Privacy
+Security
+Status

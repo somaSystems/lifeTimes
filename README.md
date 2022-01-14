@@ -21,9 +21,7 @@ Download the code for lifeTimes and run these commands to try the workflow on a 
 # Extract and unzip the code
 # navigate into the top level directory 
 # run installation:
-
 install()
-
 #copy and paste to run on test data
 lts <- lts_input() #calculate cross correlation
 lts_clusterPlot(lts) #plot clustered correlations
@@ -87,4 +85,6 @@ Example data are yearly cross correlation functions (CCFs) of rainfall and river
 
 2.  Calculated asymmetries between past and future lags, clustered by strength of asymmetry  
 
-3.  'Coupling plots' representing the strength of correlation at lag zero, and the direction of correlation
+3.  'Coupling plots' representing the strength of correlation at lag zero, and the direction of correlation  
+
+© 2022 GitHub, Inc. Terms Privacy Security Status
