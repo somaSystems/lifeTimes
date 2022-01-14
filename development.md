@@ -14,14 +14,14 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 There are some loose conventions I am trying to use to help organise the
 code and make it easier to understand and debug.
 
-Functions and objects created by lifeTimes are prefixed by “lts\_” to
-distinguish them from objects created by R or other packages. Function
-arguments and variables in function created by lifeTimes, are prefixed
-by “.” in the function arguments definition, and throughout the body of
-the function. The idea is that the “.” prefix helps distinguish
-“algebraic variables” from “concrete”“objects in the body of the
-function. Examples are”.lts\_variables“. The”." has not special meaning
-it is an arbitrary symbol.
+Functions and objects created by lifeTimes are (mostly) prefixed by
+“lts\_” to distinguish them from objects created by R or other
+packages. Function arguments and variables in functions created by
+lifeTimes, are prefixed by “.” in the function arguments definition, and
+throughout the body of the function. The idea is that the “.” prefix
+helps distinguish “algebraic variables” from “concrete”“objects in the
+body of the function. Examples are”.lts\_variables“. The”." has not
+special meaning it is an arbitrary symbol.
 
 ## User exposed functions
 
@@ -115,23 +115,29 @@ in dataset.
 
 <p>
 
-Catalogue of the internal dataset and examples of their use as arguments
-to internal functions:
+Catalogue of the internal functions, internal outputs, and examples of
+their use as arguments to internal functions:
 
 ``` r
-lts_defaultVariables <- lts_makeInputVariables()
+#after installing lifeTimes
 
-lts_OUT_cast_ts <- lts_tsToWide(lts_madeInputVars)
+library(lifeTimes)
 
-lts_OUT_ccf_list_out <- lts_wide_ts_to_ccf(lts_OUT_cast_ts, .lts_variables = lts_madeInputVars)
+#The following reproduces the chain of calls that occur when lts_inputs() is called on the default dataset:
 
-lts_OUT_dfccf <- lts_ccf_df(lts_OUT_ccf_list_out)
+lts_inputVars <- lifeTimes:::lts_defaultVariables #access and assign internal set of default input variables stored in lifeTimes namespace
 
-lts_OUT_ccfWithMetaData_compareBy <- lts_metaData_ccf_join(lts_OUT_dfccf, .lts_variables = lts_madeInputVars)
+lts_OUT_cast_ts <- lifeTimes:::lts_tsToWide(lts_inputVars) #access and call internal function, with argument created by internal data
 
-lts_OUT_clusterOutput <- lts_clusterCCFs(lts_OUT_ccfWithMetaData_compareBy, .lts_variables = lts_madeInputVars)
+lts_OUT_ccf_list_out <- lifeTimes:::lts_wide_ts_to_ccf(lts_OUT_cast_ts, .lts_variables = lts_inputVars) #output from previous functions is used as input for next
 
-lts_OUT_lts_clusterOutput_LAGranges <- leadLagCorr_diffs(lts_OUT_clusterOutput, .lts_variables = lts_madeInputVars)
+lts_OUT_dfccf <- lifeTimes:::lts_ccf_df(lts_OUT_ccf_list_out) # ...as above
+
+lts_OUT_ccfWithMetaData_compareBy <- lifeTimes:::lts_metaData_ccf_join(lts_OUT_dfccf, .lts_variables = lts_inputVars) # ...as above
+
+lts_OUT_clusterOutput <- lifeTimes:::lts_clusterCCFs(lts_OUT_ccfWithMetaData_compareBy, .lts_variables = lts_inputVars) # ...as above
+
+lts_OUT_lts_clusterOutput_LAGranges <- lifeTimes:::leadLagCorr_diffs(lts_OUT_clusterOutput, .lts_variables = lts_inputVars) #this is equivalent to the final output of lts_inputs(), the main user input function 
 ```
 
 ## Refactored code as of Jan 2022
