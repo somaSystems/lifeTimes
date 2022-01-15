@@ -45,10 +45,10 @@ lts_input <- function(.tsData = NULL,
 
   lts_tsToWide(lts_inputVars) %>%
     lts_wide_ts_to_ccf(.lts_variables = lts_inputVars) %>%
-    lts_ccf_df() %>%
+    lts_ccf_df(.lts_variables = lts_inputVars) %>%
     lts_metaData_ccf_join(.lts_variables = lts_inputVars) %>%
     lts_clusterCCFs(.lts_variables = lts_inputVars) %>%
-    leadLagCorr_diffs(.lts_variables = lts_inputVars) -> lts_Output
+    lts_leadLagCorr_diffs(.lts_variables = lts_inputVars) -> lts_Output
 
   return(lts_Output)
 
