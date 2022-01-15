@@ -5,17 +5,14 @@
 \title{lts_leadLagClusterPlot}
 \usage{
 lts_leadLagClusterPlot(
-  .lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges,
-  .lts_variables = NULL,
+  .lts_output = NULL,
   .removeInstanceOfCategoricalByName = NULL,
   .categoryToRemoveInstanceFrom = NULL
 )
 }
 \arguments{
-\item{.lts_clusterOutput_LAGranges}{output from
-lifeTimesChain()}
-
-\item{.lts_variables}{user mapping of variables to function}
+\item{.lts_output}{results of lts_input() function, includes
+cross correlation calculations and user input variables}
 
 \item{.removeInstanceOfCategoricalByName}{name a feature that should be removed from
 clustering (eg. because of perfect correlation, high noise, or artefact)}

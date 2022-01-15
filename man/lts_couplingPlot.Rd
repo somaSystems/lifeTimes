@@ -4,16 +4,11 @@
 \alias{lts_couplingPlot}
 \title{lts_couplingPlot}
 \usage{
-lts_couplingPlot(
-  .lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges,
-  .lts_variables = NULL
-)
+lts_couplingPlot(.lts_output = NULL)
 }
 \arguments{
-\item{.lts_clusterOutput_LAGranges}{list with dataframe of
-CCFs returned from lifeTimesChain()}
-
-\item{.lts_variables}{user defined variables mapping data to function arguments}
+\item{.lts_ouptut}{results of lts_input() function, includes
+cross correlation calculations and user input variables}
 }
 \description{
 lts_couplingPlot

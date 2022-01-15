@@ -5,16 +5,13 @@
 \title{lts_clusterPlot}
 \usage{
 lts_clusterPlot(
-  .lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges,
-  .lts_variables = NULL,
+  .lts_output = NULL,
   plotType = c("compoundPlot", "draw_treatmentDendrogram", "plt_dendr",
     "heatmapLagZero", "rawTraces", "clusteredLines")
 )
 }
 \arguments{
-\item{.lts_clusterOutput_LAGranges}{output from the lifeTimes main workflow}
-
-\item{.lts_variables}{user input mapping data to lifeTimes function arguments}
+\item{.lts_output}{output from the lifeTimes main workflow}
 
 \item{plotType}{choice from c("compoundPlot","draw_treatmentDendrogram",
 "plt_dendr","heatmapLagZero","rawTraces","clusteredLines")}

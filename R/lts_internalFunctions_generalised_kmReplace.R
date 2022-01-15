@@ -10,7 +10,6 @@
 # examples lts_wide_ts_to_ccf(lts_cast_ts <- lts_tsToWide(),lts_variables <- lts_defineVars())
 #'
 
-# lifeTimesChain <- function(){
 # #
 # lts_defineVars <- function(.tsData = NULL,
 #                            .time = c("dayOfseason"),
@@ -366,6 +365,11 @@ lts_clusterCCFs <- function(.lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
                             lts_mCCF_chosenLAG = lts_mCCF_chosenLAG,
                             modeMaxCorrLAG = modeMaxCorrLAG) #this list output includes the matrix of values (mCCF) at chosen lag for dendrogram creation in plotting steps, an alternative is to generate this dendrogram denovo in a separate function or in the plotting step.
 
+  # TODO: Try and use this as output
+  # lts_clusterOutput <- list(list(lts_clustered_ccflist = lts_clustered_ccflist),
+  #                           list(lts_mCCF_chosenLAG = lts_mCCF_chosenLAG),
+  #                           list(modeMaxCorrLAG = modeMaxCorrLAG)) #this list output includes the matrix of values (mCCF) at chosen lag for dendrogram creation in plotting
+
   return(lts_clusterOutput)
 }
 # lts_clusterOutput <- lts_clusterCCFs()
@@ -496,13 +500,17 @@ lts_leadLagCorr_diffs <- function(
 
 
   #consider appending to input list and returning appended list
-  .lts_clusterOutput_withDiffs <- c(.lts_clusterOutput,
-                                    list(medDiff_meanLag_lts_clusterCCFs = medDiff_meanLag_lts_clusterCCFs))
+  lts_box <- c(list(lts_CCFcalcs = medDiff_meanLag_lts_clusterCCFs),
+               list(lts_rawCCFout = .lts_clusterOutput),
+               list(lts_variables = .lts_variables))
 
 
-  lts_clusterOutput_LAGranges <- .lts_clusterOutput_withDiffs
 
-  return(lts_clusterOutput_LAGranges)
+
+  # lts_box <- list(lts_CCFcalcs= .lts_clusterOutput_withDiffs,
+  #                 lts_variables = .lts_variables)
+
+  return(lts_box)
 }
 
 # lts_clusterOutput_LAGranges <<- leadLagCorr_diffs()
