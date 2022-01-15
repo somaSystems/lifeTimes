@@ -5,7 +5,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom viridis scale_color_viridis
 #'
-#' @param .lts_ouptut results of lts_input() function, includes
+#' @param .lts_output results of lts_input() function, includes
 #'cross correlation calculations and user input variables
 #'
 #' @export

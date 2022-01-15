@@ -7,7 +7,7 @@
 lts_couplingPlot(.lts_output = NULL)
 }
 \arguments{
-\item{.lts_ouptut}{results of lts_input() function, includes
+\item{.lts_output}{results of lts_input() function, includes
 cross correlation calculations and user input variables}
 }
 \description{
