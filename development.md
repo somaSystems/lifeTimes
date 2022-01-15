@@ -142,28 +142,8 @@ lts_OUT_ccfWithMetaData_compareBy <- lifeTimes:::lts_metaData_ccf_join(lts_OUT_d
 
 lts_OUT_clusterOutput <- lifeTimes:::lts_clusterCCFs(lts_OUT_ccfWithMetaData_compareBy, .lts_variables = lts_inputVars) # ...as above
 
-lts_OUT_lts_clusterOutput_LAGranges <- lifeTimes:::leadLagCorr_diffs(lts_OUT_clusterOutput, .lts_variables = lts_inputVars) #this is equivalent to the final output of lts_inputs(), the main user input function 
+lts_OUT_lts_clusterOutput_LAGranges <- lifeTimes:::lts_leadLagCorr_diffs(lts_OUT_clusterOutput, .lts_variables = lts_inputVars) #this is equivalent to the final output of lts_inputs(), the main user input function 
 ```
-
-## Using lifeTimes in development mode
-
-I have created a “development mode” version of each function, to help
-interactively test the package with different types of user input. The
-development version of functions are prefixed by `dev_`, and can be
-accessed by specifying the `lifeTimes:::` namespace. The main (only)
-difference is that development mode functions return their output as
-variables to the global environment so that it is easy to inspect
-output.
-
-``` r
-#after installing lifeTimes
-library(lifeTimes)
-
-lifeTimes:::dev_lts_input() #example of accessing development mode user input. 
-```
-
-If running successfully this will return `dev_lts_inputVars` and
-`dev_lts_Output` to the global environment.
 
 ## Refactored code as of Jan 2022
 

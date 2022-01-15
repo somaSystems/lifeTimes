@@ -34,12 +34,13 @@ lts_clusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOutput_LAG
 
   # lts_clusterOutput_LAGranges
 if(missing(.lts_clusterOutput_LAGranges)){
-  load(file = "data/lts_clusterOutput_LAGranges.rda")
-  .lts_clusterOutput_LAGranges <- lts_clusterOutput_LAGranges
+  .lts_clusterOutput_LAGranges <- lts_OUT_lts_clusterOutput_LAGranges.rda
 }
 
   # if(missing(.lts_variables)){
   # }
+
+
 
 
   plotType <- match.arg(plotType)
@@ -47,9 +48,9 @@ if(missing(.lts_clusterOutput_LAGranges)){
 
 # .lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges
 # .lts_variables = lts_variables
-
 # lts_clusterOutput_LAGranges
-  .lts_clusterOutput_LAGranges$lts_medDiff_meanLag_lts_clusterCCFs
+# .lts_clusterOutput_LAGranges$medDiff_meanLag_lts_clusterCCFs
+
 subset_sum_join_outputCCFdata <-  .lts_clusterOutput_LAGranges$medDiff_meanLag_lts_clusterCCFs
 
 #create dendrogram for clustering of categorical variable 1
@@ -177,7 +178,7 @@ heatmapLagZero <- ggplot()+
                 fill= meanCorrAtModeMaxLAG), alpha =0.5)+
   geom_line(data = subset_sum_join_outputCCFdata, aes(x =theLAG,
                                                       y = theCCF,
-                                                      group = key_num), alpha = 0.5, color = "black")+
+                                                      group = !!sym(.lts_variables$lts_uniqueID_colname)), alpha = 0.5, color = "black")+  ##fix this instance of keynum
   scale_color_viridis_c(option ="magma")+
   scale_fill_viridis_c(option ="magma")+
   facet_grid( vars(!!sym(category2_name)), vars(!!sym(category1_name)) )+

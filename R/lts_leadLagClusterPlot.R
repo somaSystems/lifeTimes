@@ -73,7 +73,7 @@ lts_leadLagClusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOut
       dplyr::filter(is.na(medianPrePostPerTF)) # NB: could remove this step
 
     if(nrow(toRemove)>0){
-      print(paste("There are...",nrow(toRemove),"observations with NA. Removing...",toRemove$key_num))
+      print(paste("There are...",nrow(toRemove),"observations with NA. Removing...",toRemove$lts_uniqueID_colname)) #hotfix here to make uniqueID_colname instead of "key_num"
     }
 
     rmna_subset_meanLagRange_join_outputCCFdata <-  sub_lts_final_clusters %>%
