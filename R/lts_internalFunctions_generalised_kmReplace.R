@@ -51,8 +51,9 @@
 #
 #
 
-
-
+#multicomp notes:
+##in a multicomp
+#some information about the paired comparisons needs to come through
 
 
 lts_tsToWide <- function(.lts_variables = NULL) {
@@ -104,62 +105,90 @@ lts_tsToWide <- function(.lts_variables = NULL) {
 # lts_cast_ts <- lts_tsToWide()
 
 
-lts_wide_ts_to_ccf<- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = lts_variables) {
+lts_wide_ts_to_ccf <- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = NULL) {
 
-    # .cast_ts = cast_ts
-    # .lts_variables = lts_variables
+     #make default data if needed
+     if(is.null(.lts_variables)){
+       # print(paste("not_assigned:",lts_defaultVariables))
+       .lts_variables <- lts_defaultVariables
+     }
 
-    if(is.null(.lts_variables)){
-      # print(paste("not_assigned:",lts_defaultVariables))
-      .lts_variables <- lts_defaultVariables
-    }
+     Lts_CCFunqVars <- as.data.frame(c(.lts_variables$lts_data[,c( .lts_variables$lts_uniqueID_colname, .lts_variables$lts_compare_by)]))
+     Lts_CCFunqVars[.lts_variables$lts_compare_by] <- lapply(Lts_CCFunqVars[.lts_variables$lts_compare_by],  as.character) #select column "containers", not just contents, so no ","
+     Lts_CCFunqVars$unqCCFtsLabel <- apply(Lts_CCFunqVars, 1, function(x) paste(x, collapse="_")) ###unsure if this should be "_" #looks like this is just for PRINTING
 
-    Lts_CCFunqVars <- as.data.frame(c(.lts_variables$lts_data[,c( .lts_variables$lts_uniqueID_colname, .lts_variables$lts_compare_by)]))
-    Lts_CCFunqVars[,.lts_variables$lts_compare_by] <- lapply(Lts_CCFunqVars[,.lts_variables$lts_compare_by],  as.character)
-    Lts_CCFunqVars$unqCCFtsLabel <- apply(Lts_CCFunqVars, 1, function(x) paste(x, collapse="_"))
+     .key_unqIDcombo <- unique(Lts_CCFunqVars[c("unqCCFtsLabel",.lts_variables$lts_uniqueID_colname)]) #hotfix no.1 to make unique col name a variable
+     .unqNameKey <- .key_unqIDcombo$unqCCFtsLabel
+     .unqNumKey <-  .key_unqIDcombo[,.lts_variables$lts_uniqueID_colname]
+     # } #hotfix no. 2, make this dynanimc, make sure to select contents (",")
 
-    .key_unqIDcombo <- unique(Lts_CCFunqVars[c("unqCCFtsLabel",.lts_variables$lts_uniqueID_colname)]) #hotfix no.1 to make unique col name a variable
-    .unqNameKey <- .key_unqIDcombo$unqCCFtsLabel
-    .unqNumKey <-  .key_unqIDcombo[,.lts_variables$lts_uniqueID_colname] #hotfix no. 2, make this dynanimc, make sure to select contents (",")
+     .pairedComparisons =   .lts_variables$lts_pariedComparisons
 
-    .pairedComparisons =   .lts_variables$lts_pariedComparisons
+     #TODO fix this to make it dynamic
+     lts_ccf_list <- vector("list", ncol(.lts_cast_ts[-1])/2)  # 1. output
+     # for (element in seq_along(lts_ccf_list)){ # iterate for the number of elements in the list
+     #             print(element)
+     # for (element in seq_along(lts_ccf_list)){ # iterate for the number of elements in the list
+     #             print(element)
+     #
+     element <- 1
+     for(keyIndex in seq_along(.unqNumKey)){
 
-    #TODO fix this to make it dynamic
-    lts_ccf_list <- vector("list", ncol(.lts_cast_ts[-1])/2)  # 1. output
+       print(paste("element is", element))
+       #get the index number of the key # hot fix number three, change this here
+       key_name <- .unqNameKey[keyIndex] #get the actual name descriptive name of the key instead of index number
+       .key_num <- .unqNumKey[keyIndex] #get the numerical non descriptive key index
+       print(paste("The key_num is:", .key_num))
 
-    for(keyIndex in seq_along(.unqNumKey)){ #get the index number of the key # hot fix number three, change this here
-      key_name <- .unqNameKey[keyIndex] #get the actual name descriptive name of the key instead of index number
-      .key_num <- .unqNumKey[keyIndex] #get the numerical non descriptive key index
+       for(pairIndex in seq_along(.pairedComparisons)){ #key contains place and season (compare by), so now just do all paired comparisons
+         innerElement <- element
+         print(paste("the pairINDEX is:", pairIndex))
+         pair <- .pairedComparisons[[pairIndex]]
+         print(paste("The pair is:", "y=", pair$y," ..x=", pair$x ))
+         print(paste("Started adding...", key_name, paste(.pairedComparisons[[pairIndex]], collapse ="_vs_"), sep = "...")) #print stage of loop
+         #this looks up by cell number and comparison
+         chosenObs_y <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
+                                       grepl(c(pair$y), names(.lts_cast_ts))]  # also gets column with pair y
+         print(paste("chosenObs_y:", .key_num, pair$y))
+         chosenObs_x <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
+                                       grepl(c(pair$x), names(.lts_cast_ts))] #sequence of 91 measures
+         print(paste("chosenObs_x:", .key_num, pair$x))
 
-      for(pair in .pairedComparisons){ #key contains place and season (compare by), so now just do all paired comparisons
-        print(paste("Started adding...", key_name, sep = "...")) #print stage of loop
-        chosenObs_y <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
-                                      grepl(c(pair$y), names(.lts_cast_ts))]  # also gets column with pair y
-        chosenObs_x <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
-                                      grepl(c(pair$x), names(.lts_cast_ts))] #sequence of 91 measures
+         instanceOfCCF <- stats::ccf(chosenObs_y, chosenObs_x, plot = FALSE, na.action = na.pass) #calculate CCF for chosen pairing
 
-        instanceOfCCF <- stats::ccf(chosenObs_y, chosenObs_x, plot = FALSE, na.action = na.pass) #calculate CCF for chosen pairing
+         anCCF_ACF <- instanceOfCCF$acf #current CCF_correlation values
+         anCCF_LAG <- instanceOfCCF$lag #current CCF set of lags
+         an_CCF_ObjectID <- rep(.key_num, length(instanceOfCCF$lag)) # Object ID for current CCF
+         an_CCF_Feature <-  rep(paste(pair$y,"\n","versus","\n",pair$x, sep=" "), length(instanceOfCCF$lag)) # Feature name for current CCF
+         #going for the separator
 
-        anCCF_ACF <- instanceOfCCF$acf #current CCF_correlation values
-        anCCF_LAG <- instanceOfCCF$lag #current CCF set of lags
-        an_CCF_ObjectID <- rep(.key_num, length(instanceOfCCF$lag)) # Object ID for current CCF
-        an_CCF_Feature <-  rep(paste(pair$y,"versus",pair$x, sep="_"), length(instanceOfCCF$lag)) # Feature name for current CCF
-        instanceOfCCF_Object_output <- list(theCCF = anCCF_ACF ,
-                                            theLAG = anCCF_LAG,
-                                            lts_uniqueID_colname = an_CCF_ObjectID, #this creates literal names
-                                            theFeature = an_CCF_Feature) # Bind these together as a "row" of a dataframe
+         instanceOfCCF_Object_output <- list(theCCF = anCCF_ACF ,
+                                             theLAG = anCCF_LAG,
+                                             lts_uniqueID_colname = an_CCF_ObjectID, #this creates literal names
+                                             theFeature = as.factor(an_CCF_Feature)) # Bind these together as a "row" of a dataframe
+         #hotfix1 moved the update list step outside of the loop, so paired comparison sets don't overwrite each other #KEY INDEX IS 1:4, not long enough
 
-        lts_ccf_list[[keyIndex]] <- instanceOfCCF_Object_output # add current output to main dataframe
-        names(lts_ccf_list)[keyIndex] <- key_name
+         lts_ccf_list[[element]] <- instanceOfCCF_Object_output # add current output to main dataframe
+         names(lts_ccf_list)[element] <- key_name
 
-        print(paste("Finished adding...",key_name, sep = "...")) #print stage of loop
-      }
-    }
-    return(lts_ccf_list)
-  }
+         print(paste("Finished adding...",key_name, paste(.pairedComparisons[[pairIndex]], sep = "..."))) #print stage of loop
+         element <- element+1
 
 
-# lts_ccf_list_out <- lts_wide_ts_to_ccf()
+       }
+
+
+
+
+       # print(paste("element is", element))
+     }
+
+
+
+
+     # }
+     return(lts_ccf_list)
+   }
 
 
 
@@ -186,10 +215,6 @@ lts_ccf_df <- function(.lts_ccflist = lts_ccf_list_out, .lts_variables = NULL){
 
   return(lts_dfccf)
 }
-# lts_dfccf <- lts_ccf_df()
-
-
-
 
 
 lts_metaData_ccf_join <- function(.lts_dfccf = lts_dfccf, .lts_variables = NULL){
@@ -220,10 +245,16 @@ lts_metaData_ccf_join <- function(.lts_dfccf = lts_dfccf, .lts_variables = NULL)
 
 
 
-
-lts_clusterCCFs <- function(.lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy,
+lts_clusterCCFs <-function(
+  .lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy,
   .lts_variables = NULL,
   .chosenLAGforClustering = modeMaxCorrLAG){
+
+
+
+  if(.lts_variables$lts_plot_measured_variables == TRUE){ #include "theFeature" in lts_compare_by, for plotting
+    .lts_variables$lts_compare_by <- c(.lts_variables$lts_compare_by, "theFeature")
+  } ##Added this to have compare by "theFeature", hotfix
 
 
 
@@ -234,16 +265,16 @@ lts_clusterCCFs <- function(.lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
 
   # .lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
   # .lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
-   # .lts_variables = lts_variables$lts_compare_by
+  # .lts_variables = lts_variables$lts_compare_by
 
-   .lts_compare_by <- .lts_variables$lts_compare_by
+  .lts_compare_by <- .lts_variables$lts_compare_by
 
 
   #groups by categorical variaables and LAGs and gets mean correlation for each lag
   meanCorrPerLag <- .lts_ccfWithMetaData %>%
     dplyr::group_by(!!rlang::sym(.lts_compare_by[[1]]),
                     !!rlang::sym(.lts_compare_by[[2]]),
-                      theLAG) %>% #group by vector of cluster groups
+                    theLAG) %>% #group by vector of cluster groups
     dplyr::summarise(meanCorrPerLag = mean(theCCF, na.rm = TRUE)) #summarise the mean at lag 0
 
   join_ccflist_wMetaD <- dplyr::left_join(
@@ -320,7 +351,7 @@ lts_clusterCCFs <- function(.lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
   rownames(mCCF_chosenLAG) <-  m_wide_join_ccflist_wMetaD[[1]] # add rownames to matrix (#lts_cluster_feature2)
 
   #cluster matrix
-  lts_hclustColumn_order_feature1 <- hclust(dist(t(mCCF_chosenLAG)))$order # get column order from clustered matrix and set this as a variable
+  lts_hclustColumn_order_feature1 <- hclust(dist(t(mCCF_chosenLAG)))$order # get column order from clustered matrix and set this as a variable #BROKEN HERE
   lts_hclustColumn_LABELS_feature1 <-hclust(dist(t(mCCF_chosenLAG)))$labels
   lts_hclustRow_order_feature2 <- hclust(dist(mCCF_chosenLAG))$order # get row order from clustered matrix and set this as a  variable
   lts_hclustColumn_LABELS_feature2 <-hclust(dist(mCCF_chosenLAG))$labels
@@ -372,14 +403,13 @@ lts_clusterCCFs <- function(.lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
 
   return(lts_clusterOutput)
 }
-# lts_clusterOutput <- lts_clusterCCFs()
 
 
 
-
-lts_leadLagCorr_diffs <- function(
+lts_leadLagCorr_diffs <- lts_leadLagCorr_diffs <- function(
   .lts_clusterOutput = lts_clusterOutput,
-  .lts_variables = NULL){
+  .lts_variables = NULL)
+{
 
 
 
@@ -387,6 +417,15 @@ lts_leadLagCorr_diffs <- function(
     # print(paste("not_assigned:",lts_defaultVariables))
     .lts_variables <- lts_defaultVariables
   }
+
+
+
+  if(.lts_variables$lts_plot_measured_variables == TRUE){ #include "theFeature" in lts_compare_by, for plotting
+    #make new column for compare by
+    .lts_variables$lts_compare_by <- c(.lts_variables$lts_compare_by, "lts_theFeature") #new compare by variable
+    .lts_clusterOutput$lts_clustered_ccflist$lts_theFeature <- .lts_clusterOutput$lts_clustered_ccflist$theFeature
+  } ##Added this to have compare by "theFeature", hotfix
+
 
   # #
   # .lts_clusterCCFs = lts_clusterOutput
@@ -512,9 +551,3 @@ lts_leadLagCorr_diffs <- function(
 
   return(lts_box)
 }
-
-# lts_clusterOutput_LAGranges <<- leadLagCorr_diffs()
-
-
-
-
