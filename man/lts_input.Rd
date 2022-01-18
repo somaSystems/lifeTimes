@@ -8,6 +8,7 @@ lts_input(
   .tsData = NULL,
   .time = c("dayOfseason"),
   .compare_categorical = c("season", "catchmentRegion"),
+  .plot_measured_variables = FALSE,
   .pairedComparisons = list(pair_1 = list(x = "rainfall_cm", y = "flow_m3s")),
   .uniqueID_colname = "key_num",
   .metaData = NULL
@@ -19,6 +20,8 @@ lts_input(
 \item{.time}{name of the "time" variable}
 
 \item{.compare_categorical}{names of categorical or explanatory variables to compare CCFs by. In future releases of this function, if there is only one explanatory variable, it will be possible to include a key of set of ".pairedComparisons".}
+
+\item{.plot_measured_variables}{logical parameter, set to TRUE if using one categorical variables and want different CCFs plotted against a single categorical variable.}
 
 \item{.pairedComparisons}{a single pair or list of pairs, of names of variables to generate cross correlations for.}
 
