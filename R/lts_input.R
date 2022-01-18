@@ -31,7 +31,7 @@ lts_input <-  function(.tsData = NULL,
 
   .tsData <- as.data.frame(.tsData) ### could remove this?
 
-  .tsData[,.tsData$lts_compare_by ] <- lapply(   .tsData[,.tsData$lts_compare_by ] , as.factor) #make compare_by variables, as factors
+  .tsData[.compare_categorical ] <- lapply(   .tsData[.compare_categorical ] , as.factor) #make compare_by variables, as factors
 
   # if(is.null(.tsData)){.tsData <- load(file = "data/catchmentsAndRivers.rda")}
 

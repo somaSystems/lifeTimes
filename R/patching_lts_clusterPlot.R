@@ -119,7 +119,7 @@ lts_clusterPlot <- function(
 
   #fix for features
   ##NB: if conditional works, can just make it always the case that facetsRequired, and category names and contents are taken from the CCFcalcs list
-  if(.lts_variables$lts_plot_measured_variables == TRUE){ #include "theFeature" in lts_compare_by, for plotting
+  if(.lts_output$lts_variables$lts_plot_measured_variables == TRUE){ #include "theFeature" in lts_compare_by, for plotting
     facetsRequired <-
       length(levels(.lts_output$lts_CCFcalcs[,.lts_output$lts_variables$lts_compare_by[[1]]]))*
       length(levels(.lts_output$lts_CCFcalcs[,.lts_output$lts_variables$lts_compare_by[[2]]])) #could not get levels() and length() to work here so have used nrow() and unique())
