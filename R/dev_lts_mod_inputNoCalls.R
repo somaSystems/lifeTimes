@@ -1,4 +1,4 @@
-#' lts_input
+#' dev_lts_inputNoCalls
 #' @import magrittr
 #' @importFrom magrittr "%>%"
 #' @importFrom magrittr %>%
@@ -10,15 +10,9 @@
 #' @param .metaData name of columns with metaData
 #'
 #' @return a list that includes time series data, and strings from user input that map variables in the time series data to input in lifeTimes functions. Eg. which column of dataframe is the unit of "time", which is the categorical variables, and which are the variables to compare when generating CCFs.
-#' @export
-#'
-#' @examples lts_input()
-#'
-# examples lts_wide_ts_to_ccf(lts_cast_ts <- lts_tsToWide(),lts_variables <- lts_defineVars())
 #'
 
-
-lts_input <- function(.tsData = NULL,
+dev_lts_inputNoCalls <- function(.tsData = NULL,
                            .time = c("dayOfseason"),
                            .compare_categorical = c("season","catchmentRegion"), #Categorical variables
                            .pairedComparisons = list(
@@ -40,17 +34,12 @@ lts_input <- function(.tsData = NULL,
 
 
   lts_variables$lts_data[,lts_variables$lts_compare_by ] <- lapply(   lts_variables$lts_data[,lts_variables$lts_compare_by ] , factor) #make compare_by variables, as factors
-
-  lts_inputVars <-lts_variables
-
-  lts_tsToWide(lts_inputVars) %>%
-    lts_wide_ts_to_ccf(.lts_variables = lts_inputVars) %>%
-    lts_ccf_df(.lts_variables = lts_inputVars) %>%
-    lts_metaData_ccf_join(.lts_variables = lts_inputVars) %>%
-    lts_clusterCCFs(.lts_variables = lts_inputVars) %>%
-    lts_leadLagCorr_diffs(.lts_variables = lts_inputVars) -> lts_Output
-
-  return(lts_Output)
-
+  dev_lts_inputVars  <<- lts_variables
+return(dev_lts_inputVars)
 }
+
+
+
+  # return(dev_lts_Output)
+
 

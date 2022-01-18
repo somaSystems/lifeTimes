@@ -2,14 +2,13 @@
 #'
 #'@importFrom ComplexHeatmap Heatmap
 #'@importFrom circlize colorRamp2
-#'@importFrom dplyr ungroup
+#'@importFrom dplyr ungroup %>%
 #'@importFrom magrittr %>%
 #'@import magrittr
-#'@param .lts_clusterOutput_LAGranges output from
-#'lifeTimesChain()
 #'@param .removeInstanceOfCategoricalByName name a feature that should be removed from
 #'clustering (eg. because of perfect correlation, high noise, or artefact)
-#'@param .lts_variables user mapping of variables to function
+#'@param .lts_output results of lts_input() function, includes
+#'cross correlation calculations and user input variables
 #'@param .categoryToRemoveInstanceFrom factor type, to remove factor level from
 #'
 #'@export
@@ -25,17 +24,22 @@
 # join_medianDiff_meanLagRange_outputCCFdata_withMetaData
 
 
-lts_leadLagClusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges,
-                               .lts_variables = NULL,
-                               .removeInstanceOfCategoricalByName = NULL,
-                               .categoryToRemoveInstanceFrom = NULL){
+lts_leadLagClusterPlot <- function(.lts_output = NULL,
+                                   .removeInstanceOfCategoricalByName = NULL,
+                                   .categoryToRemoveInstanceFrom = NULL){
 
-
-  if(is.null(.lts_variables)){
-    # print(paste("not_assigned:",lts_defaultVariables))
-    .lts_variables <- lts_defaultVariables
-    # print(paste("assigned:",.lts_variables))
+  if(is.null(.lts_output)){
+    return(print("please enter some lifeTimes output"))
+    # .lts_variables <- lts_defaultVariables
+    # .lts_clusterOutput_LAGranges <- lts_OUT_lts_clusterOutput_LAGranges
   }
+  subset_sum_join_outputCCFdata <-  .lts_output$lts_CCFcalcs
+
+
+#
+#   .lts_variables = .lts_output$lts_variables
+#   .lts_clusterOutput_LAGranges = .lts_output$lts_CCFcalcs
+
 
   #
   #
@@ -50,7 +54,7 @@ lts_leadLagClusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOut
   # .removeInstanceOfCategoricalByName = NULL
   # .categoryToRemoveInstanceFrom = NULL #eg. from .lts_variables$compare_by
 
-  lts_final_clusters <-.lts_clusterOutput_LAGranges$medDiff_meanLag_lts_clusterCCFs #shorten list path to data
+  lts_final_clusters <-.lts_output$lts_CCFcalcs #shorten list path to data
 
   sub_lts_final_clusters <- lts_final_clusters[lts_final_clusters$lagRange != "zeroLAG",] #subset to remove zero lag rows
 
@@ -73,7 +77,7 @@ lts_leadLagClusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOut
       dplyr::filter(is.na(medianPrePostPerTF)) # NB: could remove this step
 
     if(nrow(toRemove)>0){
-      print(paste("There are...",nrow(toRemove),"observations with NA. Removing...",toRemove$key_num))
+      print(paste("There are...",nrow(toRemove),"observations with NA. Removing...",toRemove$lts_uniqueID_colname)) #hotfix here to make uniqueID_colname instead of "key_num"
     }
 
     rmna_subset_meanLagRange_join_outputCCFdata <-  sub_lts_final_clusters %>%
@@ -86,7 +90,7 @@ lts_leadLagClusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOut
 
     filt_rmna_subset_meanLagRange_join_outputCCFdata<- rmna_subset_meanLagRange_join_outputCCFdata %>%
       dplyr::ungroup()%>%
-      dplyr::select(.lts_variables$lts_compare_by,medianPrePostPerTF)
+      dplyr::select(.lts_output$lts_variables$lts_compare_by,medianPrePostPerTF)
 
     unq_filt_rmna_subset_meanLagRange_join_outputCCFdata <- unique(filt_rmna_subset_meanLagRange_join_outputCCFdata) #filtering before make matrix
     # filteredForM_diffIn_Pre_vs_Postcorrelation
@@ -95,7 +99,7 @@ lts_leadLagClusterPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOut
 
     wide_unq_filt_rmna_subset_meanLagRange_join_outputCCFdata <- tidyr::pivot_wider(
       unq_filt_rmna_subset_meanLagRange_join_outputCCFdata,
-      names_from = .lts_variables$lts_compare_by[1],
+      names_from = .lts_output$lts_variables$lts_compare_by[1],
       values_from = medianPrePostPerTF)
     mw_prePost <- as.matrix(wide_unq_filt_rmna_subset_meanLagRange_join_outputCCFdata[-1])
     rownames(mw_prePost) <- wide_unq_filt_rmna_subset_meanLagRange_join_outputCCFdata[[1]]

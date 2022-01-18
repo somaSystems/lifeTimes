@@ -12,16 +12,21 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 ## Conventions in lifeTimes code
 
 There are some loose conventions I am trying to use to help organise the
-code and make it easier to understand and debug.
+code and make it easier to understand and debug.  
 
-Functions and objects created by lifeTimes are (mostly) prefixed by
-“lts\_” to distinguish them from objects created by R or other
-packages. Function arguments and variables in functions created by
-lifeTimes, are prefixed by “.” in the function arguments definition, and
-throughout the body of the function. The idea is that the “.” prefix
-helps distinguish “algebraic variables” from “concrete”“objects in the
-body of the function. Examples are”.lts\_variables“. The”." has not
-special meaning it is an arbitrary symbol.
+<p>
+
+1.  `lts_` prefix. Functions and objects created by lifeTimes are
+    (mostly) prefixed by “lts\_” to distinguish them from objects
+    created by R or other packages.  
+    <p>
+2.  `.` prefix for function arguments and variables. This is intended to
+    distinguish “algebraic variables” from “concrete” objects in the
+    body of the function. Examples are “.lts\_variables”. The “.” has
+    not special meaning it is an arbitrary symbol.  
+    <p>
+3.  `dev_` prefix for internal functions that have been modified to help
+    with development and testing.
 
 ## User exposed functions
 
@@ -66,14 +71,14 @@ lts_input(.tsData = catchmentsAndRivers,
 <p>
 
 There are three functions that plot the results of `lts_inputs()`.These
-areguments take the data returned by `lts_input()`, as an argument. The
+arguments take the data returned by `lts_input()`, as an argument. The
 functions
 are:
 
 ``` r
 lts_clusterPlot()  # plots CCFs clustered by magnitude of correlation at the most correlated lag across the dataset
 
-lts_leadLagClusterPlot()  # clusters and plots assymetry in CCFs at negative and positive lags
+lts_leadLagClusterPlot()  # clusters and plots asymmetry in CCFs at negative and positive lags
 
 lts_couplingPlot()  # combines strength of correlation and asymmetry in correlation into a single plot
 ```
@@ -137,7 +142,7 @@ lts_OUT_ccfWithMetaData_compareBy <- lifeTimes:::lts_metaData_ccf_join(lts_OUT_d
 
 lts_OUT_clusterOutput <- lifeTimes:::lts_clusterCCFs(lts_OUT_ccfWithMetaData_compareBy, .lts_variables = lts_inputVars) # ...as above
 
-lts_OUT_lts_clusterOutput_LAGranges <- lifeTimes:::leadLagCorr_diffs(lts_OUT_clusterOutput, .lts_variables = lts_inputVars) #this is equivalent to the final output of lts_inputs(), the main user input function 
+lts_OUT_lts_clusterOutput_LAGranges <- lifeTimes:::lts_leadLagCorr_diffs(lts_OUT_clusterOutput, .lts_variables = lts_inputVars) #this is equivalent to the final output of lts_inputs(), the main user input function 
 ```
 
 ## Refactored code as of Jan 2022
