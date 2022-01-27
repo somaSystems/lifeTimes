@@ -21,55 +21,16 @@ lts_clusterPlot <- function(
   .lts_output = NULL, plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines"))
 {
 
-
-  #
-  # (.lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges,
-  #  .lts_variables = NULL,
-  #  plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines"))
-
-  # if(is.null(.lts_clusterOutput_LAGranges)){.lts_clusterOutput_LAGranges <- lts_clusterOutput_LAGranges.rda", package = "lifeTimes")) #use this until internal data works
   if(is.null(.lts_output)){
     .lts_variables <- lts_defaultVariables
     .lts_clusterOutput_LAGranges <- lts_OUT_lts_clusterOutput_LAGranges
   }
   subset_sum_join_outputCCFdata <-  .lts_output$lts_CCFcalcs
 
-
-  #
-  # if(is.null(.lts_variables)){
-  #   # print(paste("not_assigned:",lts_defaultVariables))
-  #   .lts_variables <- lts_defaultVariables
-  #   # print(paste("assigned:",.lts_variables))
-  # }
-
-  #   # lts_clusterOutput_LAGranges
-  # if(missing(.lts_clusterOutput_LAGranges)){
-  #   .lts_clusterOutput_LAGranges <- lts_OUT_lts_clusterOutput_LAGranges.rda
-  # }
-
-  # if(missing(.lts_variables)){
-  # }
-
-
-
-
   plotType <- match.arg(plotType)
   ensym_plotType <- rlang::sym(plotType)
 
-  # .lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges
-  # .lts_variables = lts_variables
-  # lts_clusterOutput_LAGranges
-  # .lts_clusterOutput_LAGranges$medDiff_meanLag_lts_clusterCCFs
-
-
-  #create dendrogram for clustering of categorical variable 1
-
-  # lts_dendrogram <- function(.lts_clusterOutput = lts_clusterOutput){
-
   treatmentDendrogram <- as.dendrogram(hclust(dist(t(.lts_output$lts_rawCCFout$lts_mCCF_chosenLAG)))) #make dendrogram
-  # plot(treatmentDendrogram)
-  # str(treatmentDendrogram)
-  # plot(treatmentDendrogram)
   draw_treatmentDendrogram <- ggdendro::ggdendrogram(treatmentDendrogram)
   draw_treatmentDendrogram
   dend_data <- ggdendro::dendro_data(treatmentDendrogram)
@@ -79,12 +40,6 @@ lts_clusterPlot <- function(
   segment_data <- with(
     ggdendro::segment(dend_data),
     data.frame(x = y, y = x, xend = yend, yend = xend))
-
-
-
-  # ggdendro::UseMethod
-  # ggdendro::dendro_data
-
 
   # Use the dendrogram label data to position the gene labels
   treat_pos_table <- with(
@@ -104,19 +59,9 @@ lts_clusterPlot <- function(
     ggplot2::theme_bw() +
     ggplot2::theme(panel.grid.minor = ggplot2::element_blank())
 
-  # subset_sum_join_outputCCFdata$te
-
-
-  subset_sum_join_outputCCFdata
-  # annotate individual facets
-  # https://r-graphics.org/recipe-annotate-facet
-
-
-
 
   #make dataframe for annotation rectangles in each facet
   #needs a row for each facet, or each combination of factor 1 and factor 2)
-
   #fix for features
   ##NB: if conditional works, can just make it always the case that facetsRequired, and category names and contents are taken from the CCFcalcs list
   if(.lts_output$lts_variables$lts_plot_measured_variables == TRUE){ #include "theFeature" in lts_compare_by, for plotting
@@ -128,26 +73,20 @@ lts_clusterPlot <- function(
     category1_contents <- unique(.lts_output$lts_CCFcalcs[,.lts_output$lts_variables$lts_compare_by[[1]]])
     category1_levels <- levels(.lts_output$lts_CCFcalcs[,category1_name])
 
-
     category2_name <- .lts_output$lts_variables$lts_compare_by[[2]]
     category2_contents <- unique(.lts_output$lts_CCFcalcs[,.lts_output$lts_variables$lts_compare_by[[2]]])
     category2_levels <- levels(.lts_output$lts_CCFcalcs[,category2_name])
 
-
-
-  }else ##Added this to
+  }else ##Added this too
 
   {
-
     facetsRequired <-
       length(levels(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[1]]]))*
-      length(levels(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[2]]])) #could not get levels() and length() to work here so have used nrow() and unique())
-
+      length(levels(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[2]]]))
 
     category1_name <- .lts_output$lts_variables$lts_compare_by[[1]]
     category1_contents <- unique(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[1]]])
     category1_levels <- levels(.lts_output$lts_CCFcalcs[,category1_name])
-
 
     category2_name <- .lts_output$lts_variables$lts_compare_by[[2]]
     category2_contents <- unique(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[2]]])
@@ -176,25 +115,13 @@ lts_clusterPlot <- function(
   names(heatmapAnno)[names(heatmapAnno) == 'df_category1_name'] <-category1_name
   names(heatmapAnno)[names(heatmapAnno) == 'df_category2_name'] <-category2_name
 
-  heatmapAnno
-
-  rectValues <- dplyr::left_join(heatmapAnno,
+  rectValues <- dplyr::left_join(heatmapAnno,  #join unique react values to column names
                                  .lts_output$lts_CCFcalcs[c("meanCorrAtModeMaxLAG", category1_name, category2_name)],
                                  by = c(category1_name, category2_name))
   unq_rectValues <- unique(rectValues)
-  #join unique react values to column names
 
   lts_heatmapAnno <- dplyr::left_join(heatmapAnno, unq_rectValues[c("meanCorrAtModeMaxLAG", category1_name, category2_name)], by = c(category1_name, category2_name))
   lts_heatmapAnno
-
-
-
-  # str(lts_heatmapAnno)
-
-  unique(rectValues)
-
-
-  # lts_variables$lts_compare_by[1] = rep(length(levels(lts_variables$lts_data[lts_variables$lts_compare_by[1]]*levels(lts_variables$lts_data[lts_variables$lts_compare_by[2]]))))
 
 
   lts_heatmapAnno$xmin <- as.numeric(lts_heatmapAnno$xmin)
