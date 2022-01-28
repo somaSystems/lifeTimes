@@ -5,86 +5,20 @@
 #' @param .lts_variables user description of variables taken from "lts_input()", otherwise taken from built in default set of variables.
 #' @return a list that includes time series data, and strings from user input that map variables in the time series data to input in lifeTimes functions. Eg. which column of dataframe is the unit of "time", which is the categorical variables, and which are the variables to compare when generating CCFs.
 #'
-#'
-#'
-# examples lts_wide_ts_to_ccf(lts_cast_ts <- lts_tsToWide(),lts_variables <- lts_defineVars())
-#'
-
-# #
-# lts_defineVars <- function(.tsData = NULL,
-#                            .time = c("dayOfseason"),
-#                            .compare_categorical = c("season","catchmentRegion"), #Categorical variables
-#                            .pairedComparisons = list(
-#                              pair_1 =list(x = "rainfall_cm", y = "flow_m3s")), #pairedVarCCF
-#                            .uniqueID_colname = "key_num",
-#                            .metaData = NULL){
-#
-#   # if(is.null(.tsData)){.tsData <- load(file = "data/catchmentsAndRivers.rda")}
-#   if(is.null(.tsData)){.tsData <- read.csv(system.file("extdata","key_tidy_candr.csv",package = "lifeTimes", mustWork = TRUE)) #use this until internal data works
-#   }
-#
-#
-#   # .tsData = catchmentsAndRivers
-#   # .time = c("dayOfseason")
-#   # .compare_categorical = c("season","catchmentRegion") #Categorical variables
-#   # .pairedComparisons = list(
-#   #   pair_1 =list(x = "rainfall_cm", y = "flow_m3s")) #pairedVarCCF
-#   # .uniqueID_colname = "key_num"
-#   # .metaData = NULL
-#
-#   lts_variables <- list(lts_data = .tsData, #create list of variables
-#                         lts_time = .time,
-#                         lts_compare_by = .compare_categorical,
-#                         lts_pariedComparisons = .pairedComparisons,
-#                         lts_uniqueID_colname = .uniqueID_colname,
-#                         lts_metaData = .metaData)
-#
-#
-#   lts_variables$lts_data[,lts_variables$lts_compare_by ] <- lapply(   lts_variables$lts_data[,lts_variables$lts_compare_by ] , factor) #make compare_by variables, as factors
-#
-#
-#
-#   return(lts_variables)
-# }
-# lts_variables <-lts_defineVars()
-#
-#
-#
-
-#multicomp notes:
-##in a multicomp
-#some information about the paired comparisons needs to come through
-
 
 lts_tsToWide <- function(.lts_variables = NULL) {
 
-  # if(is.null(.tsData)){.tsData <- load(file = "data/catchmentsAndRivers.rda")}
-
   if(is.null(.lts_variables)){
-    # print(paste("not_assigned:",lts_defaultVariables))
      .lts_variables <- lts_defaultVariables
-     # print(paste("assigned:",.lts_variables))
      }
-  # read.csv(system.file("extdata","key_tidy_candr.csv",package = "lifeTimes", mustWork = TRUE)) #use this until internal data works
 
   variablesToCompare <- unlist(.lts_variables$lts_pariedComparisons, use.names = FALSE)
 
-
-
-  #tidyData_melt (melt compareVariables)
   melt_ts <- .lts_variables$lts_data %>% tidyr::pivot_longer(
     cols = variablesToCompare,
     names_to = "melted_var",
     values_to ="melted_measures"
   )
-  # head(melt_ts)
-
-  # nested_cast_ts <- melt_ts %>% tidyr::pivot_wider(
-  #   id_cols = .lts_variables$lts_uniqueID_colname, #user input, analagous to cell ID, each thing is a unique time series measure
-  #   names_from = melted_var,
-  #   values_from = melted_measures
-  # ) # this gives a dataframe with nested lists of time series
-  # nested_cast_ts
 
   #This is already the final set of comparisons to make ()
   #cast using feature and observational unit (this includes)
@@ -102,35 +36,27 @@ lts_tsToWide <- function(.lts_variables = NULL) {
   return(lts_cast_ts)
   }
 
-# lts_cast_ts <- lts_tsToWide()
-
 
 lts_wide_ts_to_ccf <- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = NULL) {
 
      #make default data if needed
      if(is.null(.lts_variables)){
-       # print(paste("not_assigned:",lts_defaultVariables))
        .lts_variables <- lts_defaultVariables
      }
 
      Lts_CCFunqVars <- as.data.frame(c(.lts_variables$lts_data[,c( .lts_variables$lts_uniqueID_colname, .lts_variables$lts_compare_by)]))
      Lts_CCFunqVars[.lts_variables$lts_compare_by] <- lapply(Lts_CCFunqVars[.lts_variables$lts_compare_by],  as.character) #select column "containers", not just contents, so no ","
-     Lts_CCFunqVars$unqCCFtsLabel <- apply(Lts_CCFunqVars, 1, function(x) paste(x, collapse="_")) ###unsure if this should be "_" #looks like this is just for PRINTING
+     Lts_CCFunqVars$unqCCFtsLabel <- apply(Lts_CCFunqVars, 1, function(x) paste(x, collapse="_")) ###this is just for PRINTING
 
-     .key_unqIDcombo <- unique(Lts_CCFunqVars[c("unqCCFtsLabel",.lts_variables$lts_uniqueID_colname)]) #hotfix no.1 to make unique col name a variable
+     .key_unqIDcombo <- unique(Lts_CCFunqVars[c("unqCCFtsLabel",.lts_variables$lts_uniqueID_colname)]) #make unique col name a variable
      .unqNameKey <- .key_unqIDcombo$unqCCFtsLabel
      .unqNumKey <-  .key_unqIDcombo[,.lts_variables$lts_uniqueID_colname]
      # } #hotfix no. 2, make this dynanimc, make sure to select contents (",")
 
      .pairedComparisons =   .lts_variables$lts_pariedComparisons
 
-     #TODO fix this to make it dynamic
-     lts_ccf_list <- vector("list", ncol(.lts_cast_ts[-1])/2)  # 1. output
-     # for (element in seq_along(lts_ccf_list)){ # iterate for the number of elements in the list
-     #             print(element)
-     # for (element in seq_along(lts_ccf_list)){ # iterate for the number of elements in the list
-     #             print(element)
-     #
+     lts_ccf_list <- vector("list", ncol(.lts_cast_ts[-1])/2)  # 1. loop  output
+
      element <- 1
      for(keyIndex in seq_along(.unqNumKey)){
 
@@ -177,16 +103,7 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = 
 
        }
 
-
-
-
-       # print(paste("element is", element))
      }
-
-
-
-
-     # }
      return(lts_ccf_list)
    }
 
@@ -198,9 +115,6 @@ lts_ccf_df <- function(.lts_ccflist = lts_ccf_list_out, .lts_variables = NULL){
     # print(paste("not_assigned:",lts_defaultVariables))
     .lts_variables <- lts_defaultVariables
   }
-
-  # if(missing(.lts_ccflist)){lts_ccflist <- lts_wide_ts_to_ccf((lts_cast_ts <- (lts_tsToWide())),(lts_variables <- lts_defineVars()) )}
-
 
   lts_protodf_list <- list(length(.lts_ccflist)) #define list
 
@@ -221,12 +135,8 @@ lts_metaData_ccf_join <- function(.lts_dfccf = lts_dfccf, .lts_variables = NULL)
 
 
   if(is.null(.lts_variables)){
-    # print(paste("not_assigned:",lts_defaultVariables))
     .lts_variables <- lts_defaultVariables
   }
-
-  # .lts_dfccf = lts_dfccf
-  # .lts_variables = lts_variables
 
   unq_compareBy <- unique(.lts_variables$lts_data[, c(.lts_variables$lts_compare_by, .lts_variables$lts_uniqueID_colname)]) #categorical variables
 
@@ -241,7 +151,6 @@ lts_metaData_ccf_join <- function(.lts_dfccf = lts_dfccf, .lts_variables = NULL)
 
   return(lts_ccfWithMetaData_compareBy)
 }
-# lts_ccfWithMetaData_compareBy <- lts_metaData_ccf_join()
 
 
 
@@ -254,18 +163,13 @@ lts_clusterCCFs <-function(
 
   if(.lts_variables$lts_plot_measured_variables == TRUE){ #include "theFeature" in lts_compare_by, for plotting
     .lts_variables$lts_compare_by <- c(.lts_variables$lts_compare_by, "theFeature")
-  } ##Added this to have compare by "theFeature", hotfix
+  } #Added this to have compare by "theFeature",
 
 
 
   if(is.null(.lts_variables)){
-    # print(paste("not_assigned:",lts_defaultVariables))
     .lts_variables <- lts_defaultVariables
   }
-
-  # .lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
-  # .lts_ccfWithMetaData = lts_ccfWithMetaData_compareBy
-  # .lts_variables = lts_variables$lts_compare_by
 
   .lts_compare_by <- .lts_variables$lts_compare_by
 
@@ -312,10 +216,7 @@ lts_clusterCCFs <-function(
     Mode()
 
 
-  #### construction zone
-
-
-  df_meanCorrAtModeMaxLAG <- join_ccflist_wMetaD %>%
+  df_meanCorrAtModeMaxLAG <- join_ccflist_wMetaD %>%  #calculate mean Corr at Lag with mode max correlation
     dplyr::filter(theLAG == modeMaxCorrLAG) %>%
     dplyr::group_by(dplyr::across(.lts_variables$lts_compare_by)) %>% #group by vector of cluster groups
     dplyr::summarise(meanCorrAtModeMaxLAG = mean(theCCF, na.rm = TRUE)) #summarise the mean at lag 0
@@ -327,15 +228,6 @@ lts_clusterCCFs <-function(
   )
 
 
-  ##end construction
-
-  #calculate mean Corr at Lag with mode max correlation
-
-  str(.lts_variables$lts_compare_by)
-  str(join_ccflist_wMetaD_mode$meanCorrPerLag)
-
-
-  str(join_ccflist_wMetaD_mode)
   #create matrix of values using compare_by and chosen lag
   #This step reduces everything to one lag value, which will allow for clustering
   m_wide_join_ccflist_wMetaD <- join_ccflist_wMetaD_mode %>% #make wider, put treatment as colnames, put values as lag0
@@ -359,7 +251,6 @@ lts_clusterCCFs <-function(
   mCCF_chosenLAG[lts_hclustRow_order_feature2, lts_hclustColumn_order_feature1] #display matrix organised by rows and columns
 
   # get list of rows with names for ordering (order the factor this way)
-  # column_feature1 <- levels(lts_variables$lts_data[,.lts_variables$lts_compare_by[1]]) # make the features a variable called feature order, in the same order as for the matrix
   #original column ordering from matrix
   column_feature1 <- lts_hclustColumn_LABELS_feature1
   column_feature1
@@ -412,13 +303,9 @@ lts_leadLagCorr_diffs <- lts_leadLagCorr_diffs <- function(
 {
 
 
-
   if(is.null(.lts_variables)){
-    # print(paste("not_assigned:",lts_defaultVariables))
     .lts_variables <- lts_defaultVariables
   }
-
-
 
   if(.lts_variables$lts_plot_measured_variables == TRUE){ #include "theFeature" in lts_compare_by, for plotting
     #make new column for compare by
@@ -426,24 +313,14 @@ lts_leadLagCorr_diffs <- lts_leadLagCorr_diffs <- function(
     .lts_clusterOutput$lts_clustered_ccflist$lts_theFeature <- .lts_clusterOutput$lts_clustered_ccflist$theFeature
   } ##Added this to have compare by "theFeature", hotfix
 
-
-  # #
-  # .lts_clusterCCFs = lts_clusterOutput
-  # .lts_variables = lts_variables
-  # .clusteredByChosenLAG <- .lts_clusterCCFs$lts_clustered_ccflist
-  # .lts_clusterCCFs
-
   .clusteredByChosenLAG <-  .lts_clusterOutput$lts_clustered_ccflist
 
   lts_categoricalVariables <- c(.lts_variables$lts_compare_by[[1]],.lts_variables$lts_compare_by[[2]])
 
-  # .lts_clusterCCFs
-  # leadLagCorr_diffs
-
   # function to calculate median difference (asymmetry) in the mean of lead and lagging time points for different variables
   #TODO, make summaries of pre and post lags medians, rather than means
 
-  #why is data being "arrnged" #NB thin I can delete this
+  #arrange data
   Arranged_lts_clusterCCFs <- .clusteredByChosenLAG %>% #arrange input dataframe
     dplyr::arrange(!!rlang::sym(.lts_variables$lts_uniqueID_colname), theFeature, #kmfix here
                    !!rlang::sym(lts_categoricalVariables[[1]]),
@@ -452,13 +329,11 @@ lts_leadLagCorr_diffs <- lts_leadLagCorr_diffs <- function(
     dplyr::group_by(!!rlang::sym(.lts_variables$lts_uniqueID_colname), theFeature, #kmfix here
                     !!rlang::sym(lts_categoricalVariables[[1]]),
                     !!rlang::sym(lts_categoricalVariables[[2]]))
-  # Arranged_lts_clusterCCFs
-
-  #create new variable of lag range,
 
   LAGmin <- min(Arranged_lts_clusterCCFs$theLAG) #define LAGmin
   LAGmax <- max(Arranged_lts_clusterCCFs$theLAG) #define LAGmax
 
+  #create new variable of lag range,
   Arranged_lts_clusterCCFs$lagRange <- # nested ifelse to set ranges of lags
     ifelse(Arranged_lts_clusterCCFs$theLAG >LAGmin & Arranged_lts_clusterCCFs$theLAG <0 , "negativeLAG",
            ifelse(Arranged_lts_clusterCCFs$theLAG >0 & Arranged_lts_clusterCCFs$theLAG <LAGmax, "positiveLAG","zeroLAG"))
@@ -482,11 +357,10 @@ lts_leadLagCorr_diffs <- lts_leadLagCorr_diffs <- function(
 
   #join mean CorrForLAGrange to Arranged_lts_clusterCCFs
   Arranged_lts_clusterCCFs <- dplyr::left_join(Arranged_lts_clusterCCFs,
-                                               meanLagRange_lts_clusterCCFs[c(varList, .lts_variables$lts_uniqueID_colname)], by = .lts_variables$lts_uniqueID_colname) #kmfix here twice
+                                               meanLagRange_lts_clusterCCFs[c(varList, .lts_variables$lts_uniqueID_colname)], by = .lts_variables$lts_uniqueID_colname)
 
   #make wider, taking names from lag range and values from mean lag
   #This gives a table of every, object (key_num), with average prior, post and zero lags calculated
-
   wider_meanLagRange_lts_clusterCCFs <- meanLagRange_lts_clusterCCFs %>%
     tidyr::pivot_wider(
       id_cols = c(!!rlang::sym(.lts_variables$lts_uniqueID_colname), theFeature, meanCorrforLAGrange,
@@ -519,7 +393,6 @@ lts_leadLagCorr_diffs <- lts_leadLagCorr_diffs <- function(
   dim(join_meanLagRange_Arranged_lts_clusterCCFs)
 
   # remove common names before joining
-
   summaryOfMedianDifferencePriorAndPost <- #get overall feature mean for clustering
     join_meanLagRange_Arranged_lts_clusterCCFs %>%
     dplyr::group_by(!!rlang::sym(lts_categoricalVariables[[1]]),
@@ -533,21 +406,12 @@ lts_leadLagCorr_diffs <- lts_leadLagCorr_diffs <- function(
                      by = c(lts_categoricalVariables[[1]],
                             lts_categoricalVariables[[2]]))
 
-
   medDiff_meanLag_lts_clusterCCFs <- as.data.frame(join_medianDiff_meanLagRange_Arranged_lts_clusterCCFs)
-
-
 
   #consider appending to input list and returning appended list
   lts_box <- c(list(lts_CCFcalcs = medDiff_meanLag_lts_clusterCCFs),
                list(lts_rawCCFout = .lts_clusterOutput),
                list(lts_variables = .lts_variables))
-
-
-
-
-  # lts_box <- list(lts_CCFcalcs= .lts_clusterOutput_withDiffs,
-  #                 lts_variables = .lts_variables)
 
   return(lts_box)
 }
