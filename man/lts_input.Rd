@@ -38,4 +38,5 @@ lts_input
 \examples{
 lts_input()
 
+
 }

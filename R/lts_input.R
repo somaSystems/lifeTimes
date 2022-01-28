@@ -15,6 +15,8 @@
 #'
 #' @examples lts_input()
 #'
+# examples lts_wide_ts_to_ccf(lts_cast_ts <- lts_tsToWide(),lts_variables <- lts_defineVars())
+#'
 
 lts_input <-  function(.tsData = NULL,
                        .time = c("dayOfseason"),
@@ -27,9 +29,14 @@ lts_input <-  function(.tsData = NULL,
 
   if(is.null(.tsData)){.tsData <- catchmentsAndRivers}
 
-  .tsData <- as.data.frame(.tsData) #could remove this?
+  .tsData <- as.data.frame(.tsData) ### could remove this?
 
   .tsData[.compare_categorical ] <- lapply(   .tsData[.compare_categorical ] , as.factor) #make compare_by variables, as factors
+
+  # if(is.null(.tsData)){.tsData <- load(file = "data/catchmentsAndRivers.rda")}
+
+
+  # if(is.null(.tsData)){.tsData <- catchmentsAndRivers}
 
   lts_variables <- list(lts_data = .tsData, #create list of variables
                         lts_time = .time,
@@ -51,3 +58,5 @@ lts_input <-  function(.tsData = NULL,
   return(lts_Output)
 
 }
+
+
