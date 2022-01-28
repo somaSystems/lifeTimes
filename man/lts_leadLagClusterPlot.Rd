@@ -20,6 +20,5 @@ clustering (eg. because of perfect correlation, high noise, or artefact)}
 \item{.categoryToRemoveInstanceFrom}{factor type, to remove factor level from}
 }
 \description{
-Function to cluster contitions (eg. treatments) and variables (eg. feature measurements) by difference
-in past vs future lags
+lts_leadLagClusterPlot
 }

@@ -10,11 +10,22 @@
 #'
 #' @export
 #'
-
+#'
+#'
+#'
 lts_couplingPlot <- function(.lts_output = NULL){
+
+# lts_couplingPlot <- function(.lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges, .lts_variables = NULL){
+# # .lts_variables = lts_variables
+# # .lts_clusterOutput_LAGranges = lts_clusterOutput_LAGranges
+
+
+  # .lts_output$lts_rawCCFout$modeMaxCorrLAG
 
   if(is.null(.lts_output)){
     return(print("please enter some lifeTimes output"))
+    # .lts_variables <- lts_defaultVariables
+    # .lts_clusterOutput_LAGranges <- lts_OUT_lts_clusterOutput_LAGranges
   }
 .lts_final_clusters <- .lts_output$lts_CCFcalcs
 
@@ -34,3 +45,11 @@ berryTwig <- ggplot(data = .lts_final_clusters[.lts_final_clusters$theLAG == 1,]
 
  return(berryTwig)
 }
+
+
+
+
+
+
+
+
