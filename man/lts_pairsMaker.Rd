@@ -3,7 +3,7 @@
 \name{lts_pairsMaker}
 \alias{lts_pairsMaker}
 \title{lts_pairs
-This function creates input to the ".lts_comparisons" argument of "lts_input". It takes a list of all the columns you are interested in and generates all possible non redundant, non self pairs.}
+This function takes a vector of column names as strings, and creates input to the ".lts_comparisons" argument of "lts_input". It takes a list of all the columns you are interested in and generates all possible non redundant, non self pairs.}
 \usage{
 lts_pairsMaker(cols = NULL)
 }
@@ -15,7 +15,7 @@ returns a list of elements, where each element is a list of variables that will 
 }
 \description{
 lts_pairs
-This function creates input to the ".lts_comparisons" argument of "lts_input". It takes a list of all the columns you are interested in and generates all possible non redundant, non self pairs.
+This function takes a vector of column names as strings, and creates input to the ".lts_comparisons" argument of "lts_input". It takes a list of all the columns you are interested in and generates all possible non redundant, non self pairs.
 }
 \examples{
  lts_pairsMaker(c("pigeon","ferret","crab"))
