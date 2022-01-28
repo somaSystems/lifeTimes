@@ -29,4 +29,3 @@ Suggests:
 VignetteBuilder: knitr
 Depends: 
     R (>= 2.10),
-    quantreg (== 5.86)
