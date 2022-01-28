@@ -17,7 +17,6 @@ Imports:
     ggplot2,
     ggpubr,
     grid,
-    gtools,
     magrittr,
     readr,
     rlang,
