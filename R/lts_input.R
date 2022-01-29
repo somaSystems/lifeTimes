@@ -21,7 +21,7 @@ lts_input <-  function(.tsData = NULL,
                        .compare_categorical = c("season","catchmentRegion"), #Categorical variables
                        .plot_measured_variables = FALSE,
                        .pairedComparisons = list(
-                         pair_1 =list(x = "rainfall_cm", y = "flow_m3s")), #pairedVarCCF
+                         pair_1 =list(x ="flow_m3s" , y ="rainfall_cm" )), #pairedVarCCF
                        .uniqueID_colname = "key_num",
                        .metaData = NULL) {
 
