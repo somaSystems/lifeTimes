@@ -55,7 +55,12 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = 
 
      .pairedComparisons =   .lts_variables$lts_pariedComparisons
 
-     lts_ccf_list <- vector("list", ncol(.lts_cast_ts[-1])/2)  # 1. loop  output
+     # lts_ccf_list <- vector("list", ncol(.lts_cast_ts[-1])/2)  # 1. loop  output
+     # lts_ccf_list <- vector("list", ncol(.lts_cast_ts[-1]))  # 1. new length for list creation, eg. 5 things to compare*250 cells gives 1250 columns, but each one --> gives 10 unique combination
+     # make empty list based on number of observations and number of paired comparisons
+     numberOfObjects <- length(.unqNumKey)
+     numberOfComparisons <- length(.pairedComparisons)
+     lts_ccf_list <- vector("list", numberOfObjects*numberOfComparisons) #number of observation * number of comparisons per cell
 
      element <- 1
      for(keyIndex in seq_along(.unqNumKey)){
@@ -70,22 +75,28 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = 
          innerElement <- element
          print(paste("the pairINDEX is:", pairIndex))
          pair <- .pairedComparisons[[pairIndex]]
-         print(paste("The pair is:", "y=", pair$y," ..x=", pair$x ))
+         # print(paste("The pair is:", "y=", pair$y," ..x=", pair$x ))
+         print(paste("The pair is:", "y=", pair[[1]]," ..x=", pair[[2]] ))
          print(paste("Started adding...", key_name, paste(.pairedComparisons[[pairIndex]], collapse ="_vs_"), sep = "...")) #print stage of loop
          #this looks up by cell number and comparison
          chosenObs_y <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
-                                       grepl(c(pair$y), names(.lts_cast_ts))]  # also gets column with pair y
-         print(paste("chosenObs_y:", .key_num, pair$y))
+                                       # grepl(c(pair$y), names(.lts_cast_ts))]  # also gets column with pair y
+                                       grepl(c(pair[[1]]), names(.lts_cast_ts))]  # also gets column with pair y
+         # print(paste("chosenObs_y:", .key_num, pair$y))
+         print(paste("chosenObs_y:", .key_num, pair[[1]]))
          chosenObs_x <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
-                                       grepl(c(pair$x), names(.lts_cast_ts))] #sequence of 91 measures
-         print(paste("chosenObs_x:", .key_num, pair$x))
+                                       # grepl(c(pair$x), names(.lts_cast_ts))] #sequence of 91 measures
+                                        grepl(c(pair[[2]]), names(.lts_cast_ts))] #sequence of 91 measures
 
+         # print(paste("chosenObs_x:", .key_num, pair$x))
+         print(paste("chosenObs_x:", .key_num, pair[[2]]))
          instanceOfCCF <- stats::ccf(chosenObs_y, chosenObs_x, plot = FALSE, na.action = na.pass) #calculate CCF for chosen pairing
-
          anCCF_ACF <- instanceOfCCF$acf #current CCF_correlation values
          anCCF_LAG <- instanceOfCCF$lag #current CCF set of lags
          an_CCF_ObjectID <- rep(.key_num, length(instanceOfCCF$lag)) # Object ID for current CCF
-         an_CCF_Feature <-  rep(paste(pair$y,"\n","versus","\n",pair$x, sep=" "), length(instanceOfCCF$lag)) # Feature name for current CCF
+         # an_CCF_Feature <-  rep(paste(pair$y,"\n","versus","\n",pair$x, sep=" "), length(instanceOfCCF$lag)) # Feature name for current
+         an_CCF_Feature <-  rep(paste(pair[[1]],"\n","versus","\n",pair[[2]], sep=" "), length(instanceOfCCF$lag)) # Feature name for current CCF
+
          #going for the separator
 
          instanceOfCCF_Object_output <- list(theCCF = anCCF_ACF ,
@@ -355,9 +366,20 @@ lts_leadLagCorr_diffs <- lts_leadLagCorr_diffs <- function(
   varList<- names(meanLagRange_lts_clusterCCFs)[!(names(meanLagRange_lts_clusterCCFs) %in% names(Arranged_lts_clusterCCFs))] # get non common names
   varList
 
-  #join mean CorrForLAGrange to Arranged_lts_clusterCCFs
-  Arranged_lts_clusterCCFs <- dplyr::left_join(Arranged_lts_clusterCCFs,
-                                               meanLagRange_lts_clusterCCFs[c(varList, .lts_variables$lts_uniqueID_colname)], by = .lts_variables$lts_uniqueID_colname)
+  #comment out in JAN
+  # #join mean CorrForLAGrange to Arranged_lts_clusterCCFs
+  # Arranged_lts_clusterCCFs <- dplyr::left_join(Arranged_lts_clusterCCFs,
+  #                                              meanLagRange_lts_clusterCCFs[c(varList, .lts_variables$lts_uniqueID_colname)], by = .lts_variables$lts_uniqueID_colname)
+
+
+  #added in JAN
+  jArranged_lts_clusterCCFs <- dplyr::left_join(Arranged_lts_clusterCCFs,
+                                                meanLagRange_lts_clusterCCFs[c(varList, #unique new column?
+                                                                               "theFeature",##hotfixJan2022
+                                                                               "lagRange",##hotfixJan2022
+                                                                               .lts_variables$lts_uniqueID_colname)],
+                                                by = c(.lts_variables$lts_uniqueID_colname,"theFeature","lagRange")) ##hotfixJan2022 so that join by Feature, and lagRange
+  #also make "jArrange the name of variable".
 
   #make wider, taking names from lag range and values from mean lag
   #This gives a table of every, object (key_num), with average prior, post and zero lags calculated
@@ -377,36 +399,73 @@ lts_leadLagCorr_diffs <- lts_leadLagCorr_diffs <- function(
 
 
   #remove common names before joining, get vector of non common names from second dataframe and subset before joining
-  varList<- names(wider_meanLagRange_lts_clusterCCFs)[!(names(wider_meanLagRange_lts_clusterCCFs) %in% names(Arranged_lts_clusterCCFs))] # get non common names
+  varList<- names(wider_meanLagRange_lts_clusterCCFs)[!(names(wider_meanLagRange_lts_clusterCCFs) %in% names(jArranged_lts_clusterCCFs))] # get non common names
 
-  join_meanLagRange_Arranged_lts_clusterCCFs <- dplyr::left_join( #join prior to post ratio back to dataframe
-    Arranged_lts_clusterCCFs,
-    wider_meanLagRange_lts_clusterCCFs[c(varList,.lts_variables$lts_uniqueID_colname, #kmfix here #subset second dataframe to keep only: non common, and join by variables
-                                         lts_categoricalVariables[[1]],
-                                         lts_categoricalVariables[[2]])],
-    by = c(.lts_variables$lts_uniqueID_colname, #kmfix here
-           lts_categoricalVariables[[1]],
-           lts_categoricalVariables[[2]]))
+
+  #Added in Jan
+  #join the difference between prior and post lags to the arranged clusters
+  join_meanLagRange_jArranged_lts_clusterCCFs <-
+    dplyr::left_join( #join prior to post ratio back to dataframe
+      jArranged_lts_clusterCCFs,
+      wider_meanLagRange_lts_clusterCCFs[c(varList,.lts_variables$lts_uniqueID_colname, #kmfix here #subset second dataframe to keep only: non common, and join by variables
+                                           "theFeature")],
+      # lts_categoricalVariables[[1]],
+      # lts_categoricalVariables[[2]])], #hotfixJan2022 removed these as not needed
+      by = c(.lts_variables$lts_uniqueID_colname, #kmfix here
+             "theFeature"))
+  # lts_categoricalVariables[[1]],
+  # lts_categoricalVariables[[2]])) #hotfixJan2022 removed these as not needed
+
+  #commented out in JAN
+  # join_meanLagRange_jArranged_lts_clusterCCFs <- dplyr::left_join( #join prior to post ratio back to dataframe
+  #   jArranged_lts_clusterCCFs,
+  #   wider_meanLagRange_lts_clusterCCFs[c(varList,.lts_variables$lts_uniqueID_colname, #kmfix here #subset second dataframe to keep only: non common, and join by variables
+  #                                        lts_categoricalVariables[[1]],
+  #                                        lts_categoricalVariables[[2]])],
+  #   by = c(.lts_variables$lts_uniqueID_colname, #kmfix here
+  #          lts_categoricalVariables[[1]],
+  #          lts_categoricalVariables[[2]]))
 
   #check dimensions are the same
-  dim(Arranged_lts_clusterCCFs) # wider_meanLagRange_join_outputCCFdata
-  dim(join_meanLagRange_Arranged_lts_clusterCCFs)
+  dim(jArranged_lts_clusterCCFs) # wider_meanLagRange_join_outputCCFdata
+  dim(join_meanLagRange_jArranged_lts_clusterCCFs)
 
+
+  #Added in Jan
   # remove common names before joining
   summaryOfMedianDifferencePriorAndPost <- #get overall feature mean for clustering
-    join_meanLagRange_Arranged_lts_clusterCCFs %>%
+    join_meanLagRange_jArranged_lts_clusterCCFs %>%
     dplyr::group_by(!!rlang::sym(lts_categoricalVariables[[1]]),
-                    !!rlang::sym(lts_categoricalVariables[[2]])) %>%
+                    !!rlang::sym(lts_categoricalVariables[[2]]),
+                    theFeature) %>% #hotfixJan2022
     dplyr::summarise(medianPrePostPerTF = median(meanPrior_meanPost_diff))
 
+  # summaryOfMedianDifferencePriorAndPost
+  # join_meanLagRange_Arranged_lts_clusterCCFs
 
-  join_medianDiff_meanLagRange_Arranged_lts_clusterCCFs <- #Join summary back to original dataframe, make a global variable
-    dplyr::left_join(join_meanLagRange_Arranged_lts_clusterCCFs,
+  join_medianDiff_meanLagRange_jArranged_lts_clusterCCFs <- #Join summary back to original dataframe, make a global variable
+    dplyr::left_join(join_meanLagRange_jArranged_lts_clusterCCFs,
                      summaryOfMedianDifferencePriorAndPost[],
                      by = c(lts_categoricalVariables[[1]],
-                            lts_categoricalVariables[[2]]))
+                            lts_categoricalVariables[[2]],
+                            "theFeature")) #hotfixJan2022
 
-  medDiff_meanLag_lts_clusterCCFs <- as.data.frame(join_medianDiff_meanLagRange_Arranged_lts_clusterCCFs)
+  #commented out in JAN
+  # # remove common names before joining
+  # summaryOfMedianDifferencePriorAndPost <- #get overall feature mean for clustering
+  #   join_meanLagRange_jArranged_lts_clusterCCFs %>%
+  #   dplyr::group_by(!!rlang::sym(lts_categoricalVariables[[1]]),
+  #                   !!rlang::sym(lts_categoricalVariables[[2]])) %>%
+  #   dplyr::summarise(medianPrePostPerTF = median(meanPrior_meanPost_diff))
+  #
+  #
+  # join_medianDiff_meanLagRange_jArranged_lts_clusterCCFs <- #Join summary back to original dataframe, make a global variable
+  #   dplyr::left_join(join_meanLagRange_jArranged_lts_clusterCCFs,
+  #                    summaryOfMedianDifferencePriorAndPost[],
+  #                    by = c(lts_categoricalVariables[[1]],
+  #                           lts_categoricalVariables[[2]]))
+
+  medDiff_meanLag_lts_clusterCCFs <- as.data.frame(join_medianDiff_meanLagRange_jArranged_lts_clusterCCFs)
 
   #consider appending to input list and returning appended list
   lts_box <- c(list(lts_CCFcalcs = medDiff_meanLag_lts_clusterCCFs),
