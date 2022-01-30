@@ -61,7 +61,7 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = 
      numberOfObjects <- length(.unqNumKey)
      numberOfComparisons <- length(.pairedComparisons)
      lts_ccf_list <- vector("list", numberOfObjects*numberOfComparisons) #number of observation * number of comparisons per cell
-
+     print(paste("Generating empty list of:",length(lts_ccf_list))) #Jan2022
      element <- 1
      for(keyIndex in seq_along(.unqNumKey)){
 
@@ -81,21 +81,28 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = 
          #this looks up by cell number and comparison
          chosenObs_y <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
                                        # grepl(c(pair$y), names(.lts_cast_ts))]  # also gets column with pair y
-                                       grepl(c(pair[[1]]), names(.lts_cast_ts))]  # also gets column with pair y
+                                       # grepl(c(pastepair[[1]]), names(.lts_cast_ts))]  # also gets column with pair y
+
+                                      grepl(c(paste0("/",pair[[1]])), names(.lts_cast_ts))]  # also gets column with pair y
+
          # print(paste("chosenObs_y:", .key_num, pair$y))
          print(paste("chosenObs_y:", .key_num, pair[[1]]))
          chosenObs_x <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
                                        # grepl(c(pair$x), names(.lts_cast_ts))] #sequence of 91 measures
-                                        grepl(c(pair[[2]]), names(.lts_cast_ts))] #sequence of 91 measures
+                                        # grepl(c(pair[[2]]), names(.lts_cast_ts))] #sequence of 91 measures
+                                      grepl(c(paste0("/",pair[[2]])), names(.lts_cast_ts))]  # also gets column with pair y
 
          # print(paste("chosenObs_x:", .key_num, pair$x))
          print(paste("chosenObs_x:", .key_num, pair[[2]]))
          instanceOfCCF <- stats::ccf(chosenObs_y, chosenObs_x, plot = FALSE, na.action = na.pass) #calculate CCF for chosen pairing
+         print("ccf complete")
          anCCF_ACF <- instanceOfCCF$acf #current CCF_correlation values
          anCCF_LAG <- instanceOfCCF$lag #current CCF set of lags
          an_CCF_ObjectID <- rep(.key_num, length(instanceOfCCF$lag)) # Object ID for current CCF
          # an_CCF_Feature <-  rep(paste(pair$y,"\n","versus","\n",pair$x, sep=" "), length(instanceOfCCF$lag)) # Feature name for current
+         print("creating feature name")
          an_CCF_Feature <-  rep(paste(pair[[1]],"\n","versus","\n",pair[[2]], sep=" "), length(instanceOfCCF$lag)) # Feature name for current CCF
+         print("feature name complete")
 
          #going for the separator
 
@@ -104,9 +111,12 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = 
                                              lts_uniqueID_colname = an_CCF_ObjectID, #this creates literal names
                                              theFeature = as.factor(an_CCF_Feature)) # Bind these together as a "row" of a dataframe
          #hotfix1 moved the update list step outside of the loop, so paired comparison sets don't overwrite each other #KEY INDEX IS 1:4, not long enough
+         print("generating instance complete")
+
 
          lts_ccf_list[[element]] <- instanceOfCCF_Object_output # add current output to main dataframe
          names(lts_ccf_list)[element] <- key_name
+         print("adding instance complete")
 
          print(paste("Finished adding...",key_name, paste(.pairedComparisons[[pairIndex]], sep = "..."))) #print stage of loop
          element <- element+1
@@ -200,7 +210,8 @@ lts_clusterCCFs <-function(
 
   #remove features that are identical at zero lag #Todo, remove unused factor levels eg. coords
   identicalMeasuresAt0 <- join_ccflist_wMetaD[join_ccflist_wMetaD$meanCorrPerLag ==1, ] #define identical measures
-  if(nrow(identicalMeasuresAt0) > 0){print(paste("Warning: feature ",identicalMeasuresAt,"has correlation 1 at lag zero and will be removed"))
+  unq_identicalFeatures <- unique(identicalMeasuresAt0[,"theFeature"]) #added coma to subset the column and give a vector, not dataframe
+  if(nrow(identicalMeasuresAt0) > 0){print(paste("Warning: feature ",unq_identicalFeatures,"has correlation 1 at lag zero and will be removed"))
     join_ccflist_wMetaD <- join_ccflist_wMetaD[!grepl(paste(unq_identicalFeatures, collapse="|"), join_ccflist_wMetaD$theFeature),]
   } #remove features that are perfectly correlated
 

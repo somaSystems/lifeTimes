@@ -9,7 +9,7 @@ lts_input(
   .time = c("dayOfseason"),
   .compare_categorical = c("season", "catchmentRegion"),
   .plot_measured_variables = FALSE,
-  .pairedComparisons = list(pair_1 = list(x = "rainfall_cm", y = "flow_m3s")),
+  .pairedComparisons = list(pair_1 = list(x = "flow_m3s", y = "rainfall_cm")),
   .uniqueID_colname = "key_num",
   .metaData = NULL
 )
