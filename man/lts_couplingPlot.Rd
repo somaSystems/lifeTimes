@@ -4,11 +4,19 @@
 \alias{lts_couplingPlot}
 \title{lts_couplingPlot}
 \usage{
-lts_couplingPlot(.lts_output = NULL)
+lts_couplingPlot(
+  .lts_output = NULL,
+  .lts_facet_by = category1,
+  .lts_colour_by = category2
+)
 }
 \arguments{
 \item{.lts_output}{results of lts_input() function, includes
 cross correlation calculations and user input variables}
+
+\item{.lts_facet_by}{choose from categorical variables, category1, or category2, arguments are withtout "".}
+
+\item{.lts_colour_by}{choose from categorical variables, category1, or category2, arguments are without "".}
 }
 \description{
 lts_couplingPlot

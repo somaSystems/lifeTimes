@@ -7,11 +7,19 @@
 #'
 #' @param .lts_output results of lts_input() function, includes
 #'cross correlation calculations and user input variables
+#' @param .lts_facet_by choose from categorical variables, category1, or category2, arguments are withtout "".
+#' @param .lts_colour_by choose from categorical variables, category1, or category2, arguments are without "".
 #'
 #' @export
 #'
 
-lts_couplingPlot <- function(.lts_output = NULL){
+#ToDO
+#allow change of LAG, currently modeMax corr lag
+#allow change of facet by
+
+lts_couplingPlot <- function(.lts_output = NULL,
+                             .lts_facet_by = category1,
+                             .lts_colour_by = category2){
 
   if(is.null(.lts_output)){
     return(print("please enter some lifeTimes output"))
@@ -20,15 +28,15 @@ lts_couplingPlot <- function(.lts_output = NULL){
 
 category1 <-  .lts_output$lts_variables$lts_compare_by[[1]]
 category2 <-  .lts_output$lts_variables$lts_compare_by[[2]]
-.lts_final_clusters[.lts_final_clusters$theLAG ==  .lts_output$lts_rawCCFout$modeMaxCorrLAG,]
+.lts_final_clusters[.lts_final_clusters$theLAG ==  .lts_output$lts_rawCCFout$modeMaxCorrLAG,] #changed the lagTo meanCorratModeMa
 
-berryTwig <- ggplot(data = .lts_final_clusters[.lts_final_clusters$theLAG == 1,])+
+berryTwig <- ggplot(data = .lts_final_clusters[.lts_final_clusters$theLAG == modeMaxCorrLAG,])+ #changed the lagTo meanCorratModeMaxLag
   annotate("rect",xmin = -Inf, xmax = 0, ymin = -Inf, ymax = Inf,  fill = "#2c7da0",alpha = 0.3)+
   annotate("rect",xmin = 0, xmax = Inf, ymin = -Inf, ymax = Inf,  fill = "#fff3b0",alpha = 0.3)+
-  geom_point(aes(x = medianPrePostPerTF, y = meanCorrAtModeMaxLAG, color = !!sym(category1), size = 2))+ #need to make this a variable
+  geom_point(aes(x = medianPrePostPerTF, y = meanCorrAtModeMaxLAG, color = !!sym(.lts_colour_by)))+ #need to make this a variable
   geom_segment(aes(xend = medianPrePostPerTF, yend = meanCorrAtModeMaxLAG,  x=0,y=0),alpha = 0.01)+
   viridis::scale_color_viridis(option = "magma", discrete =TRUE)+
-  facet_wrap(vars(!!sym(category2)))+ #need to make this a variable
+  facet_wrap(vars(!!sym(.lts_facet_by)))+ #need to make this a variable
   theme_classic()+
   geom_vline(xintercept = 0, alpha = 0.2)
 
