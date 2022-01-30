@@ -8,3 +8,4 @@
 ^Meta$
 ^lts_generate_defaultOutputData.R$
 ^data-raw$
+^codecov\.yml$

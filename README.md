@@ -1,9 +1,13 @@
 README
 ================
 LGD
-19/12/2021
+19/12/2021  
 
+ <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
+  [![Codecov test coverage](https://codecov.io/gh/somaSystems/lifeTimes/branch/main/graph/badge.svg)](https://app.codecov.io/gh/somaSystems/lifeTimes?branch=main)
+  <!-- badges: end -->
 
 ## lifeTimes: correlations in biological series data
 
