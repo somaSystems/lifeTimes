@@ -14,7 +14,7 @@
 #' @return a list that includes time series data, and strings from user input that map variables in the time series data to input in lifeTimes functions. Eg. which column of dataframe is the unit of "time", which is the categorical variables, and which are the variables to compare when generating CCFs.
 #' @export
 #'
-#' @examples lts_input(.tsData = catchmentsAndRivers,.time = c("dayOfseason"),.compare_categorical = c("season","catchmentRegion"), .plot_measured_variables = FALSE, .pairedComparisons = list(pair_1 =list(x ="flow_m3s" , y ="rainfall_cm")),   .uniqueID_colname = "key_num", .metaData = NULL)
+#' @examples lts_input(.tsData = lifeTimes::catchmentsAndRivers,.time = c("dayOfseason"),.compare_categorical = c("season","catchmentRegion"), .plot_measured_variables = FALSE, .pairedComparisons = list(pair_1 =list(x ="flow_m3s" , y ="rainfall_cm")),   .uniqueID_colname = "key_num", .metaData = NULL)
 #'
 
 lts_input <-  function(.tsData = NULL,

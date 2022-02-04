@@ -36,6 +36,6 @@ a list that includes time series data, and strings from user input that map vari
 lts_input
 }
 \examples{
-lts_input(.tsData = catchmentsAndRivers,.time = c("dayOfseason"),.compare_categorical = c("season","catchmentRegion"), .plot_measured_variables = FALSE, .pairedComparisons = list(pair_1 =list(x ="flow_m3s" , y ="rainfall_cm")),   .uniqueID_colname = "key_num", .metaData = NULL)
+lts_input(.tsData = lifeTimes::catchmentsAndRivers,.time = c("dayOfseason"),.compare_categorical = c("season","catchmentRegion"), .plot_measured_variables = FALSE, .pairedComparisons = list(pair_1 =list(x ="flow_m3s" , y ="rainfall_cm")),   .uniqueID_colname = "key_num", .metaData = NULL)
 
 }

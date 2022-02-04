@@ -25,15 +25,14 @@
                                  .metaData = NULL) {
 
 
-    .tsData <- as.data.frame(.tsData) ### could remove this?
-
-    .tsData[,.tsData$lts_compare_by ] <- lapply(   .tsData[,.tsData$lts_compare_by ] , as.factor) #make compare_by variables, as factors
-
-    # if(is.null(.tsData)){.tsData <- load(file = "data/catchmentsAndRivers.rda")}
     if(is.null(.tsData)){.tsData <- catchmentsAndRivers}
 
 
-    if(is.null(.tsData)){.tsData <- catchmentsAndRivers}
+    .tsData <- as.data.frame(.tsData) #could remove this?
+
+
+    .tsData[.compare_categorical ] <- lapply(   .tsData[.compare_categorical ] , as.factor) #make compare_by variables, as factors
+
 
     lts_variables <- list(lts_data = .tsData, #create list of variables
                           lts_time = .time,
@@ -42,6 +41,7 @@
                           lts_pariedComparisons = .pairedComparisons,
                           lts_uniqueID_colname = .uniqueID_colname,
                           lts_metaData = .metaData)
+
 
     dev_lts_inputVars  <<- lts_variables
 
