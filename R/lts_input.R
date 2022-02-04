@@ -12,22 +12,27 @@
 #' @param .metaData name of columns with metaData
 #'
 #' @return a list that includes time series data, and strings from user input that map variables in the time series data to input in lifeTimes functions. Eg. which column of dataframe is the unit of "time", which is the categorical variables, and which are the variables to compare when generating CCFs.
-#' @export
-#'
 #'
 
-#removed example because of cryptic error, runs locally but not in github, could be related to R versions?
- # lts_input(.tsData = lifeTimes::catchmentsAndRivers,.time = c("dayOfseason"),.compare_categorical = c("season","catchmentRegion"), .plot_measured_variables = FALSE, .pairedComparisons = list(pair_1 =list(x ="flow_m3s" , y ="rainfall_cm")),   .uniqueID_colname = "key_num", .metaData = NULL)
+
 
 
 lts_input <-  function(.tsData = NULL,
-                       .time = c("dayOfseason"),
-                       .compare_categorical = c("season","catchmentRegion"), #Categorical variables
+                       .time = NULL,
+                       .compare_categorical = NULL, #Categorical variables
                        .plot_measured_variables = FALSE,
-                       .pairedComparisons = list(
-                         pair_1 =list(x ="flow_m3s" , y ="rainfall_cm" )), #pairedVarCCF
-                       .uniqueID_colname = "key_num",
+                       .pairedComparisons =  NULL, #pairedVarCCF
+                       .uniqueID_colname = NULL,
                        .metaData = NULL) {
+
+# lts_input <-  function(.tsData = NULL,
+#                        .time = c("dayOfseason"),
+#                        .compare_categorical = c("season","catchmentRegion"), #Categorical variables
+#                        .plot_measured_variables = FALSE,
+#                        .pairedComparisons = list(
+#                          pair_1 =list(x ="flow_m3s" , y ="rainfall_cm" )), #pairedVarCCF
+#                        .uniqueID_colname = "key_num",
+#                        .metaData = NULL) {
 
   if(is.null(.tsData)){.tsData <- catchmentsAndRivers}
 
@@ -45,13 +50,13 @@ lts_input <-  function(.tsData = NULL,
 
   lts_inputVars <-lts_variables
 
-  lts_tsToWide(lts_inputVars) %>%
-    lts_wide_ts_to_ccf(.lts_variables = lts_inputVars) %>%
-    lts_ccf_df(.lts_variables = lts_inputVars) %>%
-    lts_metaData_ccf_join(.lts_variables = lts_inputVars) %>%
-    lts_clusterCCFs(.lts_variables = lts_inputVars) %>%
-    lts_leadLagCorr_diffs(.lts_variables = lts_inputVars) -> lts_Output
+  # lts_tsToWide(lts_inputVars) %>%
+  #   lts_wide_ts_to_ccf(.lts_variables = lts_inputVars) %>%
+  #   lts_ccf_df(.lts_variables = lts_inputVars) %>%
+  #   lts_metaData_ccf_join(.lts_variables = lts_inputVars) %>%
+  #   lts_clusterCCFs(.lts_variables = lts_inputVars) %>%
+  #   lts_leadLagCorr_diffs(.lts_variables = lts_inputVars) -> lts_Output
 
-  return(lts_Output)
+  return(lts_inputVars)
 
 }

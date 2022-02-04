@@ -7,7 +7,7 @@
 lts_couplingPlot(
   .lts_output = NULL,
   .lts_facet_by = category1,
-  .lts_colour_by = category2
+  .lts_colour_by = category
 )
 }
 \arguments{

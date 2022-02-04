@@ -6,11 +6,11 @@
 \usage{
 lts_input(
   .tsData = NULL,
-  .time = c("dayOfseason"),
-  .compare_categorical = c("season", "catchmentRegion"),
+  .time = NULL,
+  .compare_categorical = NULL,
   .plot_measured_variables = FALSE,
-  .pairedComparisons = list(pair_1 = list(x = "flow_m3s", y = "rainfall_cm")),
-  .uniqueID_colname = "key_num",
+  .pairedComparisons = NULL,
+  .uniqueID_colname = NULL,
   .metaData = NULL
 )
 }

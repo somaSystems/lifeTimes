@@ -19,18 +19,22 @@
 
 lts_couplingPlot <- function(.lts_output = NULL,
                              .lts_facet_by = category1,
-                             .lts_colour_by = category2){
+                             .lts_colour_by = category){
 
   if(is.null(.lts_output)){
     return(print("please enter some lifeTimes output"))
   }
+
+  category1 <-  .lts_output$lts_variables$lts_compare_by[[1]]
+  category2 <-  .lts_output$lts_variables$lts_compare_by[[2]]
+
 .lts_final_clusters <- .lts_output$lts_CCFcalcs
+ValueOf_modeMaxCorrLag <- .lts_output$lts_rawCCFout$modeMaxCorrLAG
 
-category1 <-  .lts_output$lts_variables$lts_compare_by[[1]]
-category2 <-  .lts_output$lts_variables$lts_compare_by[[2]]
-.lts_final_clusters[.lts_final_clusters$theLAG ==  .lts_output$lts_rawCCFout$modeMaxCorrLAG,] #changed the lagTo meanCorratModeMa
+#subset LAG in final clusters
+.lts_final_clusters[.lts_final_clusters$theLAG ==  ValueOf_modeMaxCorrLag,] #changed the lagTo meanCorratModeMa
 
-berryTwig <- ggplot(data = .lts_final_clusters[.lts_final_clusters$theLAG == modeMaxCorrLAG,])+ #changed the lagTo meanCorratModeMaxLag
+berryTwig <- ggplot(data = .lts_final_clusters)+ #changed the lagTo meanCorratModeMaxLag
   annotate("rect",xmin = -Inf, xmax = 0, ymin = -Inf, ymax = Inf,  fill = "#2c7da0",alpha = 0.3)+
   annotate("rect",xmin = 0, xmax = Inf, ymin = -Inf, ymax = Inf,  fill = "#fff3b0",alpha = 0.3)+
   geom_point(aes(x = medianPrePostPerTF, y = meanCorrAtModeMaxLAG, color = !!sym(.lts_colour_by)))+ #need to make this a variable
