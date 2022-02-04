@@ -1,4 +1,4 @@
-library(lifeTimes)
+# library(lifeTimes)
 
 test_that("dimensions of wide dataframe are correct based on variables input", {
 
@@ -14,4 +14,5 @@ test_that("dimensions of wide dataframe are correct based on variables input", {
 
 
 })
+
 
