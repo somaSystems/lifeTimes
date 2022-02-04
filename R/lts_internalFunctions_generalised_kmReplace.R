@@ -37,7 +37,9 @@ lts_tsToWide <- function(.lts_variables = NULL) {
   }
 
 
-lts_wide_ts_to_ccf <- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = NULL) {
+# lts_wide_ts_to_ccf <- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = NULL) { #Feb2022
+lts_wide_ts_to_ccf <- function(.lts_cast_ts = NULL, .lts_variables = NULL) {
+
 
      #make default data if needed
      if(is.null(.lts_variables)){
@@ -130,7 +132,9 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = dev_lts_cast_ts, .lts_variables = 
 
 
 
-lts_ccf_df <- function(.lts_ccflist = lts_ccf_list_out, .lts_variables = NULL){
+# lts_ccf_df <- function(.lts_ccflist = lts_ccf_list_out, .lts_variables = NULL){ #feb 2022
+lts_ccf_df <- function(.lts_ccflist = lts_ccf_list, .lts_variables = NULL){
+
 
   if(is.null(.lts_variables)){
     # print(paste("not_assigned:",lts_defaultVariables))
