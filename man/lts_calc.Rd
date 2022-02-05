@@ -35,6 +35,3 @@ calculated cross correlations, summary statistics and clustering that can be use
 \description{
 lts_calc
 }
-\examples{
-lts_calc()
-}

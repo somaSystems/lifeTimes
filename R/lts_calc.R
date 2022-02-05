@@ -12,7 +12,7 @@
 #'
 #' @export
 #'
-#' @examples lts_calc()
+
 lts_calc <- function(.in_tsData = catchmentsAndRivers,
                        .in_time = c("dayOfseason"),
                        .in_compare_categorical = c("season","catchmentRegion"), #Categorical variables
