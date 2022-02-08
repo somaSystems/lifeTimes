@@ -1,7 +1,7 @@
 #' lts_cluster_ccf_summs
 #'
-#' @param .lts_ccf_with_summaries
-#' @param .lts_variables
+#' @param .lts_ccf_with_summs summary statistics off ccfs
+#' @param .lts_variables variables entered int lts_calc()
 #'
 #' @return returns ccfs with categorical variable levels assigned by clustering
 #'
@@ -83,20 +83,35 @@ levels(.lts_ccf_with_meta[,.lts_variables$lts_compare_by[[1]] ]) #check ordering
 .lts_ccf_with_meta[.lts_variables$lts_compare_by[[2]] ] <- factor(.lts_ccf_with_meta[,.lts_variables$lts_compare_by[[2]] ], levels =clust_row_feature2) #
 levels(.lts_ccf_with_meta[,.lts_variables$lts_compare_by[[2]] ]) #check ordering
 
-lts_clust_ccfs_with_meta <- .lts_ccf_with_meta
+# lts_clust_ccfs_with_meta <- .lts_ccf_with_meta
 
 
 #Build lists of output
 
-#list of new cluster output from this function
-lts_clustered <-list(
-  lts_clust_categoricals = list( clust_column_feature1 = clust_column_feature1, #the orders of categorical variables
-                                    clust_row_feature2 = clust_row_feature2),
+# #list of new cluster output from this function
+# lts_clustered <-list(
+#   lts_clust_categoricals = list( clust_column_feature1 = clust_column_feature1, #the orders of categorical variables
+#                                     clust_row_feature2 = clust_row_feature2),
+#
+#     lts_clust_ccfs_with_metadata = list(lts_clust_ccfs_with_meta = lts_clust_ccfs_with_meta) #the ccfs with factor levels ordered by clustering
+# )
+#
+# lts_clustered_ccf_summs <- append(.lts_ccf_with_summaries, lts_clustered) #append new lists to lists from previous output
+#
+# lts_clustered_ccf_summs <- append(lts_clustered_ccf_summs,
+#                                   list(lts_variables = .lts_variables))
 
-    lts_clust_ccfs_with_metadata = list(lts_clust_ccfs_with_meta = lts_clust_ccfs_with_meta) #the ccfs with factor levels ordered by clustering
-)
 
-lts_clustered_ccf_summs <- append(.lts_ccf_with_summaries, lts_clustered) #append new lists to lists from previous output
+lts_clustered_ccf_summs <- c(
+  list( lts_variables = .lts_variables),
+  .lts_ccf_with_summs, #this is already two named lsits so pasted in
+  list(lts_clust_outputs = list( clust_matrix = mCCF_chosenLAG,
+                                 clust_column_feature1 = clust_column_feature1, #the orders of categorical variables
+                                 clust_row_feature2 = clust_row_feature2)
+       ),
+  list(lts_clust_ccfs_with_meta = .lts_ccf_with_meta) #the ccfs with factor levels ordered by clustering,
+  )
+
 
 return(lts_clustered_ccf_summs)
 }

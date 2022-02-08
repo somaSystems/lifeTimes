@@ -2,6 +2,7 @@
 
 export(catchmentsAndRivers)
 export(lts_calc)
+export(lts_clustPlot)
 export(lts_clusterPlot)
 export(lts_couplingPlot)
 export(lts_leadLagClusterPlot)

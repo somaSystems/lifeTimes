@@ -9,6 +9,10 @@
 # change type of clustering (wrapper to hclust)
 # change feature that value for clustering is from
 
+lts2 <-lts_calc()
+
+lts2$lts_rawCCFout$lts_mCCF_chosenLAG
+
 #####MAKE input data for function development######
 library(lifeTimes)
 library(magrittr)
@@ -27,10 +31,32 @@ lts_df <- lifeTimes:::lts_ccf_df(lts_ccf, .lts_variables = lts)
 lts_metadf <- lifeTimes:::lts_metaData_ccf_join(lts_df, .lts_variables = lts)
 lts_cluster_out <- lifeTimes:::lts_clusterCCFs(lts_metadf, .lts_variables = lts)
 
-lts_cluster_out$modeMaxCorrLAG
+# lts_cluster_out$modeMaxCorrLAG
 
 lts_sum_ccf <- lifeTimes::lts_summarise_ccf(lts_metadf, .lts_variables = lts) #it works
 lts_cluster <- lifeTimes:::lts_cluster_ccf_summs(.lts_ccf_with_summs = lts_sum_ccf,.lts_variables = lts )
+
+
+
+lts_cluster$lts_variables
+lts_cluster$lts_ccfs_with_meta
+lts_cluster$lts_ccf_summaries
+lts_cluster$lts_clust_ccfs_with_meta
+
+lts_cluster$lts_variables
+lts_cluster$lts_ccf_with_summs$
+
+lts_cluster$lts_clust_categoricals
+lts_cluster$lts_variables
+
+
+wtsThis <- lts_cluster$lts_ccf_with_summs
+
+str(wtsThis)
+
+lts_cluster$lts_clust_categoricals
+
+lts_clusterPlot(lts_cluster)
 
 str(lts_cluster$lts_ccfs_with_meta)
 
