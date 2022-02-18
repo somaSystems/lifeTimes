@@ -24,7 +24,7 @@ lts_cluster_ccf_summs <- function(
     # mapping arguments to function variables
   .lts_compare_by <- .lts_variables$lts_compare_by
   .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG
-  .lts_ccf_with_meta <- lts_sum_ccf$lts_ccfs_with_meta$lts_metadf
+  .lts_ccf_with_meta <- .lts_ccf_with_summs$lts_ccfs_with_meta$lts_metadf
 
 
 #create matrix of values using compare_by and chosen lag

@@ -20,6 +20,7 @@ lts_summarise_ccf <-
                               .lts_portion = 0.25){ #for secondary set of summary stats
 
 .lts_compare_by <- .lts_variables$lts_compare_by
+.lts_uniqueID_colname <- .lts_variables$lts_uniqueID_colname
 
 if(.lts_variables$lts_plot_measured_variables == TRUE){ #include "theFeature" in lts_compare_by, for plotting
   .lts_variables$lts_compare_by <- c(.lts_variables$lts_compare_by, "theFeature")
@@ -42,12 +43,12 @@ if(is.null(.lts_variables)){
 #Calculate DIFFERENCED CCFs
 #calculate rates of change in correlation between lags (how quickly does correlation change)
 #rate of change in  correlation as a function of
-lts_metadf_diffed <- lts_metadf %>%
+lts_metadf_diffed <- .lts_ccfWithMetaData %>%
   dplyr::group_by(key_num) %>%
   dplyr::mutate_at("theCCF", ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )
 
 #####TODO
-# lts_metadf #CCFs
+lts_metadf #CCFs
 # lts_metadf_diffed #change in correlation per lag
 ###insert loop hear to generate summary stats on differen
 
@@ -55,7 +56,7 @@ lts_metadf_diffed <- lts_metadf %>%
 ### ONE: sum stats on unique observations,
 ### with one metric per unit of observation
 
-lts_summ_key_num <- lts_metadf %>%
+lts_summ_key_num <- .lts_ccfWithMetaData %>%
   dplyr::group_by(key_num) %>%
   dplyr::summarise(mean_corr = mean(theCCF),
             max_corr = max(theCCF),
@@ -65,7 +66,7 @@ lts_summ_key_num <- lts_metadf %>%
             median_corr = median(theCCF))
 
 # calculate on unique obs for smaller range (portion) of the lags
-lts_summ_key_num_portion <- lts_metadf %>%
+lts_summ_key_num_portion <- .lts_ccfWithMetaData %>%
   dplyr::filter(
     (theLAG < (!!.lts_portion)*max(theLAG)) &
       (theLAG > (!!.lts_portion)*min(theLAG))
@@ -93,7 +94,7 @@ colnames(lts_summ_key_num_portion) <-
 #create new variable of lag range,
 
 #Define lags
-lts_metadf_range <- lts_metadf
+lts_metadf_range <- .lts_ccfWithMetaData
 lts_LAGmin <- min(lts_metadf_range$theLAG) #define LAGmin
 lts_LAGmax <- max(lts_metadf_range$theLAG) #define LAGmax
 
@@ -195,7 +196,7 @@ vector_indexOfDoubleID <-
 #join double list first
 lts_singletonSummary_doubleKey <-
   Reduce(function(dtf1, dtf2) merge(dtf1, dtf2,
-  by = c(lts$lts_uniqueID_colname, "lag_range"), all.x = TRUE),
+  by = c(.lts_uniqueID_colname, "lag_range"), all.x = TRUE),
   lts_proto_summ_stats_list[vector_indexOfDoubleID])
 
 #add merged lists to a new list, and append the unmerged frames to this list
@@ -207,7 +208,7 @@ lts_sum_stats_list <-append(lts_sum_stats_list,
 #join double list first
 lts_singletonSummary <-
   Reduce(function(dtf1, dtf2) merge(dtf1, dtf2,
-  by = c(lts$lts_uniqueID_colname), all.x = TRUE),
+  by = c(.lts_uniqueID_colname), all.x = TRUE),
    lts_sum_stats_list)
 
 ###NOW JOIN categorical variables and Make group summary stats
@@ -234,7 +235,7 @@ lts_singleton_summ_metadata <-
 
 
 #summarise by LAG, and by categorical variable
-lts_catGroups_summ_key_num <- lts_metadf %>%
+lts_catGroups_summ_key_num <- .lts_ccfWithMetaData %>%
   dplyr::group_by(!!rlang::sym(.lts_compare_by[[1]]),
                   !!rlang::sym(.lts_compare_by[[2]])) %>%
   dplyr::summarise(mean_corr = mean(theCCF),
@@ -247,7 +248,7 @@ lts_catGroups_summ_key_num <- lts_metadf %>%
 
 #calculate summary statiscs on CCF of individual unique observations
 #over specified portion of the max lag (.lts_portion)
-lts_catGroups_summ_key_num_portion <- lts_metadf %>%
+lts_catGroups_summ_key_num_portion <- .lts_ccfWithMetaData %>%
   dplyr::filter(
     (theLAG < (!!.lts_portion)*max(theLAG)) &
       (theLAG > (!!.lts_portion)*min(theLAG))
@@ -383,7 +384,7 @@ lts_catGroups_summ <-
 ###THREE get PER LAG summary stats for all of the data
 ####UNGROUPED AND GROUPED BY CATEGORY
 
-lts_summ_perLAG <- lts_metadf %>%
+lts_summ_perLAG <- .lts_ccfWithMetaData %>%
   dplyr::group_by(theLAG) %>%
   dplyr::summarise(mean_corr = mean(theCCF),
                    max_corr = max(theCCF),
@@ -402,17 +403,17 @@ Mode <- function(x) {
 #Single OBS, by MAXCCF, LAG AT MAX, modeMAX LAG and CORR AT MODE MAX LAG
 
 #get Lag with the mode (most frequent) max correlation for the entire dataset
-lts_singleton_mut_modeMaxCorrLAG <- lts_metadf %>%
-  dplyr::select(theLAG, theCCF, !!rlang::sym(lts$lts_uniqueID_colname))%>% #group by unique ID
-  dplyr::group_by(!!rlang::sym(lts$lts_uniqueID_colname))%>%
+lts_singleton_mut_modeMaxCorrLAG <- .lts_ccfWithMetaData %>%
+  dplyr::select(theLAG, theCCF, !!rlang::sym(.lts_uniqueID_colname))%>% #group by unique ID
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>%
   dplyr::slice_max(theCCF, n =1, with_ties = FALSE) %>% #get the top CCF (max per group)
   dplyr::rename(maxCCF = theCCF, LAGatMaxCCF =theLAG)%>%
   dplyr::ungroup()%>% #ungroup to just get the Mode LAG of everything
   dplyr::mutate(allDataModeLag = Mode(LAGatMaxCCF), mean_corr_at_allDataModeLag = mean(maxCCF))
 
-lts_singleton_summ_modeMaxCorrLAG <- lts_metadf %>%
-  dplyr::select(theLAG, theCCF, !!rlang::sym(lts$lts_uniqueID_colname))%>% #group by unique ID
-  dplyr::group_by(!!rlang::sym(lts$lts_uniqueID_colname))%>%
+lts_singleton_summ_modeMaxCorrLAG <- .lts_ccfWithMetaData %>%
+  dplyr::select(theLAG, theCCF, !!rlang::sym(.lts_uniqueID_colname))%>% #group by unique ID
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>%
   dplyr::slice_max(theCCF, n =1, with_ties = FALSE) %>% #get the top CCF (max per group)
   dplyr::rename(maxCCF = theCCF, LAGatMaxCCF =theLAG)%>%
   dplyr::ungroup()%>% #ungroup to just get the Mode LAG of everything
@@ -428,7 +429,7 @@ lts_singleton_summ_modeMaxCorrLAG <- lts_metadf %>%
 
 ### PER LAG BUT ALSO CATEGORICAL GROUPS####
 #summarise by LAG, and by categorical variable
-lts_catGroups_summ_perLAG <- lts_metadf %>%
+lts_catGroups_summ_perLAG <- .lts_ccfWithMetaData %>%
   dplyr::group_by(!!rlang::sym(.lts_compare_by[[1]]),
                   !!rlang::sym(.lts_compare_by[[2]]),
                   theLAG) %>%
@@ -443,9 +444,9 @@ lts_catGroups_summ_perLAG <- lts_metadf %>%
 #starting with already summarised mean Corr per lag,
 #group by categorical variables and take the top lag (there can only be top because of the grouping)
 
-lts_catGroups_mut_modeMaxCorrLAG <- lts_metadf %>%
-  # dplyr::select(theLAG, theCCF, !!rlang::sym(lts$lts_uniqueID_colname))%>% #group by unique ID
-  dplyr::group_by(!!rlang::sym(lts$lts_uniqueID_colname))%>% #group by unique IDS
+lts_catGroups_mut_modeMaxCorrLAG <- .lts_ccfWithMetaData %>%
+  # dplyr::select(theLAG, theCCF, !!rlang::sym(.lts_uniqueID_colname))%>% #group by unique ID
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>% #group by unique IDS
   dplyr::slice_max(theCCF, n =1, with_ties = FALSE) %>% #get the top CCF for each ID
   dplyr::ungroup()%>% #ungroup to so just left with IDs and their max
   dplyr::rename(maxCCF = theCCF, LAGatMaxCCF =theLAG)%>% # rename the columns to reflect that they are Max values
@@ -456,9 +457,9 @@ lts_catGroups_mut_modeMaxCorrLAG <- lts_metadf %>%
                 catGroups_mean_corr_atModeLAG = mean(maxCCF)) #get mean corr at mode Lag
 
 
-lts_catGroups_summ_modeMaxCorrLAG <- lts_metadf %>%
-  # dplyr::select(theLAG, theCCF, !!rlang::sym(lts$lts_uniqueID_colname))%>% #group by unique ID
-  dplyr::group_by(!!rlang::sym(lts$lts_uniqueID_colname))%>% #group by unique IDS
+lts_catGroups_summ_modeMaxCorrLAG <- .lts_ccfWithMetaData %>%
+  # dplyr::select(theLAG, theCCF, !!rlang::sym(.lts_uniqueID_colname))%>% #group by unique ID
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>% #group by unique IDS
   dplyr::slice_max(theCCF, n =1, with_ties = FALSE) %>% #get the top CCF for each ID
   dplyr::ungroup()%>% #ungroup to so just left with IDs and their max
   dplyr::rename(maxCCF = theCCF, LAGatMaxCCF =theLAG)%>% # rename the columns to reflect that they are Max values
@@ -468,23 +469,35 @@ lts_catGroups_summ_modeMaxCorrLAG <- lts_metadf %>%
   dplyr::summarise(catGroups_ModeLAGatMax = Mode(LAGatMaxCCF), #get mode LAG with Max
                 catGroups_mean_corr_atModeLAG = mean(maxCCF)) #get mean corr at mode Lag
 
-lts_catGroups_summ_modeMaxCorrLAG
+
+#recent added 12_2_2022
+#Join mode max correlation information for single cells and group summaries
+#back to the initial dataframes. This is for use in couplingPlot
+
+# lts_singleton_summ_modeMax <-  merge(lts_singleton_summ_metadata, lts_singleton_summ_modeMaxCorrLAG, by = c(.lts_uniqueID_colname))
+lts_catGroups_summ_modeMax <-  merge(lts_catGroups_summ, lts_catGroups_summ_modeMaxCorrLAG, by = c(.lts_compare_by))
+
+
+
+# lts_catGroups_summ_modeMaxCorrLAG
 
 lts_sum_ccf <- list(
-  lts_ccfs_with_meta = list(lts_metadf = lts_metadf),
+  lts_ccfs_with_meta = list(lts_metadf = .lts_ccfWithMetaData),
 
   lts_ccf_summaries =list(
 
-  lts_singleton_summ_metadata = lts_singleton_summ_metadata,
-  lts_catGroups_summ = lts_catGroups_summ,
+    lts_singleton_summ_metadata = lts_singleton_summ_metadata,
+    # lts_singleton_summ_modeMax = lts_singleton_summ_modeMax, #recent added 12_2_2022
+    lts_catGroups_summ = lts_catGroups_summ,
+    lts_catGroups_summ_modeMax = lts_catGroups_summ_modeMax, #recent added 12_2_2022
 
-  lts_summ_perLAG = lts_summ_perLAG,
-  lts_singleton_mut_modeMaxCorrLAG = lts_singleton_mut_modeMaxCorrLAG,
-  lts_singleton_summ_modeMaxCorrLAG = lts_singleton_summ_modeMaxCorrLAG,
+    lts_summ_perLAG = lts_summ_perLAG,
+    lts_singleton_mut_modeMaxCorrLAG = lts_singleton_mut_modeMaxCorrLAG,
+    lts_singleton_summ_modeMaxCorrLAG = lts_singleton_summ_modeMaxCorrLAG,
 
-  lts_catGroups_summ_perLAG = lts_catGroups_summ_perLAG,
-  lts_catGroups_mut_modeMaxCorrLAG = lts_catGroups_mut_modeMaxCorrLAG,
-  lts_catGroups_summ_modeMaxCorrLAG = lts_catGroups_summ_modeMaxCorrLAG
+    lts_catGroups_summ_perLAG = lts_catGroups_summ_perLAG,
+    lts_catGroups_mut_modeMaxCorrLAG = lts_catGroups_mut_modeMaxCorrLAG,
+    lts_catGroups_summ_modeMaxCorrLAG = lts_catGroups_summ_modeMaxCorrLAG
   )
 
                     )

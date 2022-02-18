@@ -36,7 +36,7 @@ lts_cluster_out <- lifeTimes:::lts_clusterCCFs(lts_metadf, .lts_variables = lts)
 lts_sum_ccf <- lifeTimes::lts_summarise_ccf(lts_metadf, .lts_variables = lts) #it works
 lts_cluster <- lifeTimes:::lts_cluster_ccf_summs(.lts_ccf_with_summs = lts_sum_ccf,.lts_variables = lts )
 
-
+lts_clustPlot(lts_cluster)
 
 lts_cluster$lts_variables
 lts_cluster$lts_ccfs_with_meta

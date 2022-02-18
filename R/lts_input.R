@@ -12,7 +12,7 @@
 #' @param .metaData name of columns with metaData
 #'
 #' @return a list that includes time series data, and strings from user input that map variables in the time series data to input in lifeTimes functions. Eg. which column of dataframe is the unit of "time", which is the categorical variables, and which are the variables to compare when generating CCFs.
-#'
+#' @export
 
 
 

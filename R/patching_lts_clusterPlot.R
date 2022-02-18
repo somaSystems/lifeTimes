@@ -18,8 +18,8 @@
 
 # lts_clusterOutput
 lts_clusterPlot <- function(
-  .lts_output = NULL, plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines"))
-{
+  .lts_output = NULL,
+  plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
 
   if(is.null(.lts_output)){
     .lts_variables <- lts_defaultVariables
@@ -156,8 +156,5 @@ lts_clusterPlot <- function(
                                     align = "v",
                                     # labels = c("A", "B", "C"),
                                     ncol = 1, nrow = 2)
-
-  return(eval(ensym_plotType))
-}
-
-
+return(eval(ensym_plotType))
+  }
