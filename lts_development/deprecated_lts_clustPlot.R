@@ -16,21 +16,41 @@
 #' @export
 #'
 
-# lts_clusterOutput
-lts_clusterPlot <- function(
-  .lts_output = NULL, plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines"))
-{
+# # lts_clusterOutput
+lts_clustPlot <- function(
+  .lts_output = lts_cluster,
+   plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
+
+# # lts_clusterPlot <- function(
+#   .lts_output = lts_cluster
+#   plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines"))
 
   if(is.null(.lts_output)){
-    .lts_variables <- lts_defaultVariables
-    .lts_clusterOutput_LAGranges <- lts_OUT_lts_clusterOutput_LAGranges
+    print("enter results from lts_calc()")
+    # .lts_variables <- lts_defaultVariables
+    # .lts_clusterOutput_LAGranges <- lts_OUT_lts_clusterOutput_LAGranges
   }
-  subset_sum_join_outputCCFdata <-  .lts_output$lts_CCFcalcs
+
+
+  # subset_sum_join_outputCCFdata <-  .lts_output$lts_CCFcalcs
+  #
+  # subset_sum_join_outputCCFdata <- .lts_output$lts_clust_ccfs_with_metadata$lts_clust_ccfs_with_meta
+
+
+
+.lts_output$lts_rawCCFout$lts_mCCF_chosenLAG #this is the matrix of correlations at the chosen type of lag
+
+
+
+  subset_sum_join_outputCCFdata <- .lts_output$lts_clust_ccfs_with_meta
+  .lts_theLAG <- .lts_output$lts_clust_ccfs_with_meta$theLAG
+  clust_matrix <- .lts_output$lts_clust_outputs$clust_matrix
+  .summ_for_matrix <- .lts_output$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG
 
   plotType <- match.arg(plotType)
   ensym_plotType <- rlang::sym(plotType)
 
-  treatmentDendrogram <- as.dendrogram(hclust(dist(t(.lts_output$lts_rawCCFout$lts_mCCF_chosenLAG)))) #make dendrogram
+  treatmentDendrogram <- as.dendrogram(hclust(dist(t(clust_matrix)))) #make dendrogram
   draw_treatmentDendrogram <- ggdendro::ggdendrogram(treatmentDendrogram)
   draw_treatmentDendrogram
   dend_data <- ggdendro::dendro_data(treatmentDendrogram)
@@ -64,18 +84,21 @@ lts_clusterPlot <- function(
   #needs a row for each facet, or each combination of factor 1 and factor 2)
   #fix for features
   ##NB: if conditional works, can just make it always the case that facetsRequired, and category names and contents are taken from the CCFcalcs list
+
+
+
   if(.lts_output$lts_variables$lts_plot_measured_variables == TRUE){ #include "theFeature" in lts_compare_by, for plotting
     facetsRequired <-
-      length(levels(.lts_output$lts_CCFcalcs[,.lts_output$lts_variables$lts_compare_by[[1]]]))*
-      length(levels(.lts_output$lts_CCFcalcs[,.lts_output$lts_variables$lts_compare_by[[2]]])) #could not get levels() and length() to work here so have used nrow() and unique())
+      length(levels( subset_sum_join_outputCCFdata[,.lts_output$lts_variables$lts_compare_by[[1]]]))*
+      length(levels( subset_sum_join_outputCCFdata[,.lts_output$lts_variables$lts_compare_by[[2]]])) #could not get levels() and length() to work here so have used nrow() and unique())
 
     category1_name <- .lts_output$lts_variables$lts_compare_by[[1]]
-    category1_contents <- unique(.lts_output$lts_CCFcalcs[,.lts_output$lts_variables$lts_compare_by[[1]]])
-    category1_levels <- levels(.lts_output$lts_CCFcalcs[,category1_name])
+    category1_contents <- unique( subset_sum_join_outputCCFdata[,.lts_output$lts_variables$lts_compare_by[[1]]])
+    category1_levels <- levels( subset_sum_join_outputCCFdata[,category1_name])
 
     category2_name <- .lts_output$lts_variables$lts_compare_by[[2]]
-    category2_contents <- unique(.lts_output$lts_CCFcalcs[,.lts_output$lts_variables$lts_compare_by[[2]]])
-    category2_levels <- levels(.lts_output$lts_CCFcalcs[,category2_name])
+    category2_contents <- unique( subset_sum_join_outputCCFdata[,.lts_output$lts_variables$lts_compare_by[[2]]])
+    category2_levels <- levels( subset_sum_join_outputCCFdata[,category2_name])
 
   }else ##Added this too
 
@@ -86,12 +109,14 @@ lts_clusterPlot <- function(
 
     category1_name <- .lts_output$lts_variables$lts_compare_by[[1]]
     category1_contents <- unique(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[1]]])
-    category1_levels <- levels(.lts_output$lts_CCFcalcs[,category1_name])
+    category1_levels <- levels( subset_sum_join_outputCCFdata[,category1_name])
 
     category2_name <- .lts_output$lts_variables$lts_compare_by[[2]]
     category2_contents <- unique(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[2]]])
-    category2_levels <- levels(.lts_output$lts_CCFcalcs[,category2_name])
+    category2_levels <- levels( subset_sum_join_outputCCFdata[,category2_name])
   }
+
+
 
   #create unique facet labels
   #TODO: check that this is robust to switching categories lengths
@@ -104,8 +129,8 @@ lts_clusterPlot <- function(
                                   # times = facetsRequired/length(category1_contents), # eg, print these once for each set of cat 1, i.e same no of times
                                   each = (facetsRequired/length(category2_contents)))), # non alternating version of multiples of "times" needed to reach requiredFaces
 
-    xmin =  paste(rep(min(.lts_output$lts_CCFcalcs$theLAG), time = length(facetsRequired))),
-    xmax =  paste(rep(max(.lts_output$lts_CCFcalcs$theLAG),  time = length(facetsRequired))),
+    xmin =  paste(rep(min(.lts_theLAG), time = length(facetsRequired))),
+    xmax =  paste(rep(max(.lts_theLAG),  time = length(facetsRequired))),
     ymin = paste(rep(-Inf, time = length(facetsRequired))),
     ymax = paste(rep(Inf, time = length(facetsRequired)))
   )
@@ -115,12 +140,19 @@ lts_clusterPlot <- function(
   names(heatmapAnno)[names(heatmapAnno) == 'df_category1_name'] <-category1_name
   names(heatmapAnno)[names(heatmapAnno) == 'df_category2_name'] <-category2_name
 
-  rectValues <- dplyr::left_join(heatmapAnno,  #join unique react values to column names
-                                 .lts_output$lts_CCFcalcs[c("meanCorrAtModeMaxLAG", category1_name, category2_name)],
-                                 by = c(category1_name, category2_name))
-  unq_rectValues <- unique(rectValues)
+  #here colour rectangle values by clustering matrix values
+  #go to source of cluster matrix (a summary sheet)
 
-  lts_heatmapAnno <- dplyr::left_join(heatmapAnno, unq_rectValues[c("meanCorrAtModeMaxLAG", category1_name, category2_name)], by = c(category1_name, category2_name))
+  # .summ_for_matrix
+  # lts2$lts_CCFcalcs
+  rectValues <- dplyr::left_join(heatmapAnno,  #join unique react values to column names
+                                 # .lts_output$lts_CCFcalcs[c("meanCorrAtModeMaxLAG", category1_name, category2_name)],
+                                 .summ_for_matrix[c("catGroups_mean_corr_atModeLAG", category1_name, category2_name)],
+                                 by = c(category1_name, category2_name))
+
+  # unq_rectValues <- unique(rectValues)
+
+  lts_heatmapAnno <- dplyr::left_join(heatmapAnno, rectValues[c("catGroups_mean_corr_atModeLAG", category1_name, category2_name)], by = c(category1_name, category2_name))
   lts_heatmapAnno
 
 
@@ -132,12 +164,12 @@ lts_clusterPlot <- function(
   lts_heatmapAnno[category2_name] <-  factor(lts_heatmapAnno[,.lts_output$lts_variables$lts_compare_by[[2]] ], levels = category2_levels)
   str(lts_heatmapAnno)
 
-  heatmapLagZero <- ggplot()+
-    geom_rect(data=lts_heatmapAnno,
+  heatmapLagZero <- ggplot2::ggplot()+
+    ggplot2::geom_rect(data=lts_heatmapAnno,
               aes(ymin=-Inf, ymax=Inf,
                   xmin=-Inf, xmax=Inf,
-                  fill= meanCorrAtModeMaxLAG), alpha =0.5)+
-    geom_line(data = subset_sum_join_outputCCFdata, aes(x =theLAG,
+                  fill= catGroups_mean_corr_atModeLAG), alpha =0.5)+
+    ggplot2::geom_line(data = subset_sum_join_outputCCFdata, aes(x =theLAG,
                                                         y = theCCF,
                                                         group = !!sym(.lts_output$lts_variables$lts_uniqueID_colname)), alpha = 0.5, color = "black")+  ##fix this instance of keynum
     scale_color_viridis_c(option ="magma")+
@@ -156,8 +188,7 @@ lts_clusterPlot <- function(
                                     align = "v",
                                     # labels = c("A", "B", "C"),
                                     ncol = 1, nrow = 2)
-
-  return(eval(ensym_plotType))
-}
+    return(eval(ensym_plotType))
+ }
 
 
