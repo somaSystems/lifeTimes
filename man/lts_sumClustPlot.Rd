@@ -15,6 +15,8 @@ lts_sumClustPlot(
 \item{.lts_output}{results of lts_input() function, includes
 cross correlation calculations and user input variables}
 
+\item{.lts_chosen_clusterFeature}{a feature from CCF summary statistics (lts_ccf_summaries) that will be used for heatmap clustering}
+
 \item{.removeInstanceOfCategoricalByName}{name a feature that should be removed from
 clustering (eg. because of perfect correlation, high noise, or artefact)}
 

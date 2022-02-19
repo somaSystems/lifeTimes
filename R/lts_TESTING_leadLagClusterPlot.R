@@ -13,6 +13,7 @@
 #'@param .lts_output results of lts_input() function, includes
 #'cross correlation calculations and user input variables
 #'@param .categoryToRemoveInstanceFrom factor type, to remove factor level from
+#'@param .lts_chosen_clusterFeature a feature from CCF summary statistics (lts_ccf_summaries) that will be used for heatmap clustering
 #'
 #'@export
 #'

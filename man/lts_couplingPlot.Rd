@@ -18,6 +18,8 @@ cross correlation calculations and user input variables}
 \item{.lts_facet_by}{choose from categorical variables, category1, or category2, arguments are withtout "".}
 
 \item{.lts_colour_by}{choose from categorical variables, category1, or category2, arguments are without "".}
+
+\item{.lts_chosen_clusterFeature}{a feature from CCF summary statistics (lts_ccf_summaries) that will be used for heatmap clustering}
 }
 \description{
 lts_couplingPlot

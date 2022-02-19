@@ -39,7 +39,7 @@ valsFromKey <- c(.lts_compare_by,.unique_ID_colnames)
 library(tidyr)
 colnames(singleSums)
 
-valsFromKey
+# valsFromKey
 
 '%!in%' <- function(x,y)!('%in%'(x,y))
 
@@ -69,7 +69,7 @@ rownarm_colnarm_w_singleSums <- colnarm_w_singleSums %>%
 
 #select_numeric
 num_cols <- unlist(lapply(rownarm_colnarm_w_singleSums, is.numeric))         # Identify numeric columns
-num_cols
+# num_cols
 
 label_cols <- unlist(lapply(rownarm_colnarm_w_singleSums, is.numeric))
 
@@ -164,8 +164,8 @@ pc_num_w_singleSums <- prcomp(hasvar_num_w_singleSums, scale. = TRUE, center = T
 lts_pc_results <- list(lts_pc_values = pc_num_w_singleSums,
      lts_pc_labels = label_w_singleSums
      )
-return(lts_pc_results)
-}
+# return(lts_pc_results)
+# }
 
 
 join_original_ccf_summ <- merge(sumOriginal, w_singleSums, by = c(.lts_unique_ID_colnames))
@@ -272,13 +272,15 @@ lts_plsr_variables <- colnames(PLSR_vals_and_labels[c(1:length(PLSR_hasvar_num_w
 
 
 # lts_plsr_sym_variables <- rlang::syms(lts_plsr_variables)
-#
+librar
 # str(paste0(lts_plsr_sym_variables, collapse ="+"))
 colnames(PLSR_vals_and_labels)
 sub_PLSR_vals_and_labels <- PLSR_vals_and_labels[-c(120:126)]
+colnames(sub_PLSR_vals_and_labels)
+catch_model <- plsr(num_Season ~ ., data=sub_PLSR_vals_and_labels, scale=TRUE, validation="CV")
 
-catch_model <- plsr(num_CatchmentRegion ~ ., data=sub_PLSR_vals_and_labels, scale=TRUE, validation="CV")
-
+summary(catch_model)
+plot(catch_model)
 #
 #
 # str(pls::yarn)
@@ -313,4 +315,6 @@ catch_model <- plsr(num_Season ~
                       , data=PLSR_vals_and_labels, scale=TRUE, validation="CV")
 
 summary(catch_model)
+
+plot(catch_model)
 

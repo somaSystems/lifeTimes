@@ -9,6 +9,7 @@
 #'cross correlation calculations and user input variables
 #' @param .lts_facet_by choose from categorical variables, category1, or category2, arguments are withtout "".
 #' @param .lts_colour_by choose from categorical variables, category1, or category2, arguments are without "".
+#' @param .lts_chosen_clusterFeature a feature from CCF summary statistics (lts_ccf_summaries) that will be used for heatmap clustering
 #'
 #' @export
 #'
