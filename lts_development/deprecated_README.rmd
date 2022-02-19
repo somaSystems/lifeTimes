@@ -23,7 +23,7 @@ This is a package for **detecting** and **visualising** correlations between obj
 Citation
 --------
 
-**lifeTimes** is available for everyone. If you find it useful for your research please cite the work that motivated its development: **Environmentally dependent and independent control of cell shdepre4cated)READNEAape determination by Rho GTPase regulators in melanoma.** doi: https://doi.org/10.1101/2021.10.11.463377
+**lifeTimes** is available for everyone. If you find it useful for your research please cite the work that motivated its development: **Environmentally dependent and independent control of cell shape determination by Rho GTPase regulators in melanoma.** doi: https://doi.org/10.1101/2021.10.11.463377
 
 **Quick start**  
 ----
@@ -36,14 +36,10 @@ Download the code for lifeTimes and run these commands to try the workflow on a 
 # run installation:
 install()
 #copy and paste to run on test data
-
-lts <- lts_in() #calculate cross correlation
-
-lts_plot_ccfs(lts) #plot clustered correlations
-
-lts_plot_ClustSum(lts) #plot direction of correlations
-
-lts_plot_coupled(lts) # plot strength and direction of correlation
+lts <- lts_input() #calculate cross correlation
+lts_clusterPlot(lts) #plot clustered correlations
+lts_leadLagClusterPlot(lts) #plot direction of correlations
+lts_couplingPlot(lts) # plot strength and direction of correlation
 ```
   
   
