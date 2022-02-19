@@ -30,7 +30,6 @@ Citation
 
 Install lifeTimes
 ```{r include=TRUE, eval = FALSE}
-
 #install devtools if needed
 if(!require("devtools")) install.packages("devtools")
 
@@ -38,14 +37,12 @@ if(!require("devtools")) install.packages("devtools")
 library(devtools)
 
 #install from github, using package access token
-install_github("somaSystems/lifeTimes",
+install_github("somaSystems/lifeTimes", 
 auth_token = "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") 
-
-
 ```
   
 Run lifeTimes on default data
-```{r}
+```{r include=TRUE, eval = FALSE}
 #copy and paste to run on test data
 library(lifeTimes)
 

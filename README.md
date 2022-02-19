@@ -20,54 +20,63 @@ between objects in biological series data.
 
 **lifeTimes** is available for everyone. If you find it useful for your
 research please cite the work that motivated its development:
-**Environmentally dependent and independent control of cell shape
-determination by Rho GTPase regulators in melanoma.** doi:
-<https://doi.org/10.1101/2021.10.11.463377>
+**Environmentally dependent and independent control of cell
+shdepre4cated)READNEAape determination by Rho GTPase regulators in
+melanoma.** doi: <https://doi.org/10.1101/2021.10.11.463377>
 
 ## **Quick start**
 
-Download the code for lifeTimes and run these commands to try the
-workflow on a built-in dataset
+Install lifeTimes
 
 ``` r
-# Extract and unzip the code
-# navigate into the top level directory 
-# run installation:
-install()
+#install devtools if needed
+if(!require("devtools")) install.packages("devtools")
+
+#load devtools
+library(devtools)
+
+#install from github, using package access token
+install_github("somaSystems/lifeTimes", 
+auth_token = "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") 
+```
+
+Run lifeTimes on default data
+
+``` r
 #copy and paste to run on test data
-lts <- lts_input() #calculate cross correlation
-lts_clusterPlot(lts) #plot clustered correlations
-lts_leadLagClusterPlot(lts) #plot direction of correlations
-lts_couplingPlot(lts) # plot strength and direction of correlation
+library(lifeTimes)
+
+lts <- lts_in() #calculate cross correlation
+
+lts_plot_ccfs(lts) #plot clustered correlations
+
+lts_plot_ClustSum(lts) #plot direction of correlations
+
+lts_plot_coupled(lts) # plot strength and direction of correlation
 ```
 
 ## **How to use**
 
 To calculate cross correlation, just load the package, assign, and call
-the `lts <- lts_input()` function. This will chain together the
-lifeTimes workflow on a built in set of default data and return
-calculated cross correlations.
+the `lts <- lts_in()` function. This will chain together the lifeTimes
+workflow on a built in set of default data and return calculated cross
+correlations.
 
 <p>
 
-To plot cross correlations, just call `clusterPlot(lts)`.
-
-To change the plot style just adjust the `plotType` argument. The
-options are `c( "compoundPlot", "draw_treatmentDendrogram", "plt_dendr",
-"heatmapLagZero", "rawTraces", "clusteredLines")`. For example,
-`clusterPlot(ltc, plotType = "rawTraces")`
+To plot cross correlations, just call `lts_plot_ccfs(lts)`.
 
 <p>
 
 To plot clustered lead vs lag metrics which emphasise the direction of
-coupling, just call `leadLagClusterPlot(lts)`.
+coupling, just call `lts_plot_ClustSum(lts)`.
 
 <p>
 
 Finally, to plot coupling plots, incorporating both strength and
-direction of coupling, just call `couplingPlot(lts)`.
+direction of coupling, just call `lts_plot_coupled(lts)`.
 
-## **Examples**
+## **Example data**
 
 Example data are yearly cross correlation functions (CCFs) of rainfall
 and river flow rates for two different rivers in the United Kingdom, the
