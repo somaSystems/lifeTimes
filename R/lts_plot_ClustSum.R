@@ -23,7 +23,7 @@
 # librar7
 # lts3$lts_CCFcalcs$
 
-lts_sumClustPlot <- function(
+lts_plot_ClustSum <- function(
   .lts_output = lts_cluster,
 .lts_chosen_clusterFeature = "posNegDiffmedian_corr_by_lag_range",
                                    .removeInstanceOfCategoricalByName = NULL,

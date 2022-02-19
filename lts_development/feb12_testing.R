@@ -1,6 +1,8 @@
 #testing script
-
+library(lifeTimes)
 lts <- lifeTimes:::dev_lts_inputNoCalls()
+
+lts$
 
 lts_wide <- lifeTimes:::lts_tsToWide(lts)
 lts_ccf <- lifeTimes:::lts_wide_ts_to_ccf(.lts_cast_ts = lts_wide ,.lts_variables = lts )
@@ -9,15 +11,17 @@ lts_metadf <- lifeTimes:::lts_metaData_ccf_join(lts_df,lts)
 lts_summs <- lifeTimes:::lts_summarise_ccf(lts_metadf, lts)
 lts_cluster <- lifeTimes:::lts_cluster_ccf_summs(lts_summs, lts)
 
-lifeTimes:::lts_tsToWide()
+# lifeTimes:::lts_tsToWide()
 
 output <- lts_in()
 
+library(ggpubr)
 lts_clustPlot(output)
 
-lts_sumClustPlot(output)
+library(ComplexHeatmap)
+lts_plot_ClustSum(lts_cluster)
 
-lts_couplePlot(output)
+lts_plot_coupled(output)
 
 
 
