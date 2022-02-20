@@ -1,12 +1,9 @@
-#' lts_ts_to_wide
-#' @import magrittr
-#' @importFrom magrittr "%>%"
-#' @importFrom magrittr %>%
-#' @param .lts_variables user description of variables taken from "lts_input()", otherwise taken from built in default set of variables.
-#' @return a list that includes time series data, and strings from user input that map variables in the time series data to input in lifeTimes functions. Eg. which column of dataframe is the unit of "time", which is the categorical variables, and which are the variables to compare when generating CCFs.
-#'
 
-lts_tsToWide <- function(.lts_variables = NULL) {
+
+# lts_tsToWide <- function(
+
+  .lts_variables = lts_inputVars
+
 
   if(is.null(.lts_variables)){
     print("Enter variables in lts_tsToWide internal function")
@@ -15,15 +12,17 @@ lts_tsToWide <- function(.lts_variables = NULL) {
   variablesToCompare <- unlist(.lts_variables$lts_pariedComparisons, use.names = FALSE)
 
   melt_ts <- .lts_variables$lts_data %>% tidyr::pivot_longer(
-    cols = variablesToCompare,
+    cols = all_of(variablesToCompare), #select variables to compare#all_of() silences ambiguous external vector message
     names_to = "melted_var",
     values_to ="melted_measures"
   )
 
+  colnames(melt_ts)
+
   #This is already the final set of comparisons to make ()
   #cast using feature and observational unit (this includes)
   lts_cast_ts <- melt_ts %>% tidyr::pivot_wider(
-    id_cols = c(.lts_variables$lts_time), #timepoint uniquely identifies each observation (i.e each row)
+    id_cols = c(.lts_variables$lts_time), #timepoint uniquely IDs each observation
     names_from = c(.lts_variables$lts_uniqueID_colname,
                    .lts_variables$lts_compare_by,
                    melted_var),
@@ -32,5 +31,8 @@ lts_tsToWide <- function(.lts_variables = NULL) {
   ) # this gives a dataframe with nested lists of time series
   # cast_ts
 
-  return(lts_cast_ts)
-}
+  # return(lts_cast_ts)
+# }
+
+
+  ?pivot_wider()

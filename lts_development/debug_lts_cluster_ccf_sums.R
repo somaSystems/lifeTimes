@@ -1,15 +1,7 @@
-#' lts_cluster_ccf_summs
-#'
-#' @param .lts_ccf_with_summs summary statistics off ccfs
-#' @param .lts_variables variables entered int lts_calc()
-#'
-#' @return returns ccfs with categorical variable levels assigned by clustering
-#'
-#'
-
-lts_cluster_ccf_summs <- function(
-  .lts_ccf_with_summs = NULL,
-  .lts_variables = NULL){
+#
+# lts_cluster_ccf_summs <- function(
+  .lts_ccf_with_summs = lts_summs
+  .lts_variables = lts_inputVars
 
   # conditional for if only one categorical variable
   if(.lts_variables$lts_plot_measured_variables == TRUE){ #include "theFeature" in lts_compare_by, for plotting
@@ -37,10 +29,11 @@ lts_cluster_ccf_summs <- function(
 
   m_wide_lts_catGroups_summ <- .lts_catGroups_sum_to_cluster %>% #make wider put treatment names
     tidyr::pivot_wider(
-      id_cols = c(.lts_variables$lts_compare_by[2]), #use the categorical variable not chosen in names from
+      id_cols = c(.lts_variables$lts_compare_by[2]), #two categorical variables give unique ID
       names_from = .lts_variables$lts_compare_by[1], #lts_cluster_feature1 hereafter
       values_from = "catGroups_mean_corr_atModeLAG")
 
+  # m_wide_lts_catGroups_summ
 
 mCCF_chosenLAG <- as.matrix(m_wide_lts_catGroups_summ[-1]) #make a numerical only matrix of mean correlation at lag zero, by removing first column
 rownames(mCCF_chosenLAG) <-  m_wide_lts_catGroups_summ[[1]] # add rownames to matrix (#lts_cluster_feature2)

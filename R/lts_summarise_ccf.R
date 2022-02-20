@@ -48,7 +48,7 @@ lts_metadf_diffed <- .lts_ccfWithMetaData %>%
   dplyr::mutate_at("theCCF", ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )
 
 #####TODO
-lts_metadf #CCFs
+# lts_metadf #CCFs
 # lts_metadf_diffed #change in correlation per lag
 ###insert loop hear to generate summary stats on differen
 
