@@ -23,7 +23,7 @@ dev_lts_inputNoCalls <- function(.tsData = NULL,
                            .metaData = NULL) {
 
   # if(is.null(.tsData)){.tsData <- load(file = "data/catchmentsAndRivers.rda")}
-  if(is.null(.tsData)){.tsData <- catchmentsAndRivers}
+  if(is.null(.tsData)){.tsData <- lts_catchmentsAndRivers}
 
     # read.csv(system.file("extdata","key_tidy_candr.csv",package = "lifeTimes", mustWork = TRUE)) #use this until internal data works
 

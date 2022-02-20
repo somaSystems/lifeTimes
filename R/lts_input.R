@@ -34,11 +34,13 @@ lts_input <-  function(.tsData = NULL,
 #                        .uniqueID_colname = "key_num",
 #                        .metaData = NULL) {
 
-  if(is.null(.tsData)){.tsData <- catchmentsAndRivers}
+  if(is.null(.tsData)){.tsData <- lts_catchmentsAndRivers}
 
   .tsData <- as.data.frame(.tsData) #could remove this?
 
   .tsData[.compare_categorical ] <- lapply(   .tsData[.compare_categorical ] , as.factor) #make compare_by variables, as factors
+  .tsData[.uniqueID_colname ] <- lapply(   .tsData[.uniqueID_colname ] , as.character) #make uniqueID_colname as character #hotxfix feb 20 2022, because uniqueID as numeric cause problems in summaries function
+
 
   lts_variables <- list(lts_data = .tsData, #create list of variables
                         lts_time = .time,

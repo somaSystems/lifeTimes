@@ -51,7 +51,7 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = NULL, .lts_variables = NULL) {
       print(paste("The pair is:", "y=", pair[[1]]," ..x=", pair[[2]] ))
       print(paste("Started adding...", key_name, paste(.pairedComparisons[[pairIndex]], collapse ="_vs_"), sep = "...")) #print stage of loop
       #this looks up by cell number and comparison
-      chosenObs_y <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
+      chosenObs_y <- .lts_cast_ts[,grepl(c(paste0("^",.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num #hotfix feb 20 2022 add "^" to match keynum from start of string
                                     # grepl(c(pair$y), names(.lts_cast_ts))]  # also gets column with pair y
                                     # grepl(c(pastepair[[1]]), names(.lts_cast_ts))]  # also gets column with pair y
 
@@ -59,7 +59,7 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = NULL, .lts_variables = NULL) {
 
       # print(paste("chosenObs_y:", .key_num, pair$y))
       print(paste("chosenObs_y:", .key_num, pair[[1]]))
-      chosenObs_x <- .lts_cast_ts[,grepl(c(paste0(.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num
+      chosenObs_x <- .lts_cast_ts[,grepl(c(paste0("^",.key_num,"/")), names(.lts_cast_ts)) & # gets column with key_num #hotfix feb 20 2022 add "^" to match keynum from start of string
                                     # grepl(c(pair$x), names(.lts_cast_ts))] #sequence of 91 measures
                                     # grepl(c(pair[[2]]), names(.lts_cast_ts))] #sequence of 91 measures
                                     grepl(c(paste0("/",pair[[2]])), names(.lts_cast_ts))]  # also gets column with pair y

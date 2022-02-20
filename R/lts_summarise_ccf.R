@@ -19,12 +19,14 @@ lts_summarise_ccf <-
                               .lts_variables = NULL,
                               .lts_portion = 0.25){ #for secondary set of summary stats
 
-.lts_compare_by <- .lts_variables$lts_compare_by
-.lts_uniqueID_colname <- .lts_variables$lts_uniqueID_colname
+
 
 if(.lts_variables$lts_plot_measured_variables == TRUE){ #include "theFeature" in lts_compare_by, for plotting
   .lts_variables$lts_compare_by <- c(.lts_variables$lts_compare_by, "theFeature")
 } #Added this to have compare by "theFeature",
+
+    .lts_compare_by <- .lts_variables$lts_compare_by
+    .lts_uniqueID_colname <- .lts_variables$lts_uniqueID_colname #hotfix feb 2022 move to after if statement
 
 #default variables if null
 if(is.null(.lts_variables)){
@@ -44,7 +46,7 @@ if(is.null(.lts_variables)){
 #calculate rates of change in correlation between lags (how quickly does correlation change)
 #rate of change in  correlation as a function of
 lts_metadf_diffed <- .lts_ccfWithMetaData %>%
-  dplyr::group_by(key_num) %>%
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname)) %>% #hotfix Feb 20 2022
   dplyr::mutate_at("theCCF", ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )
 
 #####TODO
@@ -57,7 +59,7 @@ lts_metadf_diffed <- .lts_ccfWithMetaData %>%
 ### with one metric per unit of observation
 
 lts_summ_key_num <- .lts_ccfWithMetaData %>%
-  dplyr::group_by(key_num) %>%
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname)) %>%
   dplyr::summarise(mean_corr = mean(theCCF),
             max_corr = max(theCCF),
             min_corr = min(theCCF),
@@ -71,7 +73,7 @@ lts_summ_key_num_portion <- .lts_ccfWithMetaData %>%
     (theLAG < (!!.lts_portion)*max(theLAG)) &
       (theLAG > (!!.lts_portion)*min(theLAG))
   ) %>%
-  dplyr::group_by(key_num) %>%
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname)) %>%
   dplyr::summarise(mean_corr_lts_portion = mean(theCCF),
     max_corr_lts_portion = max(theCCF),
     min_corr_lts_portion = min(theCCF),
@@ -108,7 +110,7 @@ lts_metadf_range$lag_range <-
 #group by unique observation, prior, post or zero, and get summary stats
 lts_summ_lag_range <- lts_metadf_range %>%
   # dplyr::filter(lag_range != "zeroLAG") %>% #consider all lags (including zero)
-  dplyr::group_by(key_num, lag_range) %>%
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname), lag_range) %>%
   dplyr::summarise(mean_corr_by_lag_range = mean(theCCF),
                    max_corr_by_lag_range = max(theCCF),
                    min_corr_by_lag_range = min(theCCF),
@@ -122,7 +124,7 @@ lts_summ_lag_range_portion <- lts_metadf_range %>%
     (theLAG < (!!.lts_portion)*max(theLAG)) &
       (theLAG > (!!.lts_portion)*min(theLAG))
   ) %>%
-  dplyr::group_by(key_num, lag_range) %>%
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname), lag_range) %>%
   dplyr::summarise(mean_corr_by_lag_range_lts_portion = mean(theCCF),
                    max_corr_by_lag_range_lts_portion = max(theCCF),
                    min_corr_by_lag_range_lts_portion = min(theCCF),
@@ -142,11 +144,11 @@ colnames(lts_summ_lag_range_portion) <-
 #positive minus prior
 lts_summ_lag_range_diffed <- lts_summ_lag_range %>%
   dplyr::filter(lag_range != "zeroLAG") %>% #only consider positive or negative lags
-  dplyr::group_by(key_num)%>%
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>%
   dplyr::mutate_if(is.numeric, ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" ) %>%
   dplyr::select(where(is.numeric))%>%
   dplyr::rename_with(function(x) paste0("posNegDiff",x),where(is.numeric))%>%
-  dplyr::group_by(key_num)%>%
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>%
   dplyr::slice(-1) #remove first observation (first lag of each)
 
 # as above get diff, but start with the dataframe that is already from a portion of the data
@@ -155,11 +157,11 @@ lts_summ_lag_range_diffed <- lts_summ_lag_range %>%
 #positive minus prior
 lts_summ_lag_range_diffed_portion <- lts_summ_lag_range_portion %>% #the portioning is built in from a previous step
   dplyr::filter(lag_range != "zeroLAG") %>% #only consider positive or negative lags
-  dplyr::group_by(key_num)%>%
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>%
   dplyr::mutate_if(is.numeric, ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" ) %>%
   dplyr::select(where(is.numeric))%>%
   dplyr::rename_with(function(x) paste0("posNegDiff",x),where(is.numeric)) %>%
-  dplyr::group_by(key_num)%>%
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>%
   dplyr::slice(-1) #remove first observation (first lag of each)
 
 ##### JOIN single unit of observation summary statistics, by unique ID
@@ -213,7 +215,7 @@ lts_singletonSummary <-
 
 ###NOW JOIN categorical variables and Make group summary stats
 unq_compareBy <-
-  unique(.lts_variables$lts_data[, c(.lts_variables$lts_compare_by,
+  unique(.lts_ccfWithMetaData[, c(.lts_variables$lts_compare_by, #hotfix feb 20 2022, so that works with single categorical variable
                                      .lts_variables$lts_uniqueID_colname)])
 
 lts_singleton_summ_metadata <-
