@@ -37,7 +37,10 @@ library(devtools)
 
 #install from github, using package access token
 install_github("somaSystems/lifeTimes", 
-auth_token = "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") 
+auth_token = "<paste your github token as a string here>") 
+
+# If you need a github token you make one with the commented code below:
+# usethis::create_github_token() 
 ```
 
 Run lifeTimes on default data
