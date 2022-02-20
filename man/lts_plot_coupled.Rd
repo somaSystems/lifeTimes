@@ -6,8 +6,8 @@
 \usage{
 lts_plot_coupled(
   .lts_output = NULL,
-  .lts_facet_by = "cat1",
-  .lts_colour_by = "cat2",
+  .lts_facet_by = "cat2",
+  .lts_colour_by = "cat1",
   .lts_chosen_clusterFeature = "posNegDiffmedian_corr_by_lag_range"
 )
 }
@@ -18,6 +18,8 @@ cross correlation calculations and user input variables}
 \item{.lts_facet_by}{choose from categorical variables, category1, or category2, arguments are withtout "".}
 
 \item{.lts_colour_by}{choose from categorical variables, category1, or category2, arguments are without "".}
+
+\item{.lts_chosen_clusterFeature}{feature chosen from summary statistics for heatmap clustering}
 }
 \description{
 lts_couplingPlot
