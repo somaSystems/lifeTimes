@@ -20,9 +20,9 @@ between objects in biological series data.
 
 **lifeTimes** is available for everyone. If you find it useful for your
 research please cite the work that motivated its development:
-**Environmentally dependent and independent control of cell
-shdepre4cated)READNEAape determination by Rho GTPase regulators in
-melanoma.** doi: <https://doi.org/10.1101/2021.10.11.463377>
+**Environmentally dependent and independent control of cell shape
+determination by Rho GTPase regulators in melanoma.** doi:
+<https://doi.org/10.1101/2021.10.11.463377>
 
 ## **Quick start**
 
