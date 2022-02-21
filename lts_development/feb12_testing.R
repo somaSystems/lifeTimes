@@ -38,9 +38,9 @@ lts <- lts_input(.tsData = lts_all_cells,
                         .uniqueID_colname = "cellNumber",
                         .metaData = NULL )
 
-lts
+# lts
 
-lts1 <- lts_in()
+# lts1 <- lts_in()
 
 # lts_input()
 str(lts$lts_variables$lts_data)
@@ -57,11 +57,14 @@ lts_summs <- lifeTimes:::lts_summarise_ccf(lts_metadf, lts)
 
 
 
-lts_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG
+# lts_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG
 
 
 lts_cluster <- lifeTimes:::lts_cluster_ccf_summs(lts_summs, lts)
 
+lts_plot_ccfs(lts_cluster)
+lts_plot_ClustSum(lts_cluster)
+lts_plot_coupled(lts_cluster, .lts_facet_by = "cat1","cat2")
 # lifeTimes:::lts_tsToWide()
 
 output <- lts_in()
