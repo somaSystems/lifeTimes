@@ -36,7 +36,10 @@ if(!require("devtools")) install.packages("devtools")
 #load devtools
 library(devtools)
 
-#install from github, using package access token
+#install dependency from github
+install_github("jokergoo/ComplexHeatmap")
+
+#install lifeTimes from github, using package access token
 install_github("somaSystems/lifeTimes", 
 auth_token = "<paste your github token as a string here>") 
 
