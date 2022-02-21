@@ -13,7 +13,7 @@
 #' @export
 #'
 
-lts_in <- function(.in_tsData = catchmentsAndRivers,
+lts_in <- function(.in_tsData = lts_catchmentsAndRivers,
                        .in_time = c("dayOfseason"),
                        .in_compare_categorical = c("season","catchmentRegion"), #Categorical variables
                        .in_plot_measured_variables = FALSE,

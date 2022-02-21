@@ -2,6 +2,8 @@
 
 lts_catchmentsAndRivers <- read.csv(file="data-raw/key_tidy_candr.csv")
 
+lts_extractedCells<- read.csv(file="data-raw/extractedCells.csv")
+
 lts_makeDefault_lifeTimesInput <- function(.tsData = lts_catchmentsAndRivers,
                                .time = c("dayOfseason"),
                                .compare_categorical = c("season","catchmentRegion"), #Categorical variables
@@ -24,5 +26,5 @@ lts_makeDefault_lifeTimesInput <- function(.tsData = lts_catchmentsAndRivers,
 
 lts_defaultVariables <- lts_makeDefault_lifeTimesInput()
 
-usethis::use_data(lts_defaultVariables,lts_catchmentsAndRivers, internal = TRUE, overwrite = TRUE)
+usethis::use_data(lts_catchmentsAndRivers,lts_extractedCells, lts_defaultVariables, internal = TRUE, overwrite = TRUE)
 

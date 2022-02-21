@@ -27,11 +27,39 @@ lts <- lifeTimes:::dev_lts_inputNoCalls()
 #     lts_cluster_ccf_summs(.lts_variables = lts_inputVars) -> lts_Output
 # }
 
+lts_all_cells <- read.csv(file="data-raw/clusterData.csv")
+
+
+lts <- lts_input(.tsData = lts_all_cells,
+                        .compare_categorical = "Treatment",
+                        .time = "runNumber",
+                        .plot_measured_variables = TRUE,
+                        .pairedComparisons = lts_pairs,
+                        .uniqueID_colname = "cellNumber",
+                        .metaData = NULL )
+
+lts
+
+lts1 <- lts_in()
+
+# lts_input()
+str(lts$lts_variables$lts_data)
+
+# str(lts$lts_variables$lts_data)
+
 lts_wide <- lifeTimes:::lts_tsToWide(lts)
+lts_wide
 lts_ccf <- lifeTimes:::lts_wide_ts_to_ccf(.lts_cast_ts = lts_wide ,.lts_variables = lts )
 lts_df <- lifeTimes:::lts_ccf_df(lts_ccf, lts)
 lts_metadf <- lifeTimes:::lts_metaData_ccf_join(lts_df,lts)
+
 lts_summs <- lifeTimes:::lts_summarise_ccf(lts_metadf, lts)
+
+
+
+lts_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG
+
+
 lts_cluster <- lifeTimes:::lts_cluster_ccf_summs(lts_summs, lts)
 
 # lifeTimes:::lts_tsToWide()

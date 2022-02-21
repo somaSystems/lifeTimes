@@ -5,7 +5,7 @@
 \title{lts_calc}
 \usage{
 lts_in(
-  .in_tsData = catchmentsAndRivers,
+  .in_tsData = lts_catchmentsAndRivers,
   .in_time = c("dayOfseason"),
   .in_compare_categorical = c("season", "catchmentRegion"),
   .in_plot_measured_variables = FALSE,
