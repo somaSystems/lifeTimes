@@ -1,0 +1,14 @@
+---
+title: "README"
+author: "LGD"
+date: "13/01/2022"
+output: rmarkdown::github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Shiny app development for lifeTimes**
+In R studio, open the "app.R" file and click "Run App".
+
