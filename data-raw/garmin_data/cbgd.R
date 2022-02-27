@@ -18,17 +18,54 @@ cbgd <- readTCX(file = "data-raw/garmin_data/activity_1858059346.tcx", timezone 
 
 runDF <- cbgd
 
+#heart_rate
+#Speed
+#altitude
+#distance
+#cadence_cycling
+#power
+
+#get delta of each
+
+
+colnames(runDF)
+
+#make categorical variables
+#split time into hours
+#make new row called column number
+
+runDF <-
+runDF$hour <-
+
+
+
+
 str(runDF)
 
 
 runTr0 <- trackeRdata(runDF)
+
+
 
 str(runTr0)
 View(runTr0)
 
 data(runTr0)
 
+plot(runDF$time)
+head(runDF$time)
 
+
+
+#Data looks like 1 event from 2017
+#16th of the seventh 2017
+#from ~9 in the morning to ~ 16:00 in the afternoon
+
+tail(runDF$latitude)
+tail(runDF$longitude)
+
+51.48525
+0.1803356
 # runTr1 <- read_container(filepath, type = "tcx", timezone = "GMT")
 
 # # identical(runTr0, runTr1)
