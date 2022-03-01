@@ -110,6 +110,9 @@ session_fifths <- cut(trim_runDF$time_num_zero,
                       breaks = 5,
                       labels = c("first_session","second_session","third_session","fourth_session","fifth_session"))
 
+
+
+
 length(session_fifths)
 
 #Join session fifths back to original
@@ -138,9 +141,15 @@ trim_runDF_impute <- trim_runDF_twoMins_session %>%
   purrr::map_dfc(~na_ma(.x,k=1)) # how to only do this on is.numeric without previous step
 
 
+nrow(trim_runDF_impute)
+
+
+
 non_numeric <- trim_runDF_twoMins_session %>%
   dplyr::select(!(where(is.numeric)))
 
+
+nrow(non_numeric)
 
 runDF_imputed <- cbind(non_numeric,trim_runDF_impute) # join imputed and categorical data
 
@@ -170,7 +179,7 @@ sub_runDF_imp <- runDF_imputed %>%
 
 #Create difference columns
 diff_runDF_imputed <- sub_runDF_imp %>%
-  arrange(runDF_imputed$time_num_zero)%>%
+  arrange(runDF_imputed$time_num)%>%
   # group_by(an_CCF_ObjectID, an_CCF_Feature,Treatment) %>%
   mutate_if(is.numeric, ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )%>%
   rename_with((where(is.numeric)), .fn = ~ paste0("diff_", .x))
@@ -189,7 +198,7 @@ varList<- c(varList,"time_num_zero_char") # appending key parameter
 raw_and_diff <- dplyr::left_join(sub_runDF_imp,diff_runDF_imputed[,varList], by =(c("time_num_zero_char")))
 
 
-View(raw_and_diff)
+# View(raw_and_diff)
 
 # raw_and_diff
 
@@ -221,7 +230,70 @@ filt_raw_and_diff <- raw_and_diff %>%
 # raw_and_diff
 
 
-write.csv(filt_raw_and_diff,"lts_garmin_data.csv")
+filt_raw_and_diff$unq_key <- paste0(filt_raw_and_diff$cut_trim_runDF,"-",filt_raw_and_diff$session_fifths)
+
+
+find_dup_keys <- unique(filt_raw_and_diff$unq_key)
+
+
+split_find_dup_keys <- strsplit(find_dup_keys, "-")
+
+str(split_find_dup_keys)
+
+dup_keys <- do.call(rbind, split_find_dup_keys)
+
+dup_keys_df <- as.data.frame(dup_keys)
+
+dups_to_remove <- dup_keys_df[duplicated(dup_keys_df$V1),]$V1
+
+dups_to_remove
+
+#check after
+RowsToRemove <- grep(paste(dups_to_remove, collapse="|"), filt_raw_and_diff$cut_trim_runDF)
+
+RowsToRemove
+
+filt_raw_and_diff_duprm <- filt_raw_and_diff[-RowsToRemove,] #remove obs spanning two sessions these make NAs later
+
+View(filt_raw_and_diff_duprm)
+
+
+
+
+filt_raw_and_diff_duprm$cut_trim_runDF
+
+
+# filt_raw_and_diff_duprm <- filt_raw_and_diff %>%
+#   dplyr::filter(grepl(paste(v1, collapse="|"), dups_to_remove))
+
+
+
+##Find observations that span sessions and remove them
+
+
+
+# colnames(filt_raw_and_diff)
+#
+# filt_raw_and_diff$cut_trim_runDF
+#
+# checkForDuplicates_twoMinAndSessions <- (filt_raw_and_diff[,c("cut_trim_runDF","session_fifths")])
+#
+# Dup_keys<- checkForDuplicates_twoMinAndSessions$cut_trim_runDF
+#
+# Dup_keys[duplicated(Dup_keys)]
+
+filt_raw_and_diff_duprm$cut_trim_runDF
+
+
+unqIDtally <- filt_raw_and_diff_duprm%>%
+  group_by(unq_key)%>%
+  tally()
+
+
+max(unqIDtally$n)
+min(unqIDtally$n)
+
+write.csv(filt_raw_and_diff_duprm,"lts_garmin_data.csv")
 
 colnames(raw_and_diff)
 
