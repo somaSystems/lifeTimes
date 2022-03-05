@@ -45,7 +45,7 @@ str(garmin)
 # garmin$latitude
 
 # lts_in()
-
+library(lifeTimes)
 lts_garmin <- lts_in(.in_tsData = sub_garmin,
         .in_compare_categorical = "session_split",
         .in_time = "two_min_time",
@@ -64,10 +64,10 @@ lts_pairs[(4:length(lts_pairs))]
 
 lts <- lifeTimes:::lts_input(.tsData = sub_garmin,
                              .time = "time_num_zero_twoMinReset",
-                             .compare_categorical = c("session_fifths"),
+                             .compare_categorical = c("session_split"),
                              .plot_measured_variables = TRUE ,
                             .pairedComparisons = lts_pairs,
-                            .uniqueID_colname = "unq_key",
+                            .uniqueID_colname = "unq_key_garmin",
                             .metaData = NULL)
 
 
