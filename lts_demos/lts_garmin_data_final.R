@@ -1,10 +1,10 @@
 library(lifeTimes)
 
-lts_march <- lts_in()
-
-lts_plot_ccfs(lts_march)
-lts_plot_ClustSum(lts_march)
-lts_plot_coupled(lts_march)
+# lts_march <- lts_in()
+#
+# lts_plot_ccfs(lts_march)
+# lts_plot_ClustSum(lts_march)
+# lts_plot_coupled(lts_march)
 
 garmin <- read.csv(file = "cleaned_garmin.csv")
 # View(garmin)
@@ -70,54 +70,30 @@ lts_plot_coupled(lts_garmin, .lts_facet_by = "cat1",.lts_colour_by = "cat2")
 lts_pairs[(4:length(lts_pairs))]
 
 lts <- lifeTimes:::lts_input(.tsData = sub_garmin,
-                             .time = "time_num_zero_twoMinReset",
-                             .compare_categorical = c("session_fifths"),
+                             .time = "two_min_time",
+                             .compare_categorical = c("session_split"),
                              .plot_measured_variables = TRUE ,
                              .pairedComparisons = lts_pairs,
-                             .uniqueID_colname = "unq_key",
+                             .uniqueID_colname = "unq_key_garmin",
                              .metaData = NULL)
 
-
-
-# View(garmin)
-#
-# # garmin
-#
 wide <- lifeTimes:::lts_tsToWide(lts) ## can add an argument to remove NA
-
-View(wide)
-#
-#
-#
-# wide_ColstoRemove <- colnames(wide)[colSums(is.na(wide)) > 0]
-# wide_ColstoRemove
-# wide_narm <- wide[,-which(names(wide) %in% wide_ColstoRemove)]
-#
-# colnames(wide_narm)[colSums(is.na(wide_narm)) > 0]
-#
-# wide
-# wide_narm
-#
-# colnames(wide)[g]
-#
-# colnames(wide[ , grepl( "key_40/" , names( wide ) ) ])
-# colnames(wide[ , grepl( "key_2/" , names( wide ) ) ])
-# # wide
-#
-
 
 
 ccf <- lifeTimes:::lts_wide_ts_to_ccf(.lts_cast_ts = wide, .lts_variables = lts) # gives an error if there are na
 ccf_df <- lifeTimes:::lts_ccf_df(.lts_ccflist = ccf,.lts_variables = lts)
-meta_df <- lifeTimes:::lts_metaData_ccf_join(.lts_dfccf = ccf_df, .lts_variables = lts)
+
+meta_df <- lts_TEST_metaData_ccf_join(.lts_dfccf = ccf_df, .lts_variables = lts)
+
+# meta_df <- lifeTimes:::lts_metaData_ccf_join(.lts_dfccf = ccf_df, .lts_variables = lts)
 ccf_summs <- lifeTimes:::lts_summarise_ccf(.lts_ccfWithMetaData = meta_df,.lts_variables = lts)
 
-ccf_summs$lts_ccf_summaries
+# ccf_summs$lts_ccf_summaries
 
 clust_summs <- lifeTimes:::lts_cluster_ccf_summs(.lts_ccf_with_summs =ccf_summs ,.lts_variables = lts)
 
 
-
+lts_plot_ccfs(clust_summs)
 
 # clust_summs$lts_ccf_summaries$lts_catGroups_summ
 
