@@ -448,7 +448,9 @@ lts_catGroups_summ_perLAG <- .lts_ccfWithMetaData %>%
 
 lts_catGroups_mut_modeMaxCorrLAG <- .lts_ccfWithMetaData %>%
   # dplyr::select(theLAG, theCCF, !!rlang::sym(.lts_uniqueID_colname))%>% #group by unique ID
-  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>% #group by unique IDS
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname),
+                  theFeature #hotfix March 2022 to make work for single categoricals
+                  )%>% #group by unique IDS
   dplyr::slice_max(theCCF, n =1, with_ties = FALSE) %>% #get the top CCF for each ID
   dplyr::ungroup()%>% #ungroup to so just left with IDs and their max
   dplyr::rename(maxCCF = theCCF, LAGatMaxCCF =theLAG)%>% # rename the columns to reflect that they are Max values
@@ -461,7 +463,9 @@ lts_catGroups_mut_modeMaxCorrLAG <- .lts_ccfWithMetaData %>%
 
 lts_catGroups_summ_modeMaxCorrLAG <- .lts_ccfWithMetaData %>%
   # dplyr::select(theLAG, theCCF, !!rlang::sym(.lts_uniqueID_colname))%>% #group by unique ID
-  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>% #group by unique IDS
+  dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname),
+                  theFeature #hotfix March 2022 to make work for single categoricals
+                  )%>% #group by unique IDS
   dplyr::slice_max(theCCF, n =1, with_ties = FALSE) %>% #get the top CCF for each ID
   dplyr::ungroup()%>% #ungroup to so just left with IDs and their max
   dplyr::rename(maxCCF = theCCF, LAGatMaxCCF =theLAG)%>% # rename the columns to reflect that they are Max values

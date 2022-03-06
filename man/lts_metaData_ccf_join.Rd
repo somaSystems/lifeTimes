@@ -4,7 +4,7 @@
 \alias{lts_metaData_ccf_join}
 \title{lts_join_metadata_to_ccf}
 \usage{
-lts_metaData_ccf_join(.lts_dfccf = lts_dfccf, .lts_variables = NULL)
+lts_metaData_ccf_join(.lts_dfccf = ccf_df, .lts_variables = lts)
 }
 \arguments{
 \item{.lts_dfccf}{output from lts_ccf_to_df}

@@ -1,5 +1,5 @@
 #Refactor garminData import
-
+getwd()
 if(!require("trackeR"))(install.packages("trackeR"))
 library("trackeR")
 runDF <- readTCX(file = "data-raw/garmin_data/activity_1858059346.tcx", timezone = "GMT")
@@ -133,7 +133,12 @@ join_garmin_data_imputed <- join_garmin_data_imputed %>%
                  two_min_time = "tzero_twoMinSets")
 
 
-write.csv(join_garmin_data_imputed,"cleaned_garmin.csv")
+narm_join_garmin_data_imputed <- join_garmin_data_imputed %>%
+  filter(!is.na(unq_key_garmin) |
+         !is.na(session_split))
+
+
+write.csv(narm_join_garmin_data_imputed,"data-raw/cleaned_garmin.csv")
 
 
 ################END######################
