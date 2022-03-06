@@ -7,7 +7,7 @@
 #' @return a list that includes time series data, and strings from user input that map variables in the time series data to input in lifeTimes functions. Eg. which column of dataframe is the unit of "time", which is the categorical variables, and which are the variables to compare when generating CCFs.
 #'
 
-lts_TEST_metaData_ccf_join <- function(
+lts_metaData_ccf_join <- function(
   .lts_dfccf = ccf_df,
   .lts_variables = lts ){
 
