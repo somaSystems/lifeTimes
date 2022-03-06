@@ -6,7 +6,7 @@ library(lifeTimes)
 # lts_plot_ClustSum(lts_march)
 # lts_plot_coupled(lts_march)
 
-garmin <- read.csv(file = "cleaned_garmin.csv")
+garmin <- read.csv(file = "data-raw/cleaned_garmin.csv")
 # View(garmin)
 colnames(garmin)
 
