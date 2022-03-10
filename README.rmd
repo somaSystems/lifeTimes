@@ -157,11 +157,9 @@ library(lifeTimes) #load lifeTimes namespace
 #to prepare variables to be compared in a list of lists format 
 lts_pairedVars <- lts_pairsMaker(c("rainfall_cm","flow_m3s"))
 lts_pairedVars
-lts_in()
 ```
 
 ```{r include=TRUE, eval = FALSE}
-
 
 #arguments for lts_in() with default inputs (the "river catchments "rain_flow" dataset) shown
 lts_in(.in_tsData = rain_flow  , #1. the dataset
