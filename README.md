@@ -249,14 +249,14 @@ v. At least two categorical variables (e.g Treatment vs Control)
 TODO: lifeTimes will be compatible with single categorical variable, and
 missing observations. A helper function to impute NAs will also be
 included.
-<p>
+
 **2: `.in_time =` A unit of time:** So we need to find the column in the
 dataset that indicates this. In this data we have years, months and
 days, but the unit of time I am interested in is at the resolution of
 days. The column in the datset with days is called `"dayOfseason"`. On
 the first day of each season (summer, autumn, winter, spring) this value
 starts at one and increments up until the end of the season.
-<p>
+
 **3: `.in_compare_categorical =` Categorical Variables:** This is where
 you tell lifeTimes which colums hold the labels for categorical
 variables. For example these might be experimental treatments or
@@ -265,8 +265,8 @@ rainflow dataset there are 2 columns with categorical variables, and
 they are “season” (e.g a label that is ‘summer’, ‘autumn’, ‘winter’ or
 ‘spring’) and “catchmentRegion” e.g “Ash at Mardock” or “Thames at
 Kingston”. LifeTimes will cluster your categorical data based on
-correlations between measured variables.  
-<p>
+correlations between measured variables.
+
 **4: `.in_plot_measured_variables =` Whether to plot multiple
 variables?** This parameter takes a logical argument and can be either
 “TRUE” or “FALSE”. The choice depends on whether you are analysing two
@@ -285,44 +285,45 @@ in two ways:
     measured variables are “rainfall_cm” and “flow_m3s”.  
 2.  alternatively, if you are using one categorical variable, but more
     than one pair of measured variablesyou can set this to
-    `.in_plot_measured_variables = TRUE`  
-    <p>
-    **5: `.in_pairedComparisons =` Pairs of variables to compare to one
-    another at different lags:** Under the hood, these are passed to the
-    lifeTimes internal functions in the format of a list of lists. There
-    is one master list, holding lists of paired variables to compare. In
-    practice, there is a helper fuction `lts_pairsMaker()`, that takes a
-    vector with a list of column names, and returns all possible non
-    redundant pairs of variables in this list. So you can give a list of
-    variables you would like to compare to the `lts_pairsMaker`
-    function, and assign the output to an object. Then just pass this
-    object as an argument to the `.in_pairedComparisons =` parameter
-    (See example 1 above). In addition to iterating all possible
-    combinations of pairings between variables, lts_pairsMaker can be
-    passed a table of pre-specified pairings, and return these in list
-    of list format (this is demonstrated in the examples below).  
-    <p>
-    **6:`.in_uniqueID_colname =` A unique identified for each thing we
-    are measuring:** We need to give lifeTimes the column namr which
-    holds the unique identifier for each observation. If there isn,t
-    one, we can create a column in the data frame with unique identifier
-    for each observation.  
-    <p>
-    In this dataset the column is called “key_num”. In general, an unit
-    of observation is some unit of interest, measured over time. In this
-    dataset, it’s a river measuring station, in a given season, in a
-    given year. For example, “Ash river in summer in 1995”, or “Thames
-    river in winter of 2001”. So in this dataset I have grouped the data
-    by, River,Season and Year, and given a unique ID to each observation
-    and labelled the column `"key_num"`.  
-    <p>
-    TODO: Future updates to lifetimes will include a helper function
-    that inputs a set of columns defining a unique observation, and
-    outputs creates a new column of uniqueIDs.  
-    <p>
-    **7: `.in_metaData =` Column names of metadata:** This parameter
-    takes column names of any attributes you would like to append to
-    data
+    `.in_plot_measured_variables = TRUE`
+
+**5: `.in_pairedComparisons =` Pairs of variables to compare to one
+another at different lags:** Under the hood, these are passed to the
+lifeTimes internal functions in the format of a list of lists. There is
+one master list, holding lists of paired variables to compare. In
+practice, there is a helper fuction `lts_pairsMaker()`, that takes a
+vector with a list of column names, and returns all possible non
+redundant pairs of variables in this list. So you can give a list of
+variables you would like to compare to the `lts_pairsMaker` function,
+and assign the output to an object. Then just pass this object as an
+argument to the `.in_pairedComparisons =` parameter (See example 1
+above). In addition to iterating all possible combinations of pairings
+between variables, lts_pairsMaker can be passed a table of pre-specified
+pairings, and return these in list of list format (this is demonstrated
+in the examples below).
+
+**6:`.in_uniqueID_colname =` A unique identified for each thing we are
+measuring:** We need to give lifeTimes the column namr which holds the
+unique identifier for each observation. If there isn,t one, we can
+create a column in the data frame with unique identifier for each
+observation.  
+<p>
+In this dataset the column is called “key_num”. In general, an unit of
+observation is some unit of interest, measured over time. In this
+dataset, it’s a river measuring station, in a given season, in a given
+year. For example, “Ash river in summer in 1995”, or “Thames river in
+winter of 2001”. So in this dataset I have grouped the data by,
+River,Season and Year, and given a unique ID to each observation and
+labelled the column `"key_num"`.  
+<p>
+
+TODO: Future updates to lifetimes will include a helper function that
+inputs a set of columns defining a unique observation, and outputs
+creates a new column of uniqueIDs.  
+s
+
+**7: `.in_metaData =` Column names of metadata:** This parameter takes
+column names of any attributes you would like to append to data
 
 ## **Dataset 2: Cell and nucleus**
 
