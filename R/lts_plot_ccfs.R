@@ -162,7 +162,7 @@ lts_plot_ccfs <- function(
   lts_heatmapAnno$ymax<- as.numeric(lts_heatmapAnno$ymax)
   lts_heatmapAnno[category1_name] <-  factor(lts_heatmapAnno[,.lts_output$lts_variables$lts_compare_by[[1]] ], levels = category1_levels)
   lts_heatmapAnno[category2_name] <-  factor(lts_heatmapAnno[,.lts_output$lts_variables$lts_compare_by[[2]] ], levels = category2_levels)
-  str(lts_heatmapAnno)
+  # str(lts_heatmapAnno)
 
   heatmapLagZero <- ggplot2::ggplot()+
     ggplot2::geom_rect(data=lts_heatmapAnno,

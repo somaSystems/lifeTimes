@@ -18,7 +18,7 @@ lts_in <- function(.in_tsData = lts_catchmentsAndRivers,
                        .in_compare_categorical = c("season","catchmentRegion"), #Categorical variables
                        .in_plot_measured_variables = FALSE,
                        .in_pairedComparisons = list(
-                         pair_1 =list(y ="rainfall_cm",x ="flow_m3s")), #pairedVarCCF
+                         pair_1 =list(y ="flow_m3s",x ="rainfall_cm")), #pairedVarCCF
                        .in_uniqueID_colname = "key_num",
                        .in_metaData = NULL){
 
