@@ -164,11 +164,11 @@ i.subcellular,
 ii.organism, and  
 iii.landscape scale datasets.
 
-**Dataset 1: Rainfall and river flow in the United Kingdom**
+## **Dataset 1: Rainfall and river flow in the United Kingdom**
 
 **Landscape scale data** lifeTimes can be used to find coupling between
 processes at the landscape or ecosystem scale. For this example, I have
-used data from the Unied Kingdom, National River Flow Archive
+used data from the United Kingdom, National River Flow Archive
 (<https://nrfa.ceh.ac.uk/web-download-service>). We will look at two
 types of data, i) Gauged Daily Flows (GDF) which measure how much water
 is in a river, and ii) Catchment Daily Rainfall (CDR) which measure the
@@ -187,8 +187,8 @@ period where both stations were operating, and recording measurements.
 
 <p>
 
-After some data wrangling, these two datsets produce a dataframe, where
-the first five observations look like this:
+After some data wrangling, these two datsets produce a csv which I read
+into a dataframe. The first five observations look like this:
 
 ``` r
 rain_flow <- read.csv(file ="data-raw/rain_flow_Thames_Ash.csv")
@@ -222,7 +222,11 @@ looks like this: ![Raw data example:](man/figures/raw_flow_rain.png)
 
 The main funtion for user input in lifeTimes is `lts_in()`. To test that
 lifeTimes is working you can run this function without any arguments.
-This will run the program on a default set of data.
+This will run the program on a default set of data.However, it is more
+interesting to run lifeTimes on your own data. Below, I have included a
+worked example of how to use run lifeTimes on a dataset. For this
+example, I am still usingthe rain\_flow dataset, except that the steps
+to run this data in `lts_in()` are now clearly shown.
 
 **Example 1**
 
@@ -335,13 +339,12 @@ redundant pairs of variables in this list. So you can give a list of
 variables you would like to compare to the `lts_pairsMaker` function,
 and assign the output to an object. Then just pass this object as an
 argument to the `.in_pairedComparisons =` parameter (See example 1
-above).  
+above). In addition to iterating all possible combinations of pairings
+between variables, lts\_pairsMaker can be passed a table of
+pre-specified pairings, and return these in list of list format (this is
+demonstrated in the examples below).  
 
 <p>
-
-TODO: In addition to iterating all possible combinations of pairings
-between variables, lts\_pairsMaker will be adapte to be passed a table
-of pre-specified pairings, and return these in list of list format.
 
 **6:`.in_uniqueID_colname =` A unique identified for each thing we are
 measuring:** We need to give lifeTimes the column namr which holds the
@@ -369,5 +372,215 @@ creates a new column of uniqueIDs.
 
 **7: `.in_metaData =` Column names of metadata:** This parameter takes
 column names of any attributes you would like to append to data
+
+## **Dataset 2: Subcellular measures in response to drug treatments**
+
+**Subcellular scale data** We have seen that lifeTimes can be used to
+detect the coupling between lanscape scale processes such as rainfall
+and riverflow, and to highlight how this coupling varies between seasons
+and geographical regions. In this next example, I am using lifeTimes to
+look at coupling between the overall geometry of a living cell, and the
+nucleus compartment within that cell. For this example I have used data
+from melanoma cells imaged in a 3D collagen matrix, treated with
+different drugs that affect cell function. The data here are just 30
+cells (5 cells for each drug treatment), sampled for demonstration
+purposes, from a larger dataset.  
+
+<p>
+
+First I read in the ‘sampleCells.csv’ data, that is included in the
+lifeTimes package.
+
+``` r
+###start example
+lts_cells <- read.csv(file = "data-raw/sampleCells.csv")
+```
+
+<p>
+
+Next, I look at the column names to see the categorical variables, and
+measured variables in the dataset
+
+``` r
+#look at colum names
+colnames(lts_cells)
+```
+
+    ##  [1] "Volume_cell"                "EquivDiameter"             
+    ##  [3] "SurfaceArea_cell"           "MeanIntensity"             
+    ##  [5] "MinIntensity"               "MaxIntensity"              
+    ##  [7] "MajorAxis_cell"             "MinorAxis_cell"            
+    ##  [9] "secondMajor_cell"           "Eccentricity_cell"         
+    ## [11] "secondEccentricity_cell"    "Sphericity_cell"           
+    ## [13] "Vol2surf_cell"              "runNumber"                 
+    ## [15] "timeTrack"                  "yDim"                      
+    ## [17] "xDim"                       "zDim"                      
+    ## [19] "xCoord_cell"                "yCoord_cell"               
+    ## [21] "zCoord_cell"                "Orbit"                     
+    ## [23] "AngleBetween"               "serialNumber"              
+    ## [25] "nProtrusions_cell"          "CoverslipPresent"          
+    ## [27] "CoverslipDistance"          "OnCoverslip"               
+    ## [29] "fieldNumber"                "Treatment"                 
+    ## [31] "Row"                        "Column"                    
+    ## [33] "Polarity_cell"              "Spreading_cell"            
+    ## [35] "Protrusivity_cell"          "cellNumber"                
+    ## [37] "NucleusVolumeFraction"      "Volume_nucleus"            
+    ## [39] "SurfaceArea_nucleus"        "MajorAxis_nucleus"         
+    ## [41] "MinorAxis_nucleus"          "secondMajor_nucleus"       
+    ## [43] "Eccentricity_nucleus"       "secondEccentricity_nucleus"
+    ## [45] "Sphericity_nucleus"         "Vol2surf_nucleus"          
+    ## [47] "xCoord_nucleus"             "yCoord_nucleus"            
+    ## [49] "zCoord_nucleus"             "nProtrusions_nucleus"      
+    ## [51] "Polarity_nucleus"           "Spreading_nucleus"         
+    ## [53] "Protrusivity_nucleus"       "Plate"                     
+    ## [55] "cluster"
+
+Here, I can see that `"runNumber"`, will be the column with the time
+information, and `"cellNumber"` will be the unique ID for each
+observation. `"Treatment"` is a categorical variable.
+
+<p>
+
+For this dataset, I am only interested in one categorical variable,
+called “Treatment”. This variable describes the drug that each cell has
+been exposed to. This is in contrast to the “rain\_flow” dataset
+(example 1 above) where there were two categorical variables of inerest
+(“season” and “catchmentRegion”).  
+
+<p>
+
+Also, I can see that there are many measured variables for both the cell
+and nucleus that I could compare (eg. “Polarity\_cell”,
+“Eccentricity\_nucleus”, “Volume\_cell” etc.) . This is in contrast to
+the “rain\_flow” dataset where there were only two measured variables.  
+
+<p>
+
+**User defined paired comparisons** For this dataset, instead of using
+`lts_pairsMaker` to permute all the possible comparisons between
+measured variables, I will specifically define the variables to compare.
+In the cell dataset, we can use some domain specific knowledge to
+recognise that comparing the coupling of geometry between the cell and
+nucleus under different drug treatments is meaningful and interesting.
+To make this comparisons, I have just listed some of the features I
+would like to directly compare, and then joined this into a matrix that
+I named `my_pairs` by using `rbind()`:
+
+``` r
+#choose three pairs of column names
+pair1 <- c("Polarity_cell","Polarity_nucleus")
+pair2 <- c("Eccentricity_cell", "Eccentricity_nucleus")
+pair3 <- c("Volume_cell", "Volume_nucleus")
+
+# use rbind to make these pairs into a matrix
+my_pairs <- rbind(pair1,pair2,pair3)
+```
+
+<p>
+
+I passed `my_pairs` to `lts_pairsMaker` with `defined = TRUE`, to create
+a list of specific paired comparisons that I would like to make. This
+contrasts with the less default use of `lts_pairsMaker`, where a list of
+column names is entered, and all possible non-redundant combinations of
+these are
+returned.
+
+``` r
+#make these into list of pairs using helper function with "defined = TRUE"
+lts_pairs <- lts_pairsMaker(my_pairs, defined = TRUE)
+```
+
+<p>
+
+**Single categorical variable with multiple measured variables** The
+data, relevant column names and list of pairs can all be entered into
+`lts_in()`. The important and interesting difference between this
+example and the “rain\_flow” example, is that we are now using a
+**single categorical variable**, “Treatment”. In this situation you must
+set `.in_plot_measured_variables = TRUE`. This means lifeTimes will
+cluster and plot the different measured variables.  
+
+<p>
+
+TODO: Improve UI by either removing `.in_plot_measured_variables = TRUE`
+argu,ent, and making it automatic when only one categorical is entered,
+OR make it possible to enter only one categorical, while
+`.in_plot_measured_variables = FALSE`.
+
+``` r
+# enter arguments into lts_in
+# here there is one categorical variable and multiple measured variables
+lts_oneCat <- lts_in(.in_tsData = lts_cells,
+                     .in_compare_categorical = "Treatment",
+                     .in_time = "runNumber",
+                     .in_plot_measured_variables = TRUE,
+                     .in_pairedComparisons = lts_pairs,
+                     .in_uniqueID_colname = "cellNumber",
+                     .in_metaData = NULL )
+```
+
+    ## `mutate_if()` ignored the following grouping variables:
+    ## Adding missing grouping variables: `cellNumber`
+    ## `mutate_if()` ignored the following grouping variables:
+    ## Adding missing grouping variables: `cellNumber`
+    ## `mutate_if()` ignored the following grouping variables:
+    ## Adding missing grouping variables: `Treatment`, `theFeature`
+    ## `mutate_if()` ignored the following grouping variables:
+    ## Adding missing grouping variables: `Treatment`, `theFeature`
+    ## • Column `cellNumber`
+
+<p>
+
+After running `lts_in()`, the output can be plotted with the three
+lifeTimes plotting functions. Examples are below:
+
+``` r
+#View results
+lts_plot_ccfs(lts_oneCat)
+```
+
+    ## 'data.frame':    18 obs. of  7 variables:
+    ##  $ Treatment                    : Factor w/ 6 levels "CK666","DMSO",..: 5 1 2 3 4 6 5 1 2 3 ...
+    ##  $ theFeature                   : Factor w/ 3 levels "Volume_cell \n versus \n Volume_nucleus",..: 2 2 2 2 2 2 3 3 3 3 ...
+    ##  $ xmin                         : num  -13 -13 -13 -13 -13 -13 -13 -13 -13 -13 ...
+    ##  $ xmax                         : num  13 13 13 13 13 13 13 13 13 13 ...
+    ##  $ ymin                         : num  -Inf -Inf -Inf -Inf -Inf ...
+    ##  $ ymax                         : num  Inf Inf Inf Inf Inf ...
+    ##  $ catGroups_mean_corr_atModeLAG: num  0.355 0.513 0.589 0.208 0.283 ...
+
+    ## Warning: Graphs cannot be vertically aligned unless the axis parameter is set.
+    ## Placing graphs unaligned.
+
+![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+
+``` r
+lts_plot_ClustSum(lts_oneCat)
+```
+
+    ## [1] "Warning:...  ...had NA, so removed from matrix"
+
+![](README_files/figure-gfm/unnamed-chunk-11-2.png)<!-- -->
+
+<p>
+
+This example of `lts_plot_coupled()` shows two plots of the same data,
+and how the colouring and faceting variables can be switched with the
+`.lts_colour_by =` and \`.lts\_facet\_by =\`\`\` parameters.
+
+``` r
+lts_plot_coupled(lts_oneCat, 
+                 .lts_colour_by = "cat1", 
+                 .lts_facet_by = "cat2")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+``` r
+lts_plot_coupled(lts_oneCat, 
+                 .lts_colour_by = "cat2", 
+                 .lts_facet_by = "cat1")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
 
 © 2022 GitHub, Inc. Terms Privacy Security Status

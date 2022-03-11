@@ -131,13 +131,13 @@ ii.organism, and
 iii.landscape scale datasets.
 
 **Dataset 1: Rainfall and river flow in the United Kingdom**
-
+-----
 **Landscape scale data**
 lifeTimes can be used to find coupling between processes at the landscape or ecosystem scale. For this example, I have used data from the United Kingdom, National River Flow Archive (https://nrfa.ceh.ac.uk/web-download-service). We will look at two types of data, i) Gauged Daily Flows (GDF) which measure how much water is in a river, and ii) Catchment Daily Rainfall (CDR) which measure the amount of rain on the landscape around the river. River flows are in cubic meters per second, and rainfall is in mm across the catchment in the given reference period (https://nrfa.ceh.ac.uk/data-formats-types).  
 <p>
 For this example I have downloaded data from the Thames river, at Kingston (https://nrfa.ceh.ac.uk/data/station/info/39001), and the Ash river, at Mardock https://nrfa.ceh.ac.uk/data/station/info/38002. I have also subset the data between the years 1983 and 2017. This is a period where both stations were operating, and recording measurements.  
 <p>
-After some data wrangling, these two datsets produce a dataframe, where the first five observations look like this:
+After some data wrangling, these two datsets produce a csv which I read into a dataframe. The first five observations look like this:
 ```{r}
 
 rain_flow <- read.csv(file ="data-raw/rain_flow_Thames_Ash.csv")
@@ -200,10 +200,8 @@ i. You can analyse 2 categorical variables and one pair of measured variables. T
 ii. alternatively, if you are using one categorical variable, but more than one pair of measured variablesyou can set this to ```.in_plot_measured_variables = TRUE```  
 <p>
 
-**5: ```.in_pairedComparisons =``` Pairs of variables to compare to one another at different lags:** Under the hood, these are passed to the lifeTimes internal functions in the format of a list of lists. There is one master list, holding lists of paired variables to compare. In practice, there is a helper fuction ```lts_pairsMaker()```, that takes a vector with a list of column names, and returns all possible non redundant pairs of variables in this list. So you can give a list of variables you would like to compare to the ```lts_pairsMaker``` function, and assign the output to an object. Then just pass this object as an argument to the ```.in_pairedComparisons =``` parameter (See example 1 above).  
+**5: ```.in_pairedComparisons =``` Pairs of variables to compare to one another at different lags:** Under the hood, these are passed to the lifeTimes internal functions in the format of a list of lists. There is one master list, holding lists of paired variables to compare. In practice, there is a helper fuction ```lts_pairsMaker()```, that takes a vector with a list of column names, and returns all possible non redundant pairs of variables in this list. So you can give a list of variables you would like to compare to the ```lts_pairsMaker``` function, and assign the output to an object. Then just pass this object as an argument to the ```.in_pairedComparisons =``` parameter (See example 1 above). In addition to iterating all possible combinations of pairings between variables, lts_pairsMaker can be passed a table of pre-specified pairings, and return these in list of list format (this is demonstrated in the examples below).  
 <p>
-TODO: In addition to iterating all possible combinations of pairings between variables, lts_pairsMaker will be adapte to be passed a table of pre-specified pairings, and return these in list of list format.  
-
 **6:```.in_uniqueID_colname =``` A unique identified for each thing we are measuring:** We need to give lifeTimes the column namr which holds the unique identifier for each observation. If there isn,t one, we can create a column in the data frame with unique identifier for each observation.  
 <p>
 In this dataset the column is called "key_num". In general, an unit of observation is some unit of interest, measured over time. In this dataset, it's a river measuring station, in a given season, in a given year. For example, "Ash river in summer in 1995", or "Thames river in winter of 2001". So in this dataset I have grouped the data by, River,Season and Year, and given a unique ID to each observation and labelled the column ```"key_num"```.  
@@ -212,7 +210,80 @@ TODO: Future updates to lifetimes will include a helper function that inputs a s
 <p>
 **7: ```.in_metaData =``` Column names of metadata:** This parameter takes column names of any attributes you would like to append to data
 
+**Dataset 2: Subcellular measures in response to drug treatments**
+------
+**Subcellular scale data**
+We have seen that lifeTimes can be used to detect the coupling between lanscape scale processes such as rainfall and riverflow, and to highlight how this coupling varies between seasons and geographical regions. In this next example, I am using lifeTimes to look at coupling between the overall geometry of a living cell, and the nucleus compartment within that cell. For this example I have used data from melanoma cells imaged in a 3D collagen matrix, treated with different drugs that affect cell function. The data here are just 30 cells (5 cells for each drug treatment), sampled for demonstration purposes, from a larger dataset.  
+<p>
+First I read in the 'sampleCells.csv' data, that is included in the lifeTimes package.
+```{r}
+###start example
+lts_cells <- read.csv(file = "data-raw/sampleCells.csv")
+```
+<p>
+Next, I look at the column names to see the categorical variables, and measured variables in the dataset
+```{r}
+#look at colum names
+colnames(lts_cells)
+```
+Here, I can see that ```"runNumber"```, will be the column with the time information, and ```"cellNumber"``` will be the unique ID for each observation. ```"Treatment"``` is a categorical variable. 
+<p>
+For this dataset, I am only interested in one categorical variable, called "Treatment". This variable describes the drug that each cell has been exposed to. This is in contrast to the "rain_flow" dataset (example 1 above) where there were two categorical variables of inerest ("season" and "catchmentRegion").  
+<p>
+Also, I can see that there are many measured variables for both the cell and nucleus that I could compare (eg. "Polarity_cell", "Eccentricity_nucleus", "Volume_cell" etc.) . This is in contrast to the "rain_flow" dataset where there were only two measured variables.  
+<p>
+**User defined paired comparisons** 
+For this dataset, instead of using ```lts_pairsMaker``` to permute all the possible comparisons between measured variables, I will specifically define the variables to compare. In the cell dataset, we can use some domain specific knowledge to recognise that comparing the coupling of geometry between the cell and nucleus under different drug treatments is meaningful and interesting. To make this comparisons, I have just listed some of the features I would like to directly compare, and then joined this into a matrix that I named ```my_pairs``` by using ```rbind()```:
+```{r}
+#choose three pairs of column names
+pair1 <- c("Polarity_cell","Polarity_nucleus")
+pair2 <- c("Eccentricity_cell", "Eccentricity_nucleus")
+pair3 <- c("Volume_cell", "Volume_nucleus")
 
+# use rbind to make these pairs into a matrix
+my_pairs <- rbind(pair1,pair2,pair3)
+```
+<p>
+I passed ```my_pairs``` to ```lts_pairsMaker``` with ```defined = TRUE```, to create a list of specific paired comparisons that I would like to make. This contrasts with the less default use of ```lts_pairsMaker```, where a list of column names is entered, and all possible non-redundant combinations of these are returned.
+```{r}
+#make these into list of pairs using helper function with "defined = TRUE"
+lts_pairs <- lts_pairsMaker(my_pairs, defined = TRUE)
+```
+<p>
+**Single categorical variable with multiple measured variables** 
+The data, relevant column names and list of pairs can all be entered into ```lts_in()```. The important and interesting difference between this example and the "rain_flow" example, is that we are now using a **single categorical variable**, "Treatment". In this situation you must set ```.in_plot_measured_variables = TRUE```. This means lifeTimes will cluster and plot the different measured variables.  
+<p>
+TODO: Improve UI by either removing ```.in_plot_measured_variables = TRUE``` argu,ent, and making it automatic when only one categorical is entered, OR make it possible to enter only one categorical, while ```.in_plot_measured_variables = FALSE```.
+```{r include=TRUE, results = 'hide'}
+# enter arguments into lts_in
+# here there is one categorical variable and multiple measured variables
+lts_oneCat <- lts_in(.in_tsData = lts_cells,
+                     .in_compare_categorical = "Treatment",
+                     .in_time = "runNumber",
+                     .in_plot_measured_variables = TRUE,
+                     .in_pairedComparisons = lts_pairs,
+                     .in_uniqueID_colname = "cellNumber",
+                     .in_metaData = NULL )
+```
+<p>
+After running ```lts_in()```, the output can be plotted with the three lifeTimes plotting functions. Examples are below:
+```{r}
+#View results
+lts_plot_ccfs(lts_oneCat)
+lts_plot_ClustSum(lts_oneCat)
+```
+<p>
+This example of ```lts_plot_coupled()``` shows two plots of the same data, and how the colouring and faceting variables can be switched with the ```.lts_colour_by =``` and `.lts_facet_by =``` parameters.
+```{r}
+lts_plot_coupled(lts_oneCat, 
+                 .lts_colour_by = "cat1", 
+                 .lts_facet_by = "cat2")
+
+lts_plot_coupled(lts_oneCat, 
+                 .lts_colour_by = "cat2", 
+                 .lts_facet_by = "cat1")
+
+```
 
 
 
