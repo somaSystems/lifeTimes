@@ -78,7 +78,8 @@ lts_plot_ClustSum <- function(
     rownames(mw_prePost) <- wide_unq_filt_rmna_subset_meanLagRange_join_outputCCFdata[[1]]
 
     hasNA_So_removedFromMatrix <- names(which(rowSums(is.na(mw_prePost)) > 0))
-    print(paste("Warning:...",hasNA_So_removedFromMatrix,"...had NA, so removed from matrix"))
+    if(length(hasNA_So_removedFromMatrix)>0){  #conditional added March 11 2022
+    print(paste("Warning:...",hasNA_So_removedFromMatrix,"...had NA, so removed from matrix"))}
 
     narm_mw_prePost <- na.omit(mw_prePost)
 
