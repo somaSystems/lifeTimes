@@ -6,7 +6,7 @@ library(lifeTimes)
 # lts_plot_ClustSum(lts_march)
 # lts_plot_coupled(lts_march)
 
-garmin <- read.csv(file = "data-raw/cleaned_garmin.csv")
+garmin <- read.csv(file = "../data-raw/cleaned_garmin.csv")
 # View(garmin)
 colnames(garmin)
 
@@ -69,6 +69,9 @@ lts_plot_coupled(lts_garmin, .lts_facet_by = "cat1",.lts_colour_by = "cat2")
 
 lts_pairs[(4:length(lts_pairs))]
 
+#####for developers###
+
+
 lts <- lifeTimes:::lts_input(.tsData = sub_garmin,
                              .time = "two_min_time",
                              .compare_categorical = c("session_split"),
@@ -83,9 +86,11 @@ wide <- lifeTimes:::lts_tsToWide(lts) ## can add an argument to remove NA
 ccf <- lifeTimes:::lts_wide_ts_to_ccf(.lts_cast_ts = wide, .lts_variables = lts) # gives an error if there are na
 ccf_df <- lifeTimes:::lts_ccf_df(.lts_ccflist = ccf,.lts_variables = lts)
 
-meta_df <- lts_TEST_metaData_ccf_join(.lts_dfccf = ccf_df, .lts_variables = lts)
+# meta_df <- lts_TEST_metaData_ccf_join(.lts_dfccf = ccf_df, .lts_variables = lts)
 
-# meta_df <- lifeTimes:::lts_metaData_ccf_join(.lts_dfccf = ccf_df, .lts_variables = lts)
+meta_df <- lifeTimes:::lts_metaData_ccf_join(.lts_dfccf = ccf_df, .lts_variables = lts)
+ccf_summs <-lts_TEST_summarise_ccf(.lts_ccfWithMetaData = meta_df,.lts_variables = lts)
+
 ccf_summs <- lifeTimes:::lts_summarise_ccf(.lts_ccfWithMetaData = meta_df,.lts_variables = lts)
 
 # ccf_summs$lts_ccf_summaries
