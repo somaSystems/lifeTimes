@@ -82,9 +82,9 @@ To make data suitable for lifeTimes, we need the raw data, and four labels:
 <p>
 **1. A unique identified for each thing we are measuring: ** So we need to find, or create a column in the data frame with unique identifier for each observation: In this dataset the column is called "key_num". An observation is some unit of interest, tracked over time. In this dataset, it's a river measuring station, in a given season, in a given year. For example, "Ash river in summer in 1995", or "Thames river in winter of 2001". So in this dataset I have grouped the data by, River,Season and Year, and given a unique ID to each observation and labelled the column  the column "key_num". 
 
-**2. A unit of time:** So we need to find the column in the dataset that indicates this. In this data we have years, months and days, but the unit of time I am interested in is at the resolution of days. The column in the datset with days is called "dayOfseason". On the first day of each season (summer, autumn, winter, spring) this value starts at one and increments up until the end of the season.
+**2. A unit of time:** So we need to find the column in the dataset that indicates time. In this data we have years, months and days, but the unit of time I am interested in is at the resolution of days. The column in the datset with days is called "dayOfseason". On the first day of each season (summer, autumn, winter, spring) this value starts at one and increments up until the end of the season.
 
-**3. Pairs of variables to compare **
+**3. Pairs of variables to compare: ** In lifeTimes, pairs of variables to compare are stored in a list (of two variables) in a lists. 
 
 
 **landscape data**

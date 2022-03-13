@@ -1,7 +1,7 @@
 README
 ================
 LGD
-19/12/2021
+17/12/2021
 
 -   [**Quick start**](#quick-start)
 -   [**Detailed examples**](#detailed-examples)
@@ -20,8 +20,9 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![codecov](https://codecov.io/gh/somaSystems/lifeTimes/branch/main/graph/badge.svg?token=4LFWpvvLOq)](https://codecov.io/gh/somaSystems/lifeTimes)
 
 [![test-coverage](https://github.com/somaSystems/lifeTimes/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/somaSystems/lifeTimes/actions/workflows/test-coverage.yaml)
+<p>
 
-**lifeTimes: correlations in biological series data**
+<img src="man/figures/lifeTimesLogo.png" style="width:40.0%" />
 
 This is a package for **detecting** and **visualising** correlations
 between objects in biological series data.
@@ -65,24 +66,11 @@ library(lifeTimes)
 lts <- lts_in() #calculate cross correlation
 ```
 
-    ## `mutate_if()` ignored the following grouping variables:
-    ## Adding missing grouping variables: `key_num`
-    ## `mutate_if()` ignored the following grouping variables:
-    ## Adding missing grouping variables: `key_num`
-    ## `mutate_if()` ignored the following grouping variables:
-    ## Adding missing grouping variables: `season`, `catchmentRegion`
-    ## `mutate_if()` ignored the following grouping variables:
-    ## Adding missing grouping variables: `season`, `catchmentRegion`
-    ## • Column `key_num`
-
 **Visualise results from lifeTimes on default data**
 
 ``` r
 lts_plot_ccfs(lts) #plot clustered correlations
 ```
-
-    ## Warning: Graphs cannot be vertically aligned unless the axis parameter is set.
-    ## Placing graphs unaligned.
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
@@ -103,8 +91,8 @@ lts_plot_coupled(lts) # plot strength and direction of correlation
 <figure>
 <img src="man/figures/riverCatchments.png" style="width:60.0%"
 alt="Fig 1: Ariel images of the Ash, and Thames rivers" />
-<figcaption aria-hidden="true">Fig 1: Ariel images of the Ash, and
-Thames rivers</figcaption>
+<figcaption aria-hidden="true"><strong>Fig 1:</strong> Ariel images of
+the Ash, and Thames rivers</figcaption>
 </figure>
 
 **Quick summary on inputs**  
@@ -185,7 +173,7 @@ head(rain_flow)
 
 Plotting the river flow and rainfall measures over a 1000 day interval
 looks like this:
-<img src="man/figures/raw_flow_rain.png" style="width:40.0%"
+<img src="man/figures/raw_flow_rain.png" style="width:100.0%"
 alt="Raw data example:" />
 
 The main funtion for user input in lifeTimes is `lts_in()`. To test that
@@ -319,8 +307,7 @@ labelled the column `"key_num"`.
 
 TODO: Future updates to lifetimes will include a helper function that
 inputs a set of columns defining a unique observation, and outputs
-creates a new column of uniqueIDs.  
-s
+creates a new column of uniqueIDs.
 
 **7: `.in_metaData =` Column names of metadata:** This parameter takes
 column names of any attributes you would like to append to data
@@ -464,16 +451,6 @@ lts_oneCat <- lts_in(.in_tsData = lts_cells,
                      .in_metaData = NULL )
 ```
 
-    ## `mutate_if()` ignored the following grouping variables:
-    ## Adding missing grouping variables: `cellNumber`
-    ## `mutate_if()` ignored the following grouping variables:
-    ## Adding missing grouping variables: `cellNumber`
-    ## `mutate_if()` ignored the following grouping variables:
-    ## Adding missing grouping variables: `Treatment`, `theFeature`
-    ## `mutate_if()` ignored the following grouping variables:
-    ## Adding missing grouping variables: `Treatment`, `theFeature`
-    ## • Column `cellNumber`
-
 <p>
 
 After running `lts_in()`, the output can be plotted with the three
@@ -483,9 +460,6 @@ lifeTimes plotting functions. Examples are below:
 #View results
 lts_plot_ccfs(lts_oneCat)
 ```
-
-    ## Warning: Graphs cannot be vertically aligned unless the axis parameter is set.
-    ## Placing graphs unaligned.
 
 ![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 

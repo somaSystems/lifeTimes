@@ -1,7 +1,7 @@
 ---
 title: "README"
 author: "LGD"
-date: "19/12/2021"
+date: "17/12/2021"
 output:
   github_document:
     toc: true
@@ -12,15 +12,15 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 [![codecov](https://codecov.io/gh/somaSystems/lifeTimes/branch/main/graph/badge.svg?token=4LFWpvvLOq)](https://codecov.io/gh/somaSystems/lifeTimes)  
 
 [![test-coverage](https://github.com/somaSystems/lifeTimes/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/somaSystems/lifeTimes/actions/workflows/test-coverage.yaml)
+<p>
 
+![](man/figures/lifeTimesLogo.png){width=40%}  
 
-**lifeTimes: correlations in biological series data**
 
 This is a package for **detecting** and **visualising** correlations between objects in biological series data. 
 
@@ -70,7 +70,7 @@ lts_plot_coupled(lts) # plot strength and direction of correlation
 
 **Fig 1** Ariel images of the Ash, and Thames rivers.  
 
-![Fig 1: Ariel images of the Ash, and Thames rivers](man/figures/riverCatchments.png){width=60%}  
+![**Fig 1:** Ariel images of the Ash, and Thames rivers](man/figures/riverCatchments.png){width=60%}  
 
 **Quick summary on inputs**  
 i.      Evenly spaced series data (eg. can be time or space series)\
@@ -108,7 +108,7 @@ head(rain_flow)
 ``` 
 
 Plotting the river flow and rainfall measures over a 1000 day interval looks like this:
-![Raw data example:](man/figures/raw_flow_rain.png){width=40%}
+![Raw data example:](man/figures/raw_flow_rain.png){width=100%}
 
 The main funtion for user input in lifeTimes is ```lts_in()```. To test that lifeTimes is working you can run this function without any arguments. This will run the program on a default set of data.However, it is more interesting to run lifeTimes on your own data. Below, I have included a worked example of how to use run lifeTimes on a dataset. For this example, I am still usingthe rain_flow dataset, except that the steps to run this data in ```lts_in()``` are now clearly shown.  
 
@@ -253,6 +253,38 @@ lts_plot_coupled(lts_oneCat,
                  .lts_facet_by = "cat1")
 
 ```
+
+
+**Downstream analysis: Rainfall and river flow**
+------
+Cross correlations, or lagged correlations between features have many uses. Two of these are:  
+i. generating hypotheses about cause and effect between parts of a system  
+ii. improving the results of classification tasks indynamic datasets  
+<p>
+The code below shows how you can access summary statistics about each ovbservation, for use in downstream tasks.
+```{r}
+#load lideTimes
+library(lifeTimes)
+
+#run lifeTimes
+lts_demo <- lts_in()
+
+#access the summary statistics output from lifeTimes
+#there are a range of these in a list called "lts_ccf_summaries"
+lts_demo$lts_ccf_summaries
+
+#ccf summary statistics are stored at the level of individual observations 
+#here is an example ofthe first 9 summaries
+head(lts_demo$lts_ccf_summaries$lts_singleton_summ_metadata)
+
+
+
+
+
+```
+TODO: A tutorial on how to use these summary statistics in PCA visualisation and PLSR will follow.
+
+
 
 
 

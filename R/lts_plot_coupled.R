@@ -57,8 +57,8 @@ subset_.lts_final_clusters <-
 berryTwig <- ggplot(data = subset_.lts_final_clusters)+ #changed the lagTo meanCorratModeMaxLag
   annotate("rect",xmin = -Inf, xmax = 0, ymin = -Inf, ymax = Inf,  fill = "#2c7da0",alpha = 0.3)+
   annotate("rect",xmin = 0, xmax = Inf, ymin = -Inf, ymax = Inf,  fill = "#fff3b0",alpha = 0.3)+
-  geom_point(aes(x = posNegDiffmedian_corr_by_lag_range, y = catGroups_mean_corr_atModeLAG, color = !!rlang::sym(.lts_colour_by)), size =2)+ #need to make this a variable
-  geom_segment(aes(xend = posNegDiffmedian_corr_by_lag_range, yend = catGroups_mean_corr_atModeLAG,  x=0,y=0),alpha = 0.05)+
+  geom_point(aes(x = posNegDiffmedian_corr_by_lag_range, y = catGroups_mean_corr_atModeLAG, color = !!rlang::sym(.lts_colour_by)), size =3)+ #need to make this a variable
+  geom_segment(aes(xend = posNegDiffmedian_corr_by_lag_range, yend = catGroups_mean_corr_atModeLAG,  x=0,y=0),alpha = 0.5)+
   viridis::scale_color_viridis(option = "magma", discrete =TRUE)+
   facet_wrap(vars(!!rlang::sym(.lts_facet_by)))+ #need to make this a variable
   theme_classic()+

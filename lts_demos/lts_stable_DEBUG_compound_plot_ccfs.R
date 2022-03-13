@@ -1,10 +1,10 @@
 #' lts_clusterPlot
-#' Returns plot of ccfs and dendrogram (compound plot), facets are clustered by the mean correlation at the lag with the most frequent (mode) maximum correlation. Future updates will allow decomposition of plots into component parts.
+#'
 #' @import ggplot2
 #' @import grid
-#' @import egg
+#' @import eggß
 #' @importFrom ggplot2 ggplot
-#' @importFrom ggpubr rremove
+#' @importFrom ggpubr ggarrange rremove
 #' @importFrom ggdendro ggdendrogram dendro_data segment
 #'
 #' @param .lts_output output from the lifeTimes main workflow
@@ -162,7 +162,7 @@ lts_plot_ccfs <- function(
   # unq_rectValues <- unique(rectValues)
 
   lts_heatmapAnno <- dplyr::left_join(heatmapAnno, rectValues[c("catGroups_mean_corr_atModeLAG", category1_name, category2_name)], by = c(category1_name, category2_name))
-  # lts_heatmapAnno
+  lts_heatmapAnno
 
 
   lts_heatmapAnno$xmin <- as.numeric(lts_heatmapAnno$xmin)
@@ -181,19 +181,16 @@ lts_plot_ccfs <- function(
     ggplot2::geom_line(data = subset_sum_join_outputCCFdata, ggplot2::aes(x =theLAG,
                                                         y = theCCF,
                                                         group = !!sym(.lts_output$lts_variables$lts_uniqueID_colname)), alpha = 0.5, color = "black")+  ##fix this instance of keynum
-    ggplot2::scale_color_viridis_c("mean Corr at most\n  frequent max lag", option ="magma")+
-    ggplot2::scale_fill_viridis_c("mean Corr at most\n  frequent max lag", option ="magma")+
+    ggplot2::scale_color_viridis_c(option ="magma")+
+    ggplot2::scale_fill_viridis_c(option ="magma")+
     ggplot2::facet_grid( vars(!!sym(category2_name)), vars(!!sym(category1_name)) )+
     ggplot2::stat_summary(data = subset_sum_join_outputCCFdata,ggplot2::aes(x = theLAG, y = theCCF,group=1), fun=mean, colour="darkorange", geom="line",group=1, size = 1)+
     ggplot2::theme_classic() +
     ggplot2::theme(legend.position="bottom")+
     # + ylab() +
     ggplot2::theme(strip.text.y.right = ggplot2::element_text(angle = 0)) #remove this if a problem
-    # ggplot2::guides(fill=  ggplot2:::guide_legend(title="mean Corr at most\n  frequent max lag"))
 
-# info on guides labels
-# https://stackoverflow.com/questions/14622421/how-to-change-legend-title-in-ggplot
-  # heatmapLagZero
+  heatmapLagZero
 
   # compoundPlot <- ggpubr::ggarrange(plt_dendr, heatmapLagZero + ggpubr::rremove("x.text"),
   #                                   heights = c(2, 7),
@@ -201,20 +198,16 @@ lts_plot_ccfs <- function(
   #                                   # labels = c("A", "B", "C"),
   #                                   ncol = 1, nrow = 2)
 
-
+  compoundPlot
 
 ##egg and grid approach to compound plot for greater control of panel alignment
 
-  p1 <- plt_dendr
-
-  p2 <- heatmapLagZero
   g1 <- ggplot2::ggplotGrob(p1)
   g2 <- ggplot2::ggplotGrob(p2)
 
   fg1 <- egg::gtable_frame(g1, width = unit(1, "null"),
                            height = unit(.3, "null"),
                            debug = FALSE)
-
   fg2 <- egg::gtable_frame(g2, width = unit(1, "null"),
                            height = unit(1.7, "null"),
                            debug = FALSE)
@@ -222,14 +215,12 @@ lts_plot_ccfs <- function(
     egg::gtable_frame(gridExtra::gtable_rbind(fg1, fg2),
                       width = unit(2, "null"),
                       height = unit(3, "null"))
+  grid::grid.newpage()
+  compoundPlot <- grid::grid.draw(fg12)
 
-  compoundPlot <- grid::grid.newpage()+grid::grid.draw(fg12)
 
-  # compoundPlot
 
-  # return((ensym_plotType))
-
-    # return(eval(ensym_plotType))
+    return(eval(ensym_plotType))
  }
 
 
