@@ -1,6 +1,8 @@
 #' lts_clusterPlot
 #'
 #' @import ggplot2
+#' @import grid
+#' @import eggß
 #' @importFrom ggplot2 ggplot
 #' @importFrom ggpubr ggarrange rremove
 #' @importFrom ggdendro ggdendrogram dendro_data segment
@@ -16,16 +18,16 @@
 #' @export
 #'
 
-# # lts_clusterOutput
-# lts_plot_ccfs <- function(
-#   .lts_output = lts_cluster,
-#    plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
+# lts_clusterOutput
+lts_plot_ccfs <- function(
+  .lts_output = lts_cluster,
+   plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
 
 
 # lts_plot_ccfs <- function(
-  .lts_output = lts_garmin
-  plotType = c("compoundPlot")
-  # {
+  # .lts_output = lts_garmin
+  # plotType = c("compoundPlot")
+  # # {
 
 
 # # lts_clusterPlot <- function(
@@ -190,14 +192,35 @@
 
   heatmapLagZero
 
-  compoundPlot <- ggpubr::ggarrange(plt_dendr, heatmapLagZero + ggpubr::rremove("x.text"),
-                                    heights = c(2, 7),
-                                    align = "v",
-                                    # labels = c("A", "B", "C"),
-                                    ncol = 1, nrow = 2)
+  # compoundPlot <- ggpubr::ggarrange(plt_dendr, heatmapLagZero + ggpubr::rremove("x.text"),
+  #                                   heights = c(2, 7),
+  #                                   align = "v",
+  #                                   # labels = c("A", "B", "C"),
+  #                                   ncol = 1, nrow = 2)
 
   compoundPlot
- #    return(eval(ensym_plotType))
- # }
+
+##egg and grid approach to compound plot for greater control of panel alignment
+
+  g1 <- ggplot2::ggplotGrob(p1)
+  g2 <- ggplot2::ggplotGrob(p2)
+
+  fg1 <- egg::gtable_frame(g1, width = unit(1, "null"),
+                           height = unit(.3, "null"),
+                           debug = FALSE)
+  fg2 <- egg::gtable_frame(g2, width = unit(1, "null"),
+                           height = unit(1.7, "null"),
+                           debug = FALSE)
+  fg12 <-
+    egg::gtable_frame(gridExtra::gtable_rbind(fg1, fg2),
+                      width = unit(2, "null"),
+                      height = unit(3, "null"))
+  grid::grid.newpage()
+  compoundPlot <- grid::grid.draw(fg12)
+
+
+
+    return(eval(ensym_plotType))
+ }
 
 

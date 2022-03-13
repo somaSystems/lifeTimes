@@ -255,6 +255,38 @@ lts_plot_coupled(lts_oneCat,
 ```
 
 
+**Downstream analysis: Rainfall and river flow**
+------
+Cross correlations, or lagged correlations between features have many uses. Two of these are:  
+i. generating hypotheses about cause and effect between parts of a system  
+ii. improving the results of classification tasks indynamic datasets  
+<p>
+The code below shows how you can access summary statistics about each ovbservation, for use in downstream tasks.
+```{r}
+#load lideTimes
+library(lifeTimes)
+
+#run lifeTimes
+lts_demo <- lts_in()
+
+#access the summary statistics output from lifeTimes
+#there are a range of these in a list called "lts_ccf_summaries"
+lts_demo$lts_ccf_summaries
+
+#ccf summary statistics are stored at the level of individual observations 
+#here is an example ofthe first 9 summaries
+head(lts_demo$lts_ccf_summaries$lts_singleton_summ_metadata)
+
+
+
+
+
+```
+TODO: A tutorial on how to use these summary statistics in PCA visualisation and PLSR will follow.
+
+
+
+
 
 © 2022 GitHub, Inc.
 Terms

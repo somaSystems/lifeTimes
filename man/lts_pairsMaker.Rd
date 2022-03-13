@@ -5,17 +5,18 @@
 \title{lts_pairs
 This function takes a vector of column names as strings, and creates input to the ".lts_comparisons" argument of "lts_input". It takes a list of all the columns you are interested in and generates all possible non redundant, non self pairs.}
 \usage{
-lts_pairsMaker(cols = NULL)
+lts_pairsMaker(cols = NULL, defined = FALSE)
 }
 \arguments{
 \item{cols}{a vector of column names to be compared}
+
+\item{define}{set to TRUE if entering a table or dataframe ofpre-defined pairs}
 }
 \value{
 returns a list of elements, where each element is a list of variables that will have CCFs calculated
 }
 \description{
-lts_pairs
-This function takes a vector of column names as strings, and creates input to the ".lts_comparisons" argument of "lts_input". It takes a list of all the columns you are interested in and generates all possible non redundant, non self pairs.
+Alternatively, by setting "defined = TRUE", this function can take a table of pre-defined variables to compare.
 }
 \examples{
  lts_pairsMaker(c("pigeon","ferret","crab"))

@@ -72,9 +72,6 @@ lts <- lts_in() #calculate cross correlation
 lts_plot_ccfs(lts) #plot clustered correlations
 ```
 
-    ## Warning: Graphs cannot be vertically aligned unless the axis parameter is set.
-    ## Placing graphs unaligned.
-
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
@@ -92,7 +89,10 @@ lts_plot_coupled(lts) # plot strength and direction of correlation
 **Fig 1** Ariel images of the Ash, and Thames rivers.
 
 <figure>
-<img src="man/figures/riverCatchments.png" style="width:60.0%" alt="Fig 1: Ariel images of the Ash, and Thames rivers" /><figcaption aria-hidden="true"><strong>Fig 1:</strong> Ariel images of the Ash, and Thames rivers</figcaption>
+<img src="man/figures/riverCatchments.png" style="width:60.0%"
+alt="Fig 1: Ariel images of the Ash, and Thames rivers" />
+<figcaption aria-hidden="true"><strong>Fig 1:</strong> Ariel images of
+the Ash, and Thames rivers</figcaption>
 </figure>
 
 **Quick summary on inputs**  
@@ -173,15 +173,16 @@ head(rain_flow)
 
 Plotting the river flow and rainfall measures over a 1000 day interval
 looks like this:
-<img src="man/figures/raw_flow_rain.png" style="width:80.0%" alt="Raw data example:" />
+<img src="man/figures/raw_flow_rain.png" style="width:100.0%"
+alt="Raw data example:" />
 
 The main funtion for user input in lifeTimes is `lts_in()`. To test that
 lifeTimes is working you can run this function without any arguments.
 This will run the program on a default set of data.However, it is more
 interesting to run lifeTimes on your own data. Below, I have included a
 worked example of how to use run lifeTimes on a dataset. For this
-example, I am still usingthe rain\_flow dataset, except that the steps
-to run this data in `lts_in()` are now clearly shown.
+example, I am still usingthe rain_flow dataset, except that the steps to
+run this data in `lts_in()` are now clearly shown.
 
 **Example 1**
 
@@ -267,9 +268,9 @@ in two ways:
 <p>
 
 1.  You can analyse 2 categorical variables and one pair of measured
-    variables. This is shown with the “rain\_flow” dataset. The two
+    variables. This is shown with the “rain_flow” dataset. The two
     categorical variables are “catchment” and “season”, and the pair of
-    measured variables are “rainfall\_cm” and “flow\_m3s”.  
+    measured variables are “rainfall_cm” and “flow_m3s”.  
 2.  alternatively, if you are using one categorical variable, but more
     than one pair of measured variablesyou can set this to
     `.in_plot_measured_variables = TRUE`
@@ -285,9 +286,9 @@ variables you would like to compare to the `lts_pairsMaker` function,
 and assign the output to an object. Then just pass this object as an
 argument to the `.in_pairedComparisons =` parameter (See example 1
 above). In addition to iterating all possible combinations of pairings
-between variables, lts\_pairsMaker can be passed a table of
-pre-specified pairings, and return these in list of list format (this is
-demonstrated in the examples below).
+between variables, lts_pairsMaker can be passed a table of pre-specified
+pairings, and return these in list of list format (this is demonstrated
+in the examples below).
 
 **6:`.in_uniqueID_colname =` A unique identified for each thing we are
 measuring:** We need to give lifeTimes the column namr which holds the
@@ -295,7 +296,7 @@ unique identifier for each observation. If there isn,t one, we can
 create a column in the data frame with unique identifier for each
 observation.  
 <p>
-In this dataset the column is called “key\_num”. In general, an unit of
+In this dataset the column is called “key_num”. In general, an unit of
 observation is some unit of interest, measured over time. In this
 dataset, it’s a river measuring station, in a given season, in a given
 year. For example, “Ash river in summer in 1995”, or “Thames river in
@@ -378,14 +379,14 @@ observation. `"Treatment"` is a categorical variable.
 <p>
 For this dataset, I am only interested in one categorical variable,
 called “Treatment”. This variable describes the drug that each cell has
-been exposed to. This is in contrast to the “rain\_flow” dataset
-(example 1 above) where there were two categorical variables of inerest
-(“season” and “catchmentRegion”).  
+been exposed to. This is in contrast to the “rain_flow” dataset (example
+1 above) where there were two categorical variables of inerest (“season”
+and “catchmentRegion”).  
 <p>
 Also, I can see that there are many measured variables for both the cell
-and nucleus that I could compare (eg. “Polarity\_cell”,
-“Eccentricity\_nucleus”, “Volume\_cell” etc.) . This is in contrast to
-the “rain\_flow” dataset where there were only two measured variables.  
+and nucleus that I could compare (eg. “Polarity_cell”,
+“Eccentricity_nucleus”, “Volume_cell” etc.) . This is in contrast to the
+“rain_flow” dataset where there were only two measured variables.  
 <p>
 
 **User defined paired comparisons** For this dataset, instead of using
@@ -427,10 +428,10 @@ lts_pairs <- lts_pairsMaker(my_pairs, defined = TRUE)
 
 The data, relevant column names and list of pairs can all be entered
 into `lts_in()`. The important and interesting difference between this
-example and the “rain\_flow” example, is that we are now using a
-**single categorical variable**, “Treatment”. In this situation you must
-set `.in_plot_measured_variables = TRUE`. This means lifeTimes will
-cluster and plot the different measured variables.  
+example and the “rain_flow” example, is that we are now using a **single
+categorical variable**, “Treatment”. In this situation you must set
+`.in_plot_measured_variables = TRUE`. This means lifeTimes will cluster
+and plot the different measured variables.  
 <p>
 
 TODO: Improve UI by either removing `.in_plot_measured_variables = TRUE`
@@ -460,9 +461,6 @@ lifeTimes plotting functions. Examples are below:
 lts_plot_ccfs(lts_oneCat)
 ```
 
-    ## Warning: Graphs cannot be vertically aligned unless the axis parameter is set.
-    ## Placing graphs unaligned.
-
 ![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
@@ -474,7 +472,7 @@ lts_plot_ClustSum(lts_oneCat)
 
 This example of `lts_plot_coupled()` shows two plots of the same data,
 and how the colouring and faceting variables can be switched with the
-`.lts_colour_by =` and \`.lts\_facet\_by =\`\`\` parameters.
+`.lts_colour_by =` and \`.lts_facet_by =\`\`\` parameters.
 
 ``` r
 lts_plot_coupled(lts_oneCat, 

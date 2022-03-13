@@ -118,3 +118,80 @@ grid_arrange_shared_legend <-
   }
 
 grid_arrange_shared_legend(p1, p2)
+
+
+############
+#https://cran.r-project.org/web/packages/egg/vignettes/Overview.html
+library(grid)
+p1 <- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) +
+  geom_point()
+
+p2 <- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) +
+  geom_point() + facet_wrap(~ cyl, ncol = 2, scales = "free") +
+  guides(colour = "none") +
+  theme()
+
+p3 <- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) +
+  geom_point() + facet_grid(. ~ cyl, scales = "free")
+
+g1 <- ggplotGrob(p1)
+g2 <- ggplotGrob(p2)
+g3 <- ggplotGrob(p3)
+
+fg1 <- gtable_frame(g1, debug = TRUE)
+fg2 <- gtable_frame(g2, debug = TRUE)
+fg12 <-
+  gtable_frame(gtable_rbind(fg1, fg2),
+               width = unit(2, "null"),
+               height = unit(1, "null"))
+fg3 <-
+  gtable_frame(
+    g3,
+    width = unit(1, "null"),
+    height = unit(1, "null"),
+    debug = TRUE
+  )
+grid.newpage()
+combined <- gtable_cbind(fg12, fg3)
+grid.draw(combined)
+
+
+
+#################### lts_ecxample
+library(egg)
+p1 <- plt_dendr
+
+p2 <- heatmapLagZero
+
+# p3 <- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) +
+#   geom_point() + facet_grid(. ~ cyl, scales = "free")
+
+g1 <- ggplot2::ggplotGrob(p1)
+g2 <- ggplot2::ggplotGrob(p2)
+# g3 <- ggplotGrob(p3)
+
+fg1 <- egg::gtable_frame(g1, width = unit(1, "null"),
+                         height = unit(.3, "null"),
+                         debug = FALSE)
+fg2 <- egg::gtable_frame(g2, width = unit(1, "null"),
+                         height = unit(1.7, "null"),
+                         debug = FALSE)
+fg12 <-
+  egg::gtable_frame(gridExtra::gtable_rbind(fg1, fg2),
+               width = unit(2, "null"),
+               height = unit(3, "null"))
+grid::grid.newpage()
+grid::grid.draw(fg12)
+
+
+?grid.newpage()
+fg3 <-
+  gtable_frame(
+    g3,
+    width = unit(1, "null"),
+    height = unit(1, "null"),
+    debug = TRUE
+  )
+grid.newpage()
+combined <- gtable_cbind(fg12, fg3)
+grid.draw(combined)

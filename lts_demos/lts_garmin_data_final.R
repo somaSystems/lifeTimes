@@ -5,8 +5,8 @@ library(lifeTimes)
 # lts_plot_ccfs(lts_march)
 # lts_plot_ClustSum(lts_march)
 # lts_plot_coupled(lts_march)
-
-garmin <- read.csv(file = "../data-raw/cleaned_garmin.csv")
+getwd()
+garmin <- read.csv(file = "cleaned_garmin.csv")
 # View(garmin)
 colnames(garmin)
 
@@ -62,7 +62,7 @@ lts_garmin <- lts_in(.in_tsData = sub_garmin,
                      .in_metaData = NULL
 )
 
-
+library(lifeTimes)
 lts_plot_ccfs(lts_garmin)
 lts_plot_ClustSum(lts_garmin)
 lts_plot_coupled(lts_garmin, .lts_facet_by = "cat1",.lts_colour_by = "cat2")
