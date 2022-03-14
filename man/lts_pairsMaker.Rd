@@ -10,7 +10,7 @@ lts_pairsMaker(cols = NULL, defined = FALSE)
 \arguments{
 \item{cols}{a vector of column names to be compared}
 
-\item{define}{set to TRUE if entering a table or dataframe ofpre-defined pairs}
+\item{defined}{set to TRUE if entering a table or dataframe ofpre-defined pairs}
 }
 \value{
 returns a list of elements, where each element is a list of variables that will have CCFs calculated

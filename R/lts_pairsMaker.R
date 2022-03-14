@@ -3,7 +3,7 @@
 #'
 #' Alternatively, by setting "defined = TRUE", this function can take a table of pre-defined variables to compare.
 #' @param cols a vector of column names to be compared
-#' @param define set to TRUE if entering a table or dataframe ofpre-defined pairs
+#' @param defined set to TRUE if entering a table or dataframe ofpre-defined pairs
 #' @return returns a list of elements, where each element is a list of variables that will have CCFs calculated
 #' @export
 #'

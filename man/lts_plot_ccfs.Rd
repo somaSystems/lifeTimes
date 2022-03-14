@@ -2,7 +2,8 @@
 % Please edit documentation in R/lts_plot_ccfs.R
 \name{lts_plot_ccfs}
 \alias{lts_plot_ccfs}
-\title{lts_clusterPlot}
+\title{lts_clusterPlot
+Returns plot of ccfs and dendrogram (compound plot), facets are clustered by the mean correlation at the lag with the most frequent (mode) maximum correlation. Future updates will allow decomposition of plots into component parts.}
 \usage{
 lts_plot_ccfs(
   .lts_output = lts_cluster,
@@ -21,4 +22,5 @@ a plot of features and treatments clustered by CCF at lag zero
 }
 \description{
 lts_clusterPlot
+Returns plot of ccfs and dendrogram (compound plot), facets are clustered by the mean correlation at the lag with the most frequent (mode) maximum correlation. Future updates will allow decomposition of plots into component parts.
 }
