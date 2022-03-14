@@ -1,6 +1,7 @@
 #' lts_clusterPlot
 #' Returns plot of ccfs and dendrogram (compound plot), facets are clustered by the mean correlation at the lag with the most frequent (mode) maximum correlation. Future updates will allow decomposition of plots into component parts.
 #' @import ggplot2
+#' @import gridExtra
 #' @import grid
 #' @import egg
 #' @importFrom ggplot2 ggplot
@@ -116,7 +117,7 @@ lts_plot_ccfs <- function(
       length(levels(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[1]]]))*
       length(levels(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[2]]]))
 
-    category1_name <- .lts_output$lts_variables$lts_compare_by[[1]]
+    category1_name <- .lts_output$gridExtralts_variables$lts_compare_by[[1]]
     category1_contents <- unique(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[1]]])
     category1_levels <- levels( subset_sum_join_outputCCFdata[,category1_name])
 
@@ -150,7 +151,7 @@ lts_plot_ccfs <- function(
   names(heatmapAnno)[names(heatmapAnno) == 'df_category2_name'] <-category2_name
 
   #here colour rectangle values by clustering matrix values
-  #go to source of cluster matrix (a summary sheet)
+  #go to source of cluster matrix gridExtra(a summary sheet)
 
   # .summ_for_matrix
   # lts2$lts_CCFcalcs
@@ -184,7 +185,7 @@ lts_plot_ccfs <- function(
     ggplot2::scale_color_viridis_c("mean Corr at most\n  frequent max lag", option ="magma")+
     ggplot2::scale_fill_viridis_c("mean Corr at most\n  frequent max lag", option ="magma")+
     ggplot2::facet_grid( vars(!!sym(category2_name)), vars(!!sym(category1_name)) )+
-    ggplot2::stat_summary(data = subset_sum_join_outputCCFdata,ggplot2::aes(x = theLAG, y = theCCF,group=1), fun=mean, colour="darkorange", geom="line",group=1, size = 1)+
+    ggplot2::stat_summary(data = sgridExtraubset_sum_join_outputCCFdata,ggplot2::aes(x = theLAG, y = theCCF,group=1), fun=mean, colour="darkorange", geom="line",group=1, size = 1)+
     ggplot2::theme_classic() +
     ggplot2::theme(legend.position="bottom")+
     # + ylab() +
