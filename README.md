@@ -17,6 +17,8 @@ LGD
     -   [**Output summary statistics**](#output-summary-statistics)
     -   [**Visualising principal component
         space**](#visualising-principal-component-space)
+    -   [**Using PLSR to predict catchment
+        location**](#using-plsr-to-predict-catchment-location)
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
@@ -624,7 +626,106 @@ measures. Instead, the improvement comes from the CCFs which give a
 better account of the relationship or coupling between measured
 variables and how these change between conditions.
 
-TODO: A tutorial an example using PLSR will follow.
+### **Using PLSR to predict catchment location**
+
+[Back to top](#)
+
+We can look at performance in classification tasks using PLSR to predict
+`catchmentRegion`, as a dummy variable. First we install and load the
+“pls” package.
+
+``` r
+if(!require("pls")) install.packages("pls")
+```
+
+    ## Loading required package: pls
+
+    ## 
+    ## Attaching package: 'pls'
+
+    ## The following object is masked from 'package:stats':
+    ## 
+    ##     loadings
+
+``` r
+library(pls)
+```
+
+<p>
+
+**Original data summary stats**
+
+From summary statistics of original data, CV analysis suggests 4 comps
+be used. This gives prediction accuracy of `66.74`.
+
+``` r
+#get categorical variables and predictors
+lts_PLSR <- lts_pc_list$lts_clean_summ_original
+
+#Get column names of predictors
+lts_predictors <- lts_PLSR$lts_values_pc
+lts_response <- as.numeric(lts_PLSR$lts_labels_pc$catchmentRegion)
+PLSR_model <- plsr(lts_response ~ ., data=lts_predictors, scale=TRUE, validation="CV")
+```
+
+**Plot RMSEP and prediction accuracy with Original Data**
+
+``` r
+plot(RMSEP(PLSR_model), legendpos = "topright")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+
+``` r
+plot(PLSR_model)+abline(h =1.5, col = "magenta")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-22-2.png)<!-- -->
+
+    ## numeric(0)
+
+<p>
+
+**CCF + Original data summary stats**
+
+From summary statistics of original and cross correlation data (CCF), CV
+analysis suggests 8 comps be used. This gives prediction accuracy of
+`75.35`.
+
+``` r
+#get categorical variables and predictors
+lts_PLSR <- lts_pc_list$lts_clean_summ_join
+
+#Get column names of predictors
+lts_predictors <- lts_PLSR$lts_values_pc
+lts_response <- as.numeric(lts_PLSR$lts_labels_pc$catchmentRegion)
+PLSR_model <- plsr(lts_response ~ ., data=lts_predictors, scale=TRUE, validation="CV")
+```
+
+**Plot RMSEP and prediction accuracy with CCF Augmented Data**
+
+``` r
+plot(RMSEP(PLSR_model), legendpos = "topright")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+
+``` r
+plot(PLSR_model)+abline(h =1.5, col = "magenta")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-24-2.png)<!-- -->
+
+    ## numeric(0)
+
+In this simple example, using cross validated PLSR models, and selecting
+the number of model components where RMSEP reaches the first turning
+point, the improvement in prediction accuracy by incorporating CCF
+summary statistics is `75.35 - 66.74 = 8.61`. This improvement comes
+without adding any new measurements to the original data. The
+improvement in prediction accuracy is likely to depend on whether there
+are strong and characteristic difference in the relationships between
+variables in your dataset, and whether these differ between conditions.
 
 [Back to top](#)
 
