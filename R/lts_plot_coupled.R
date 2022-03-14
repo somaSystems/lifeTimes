@@ -1,7 +1,6 @@
 #' lts_couplingPlot
 #'
 #' @import ggplot2
-#' @import magrittr
 #' @importFrom magrittr %>%
 #' @importFrom viridis scale_color_viridis
 #'

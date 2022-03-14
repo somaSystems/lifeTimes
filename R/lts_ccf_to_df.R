@@ -3,7 +3,6 @@
 #' @param .lts_ccflist output from lts_wide_ts_to_ccf()
 #' @param .lts_variables output from lts_input()
 #'
-#' @import magrittr
 #' @importFrom magrittr "%>%"
 #' @importFrom magrittr %>%
 #'

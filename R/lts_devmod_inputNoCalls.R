@@ -1,5 +1,4 @@
 #' dev_lts_inputNoCalls
-#' @import magrittr
 #' @importFrom magrittr "%>%"
 #' @importFrom magrittr %>%
 #' @param .tsData tidy time series data

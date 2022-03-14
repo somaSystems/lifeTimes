@@ -1,5 +1,4 @@
 #' lts_ts_to_wide
-#' @import magrittr
 #' @importFrom magrittr "%>%"
 #' @importFrom magrittr %>%
 #' @param .lts_variables user description of variables taken from "lts_input()", otherwise taken from built in default set of variables.

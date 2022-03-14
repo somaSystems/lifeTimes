@@ -1,7 +1,6 @@
 #' lts_clusterPlot
 #' Returns plot of ccfs and dendrogram (compound plot), facets are clustered by the mean correlation at the lag with the most frequent (mode) maximum correlation. Future updates will allow decomposition of plots into component parts.
 #' @import ggplot2
-#' @import gridExtra
 #' @import grid
 #' @import egg
 #' @importFrom ggplot2 ggplot
@@ -22,18 +21,18 @@
 # lts_clusterOutput
 lts_plot_ccfs <- function(
   .lts_output = lts_cluster,
-   plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
+  plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines")){
 
 
-# lts_plot_ccfs <- function(
+  # lts_plot_ccfs <- function(
   # .lts_output = lts_garmin
   # plotType = c("compoundPlot")
   # # {
 
 
-# # lts_clusterPlot <- function(
-#   .lts_output = lts_cluster
-#   plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines"))
+  # # lts_clusterPlot <- function(
+  #   .lts_output = lts_cluster
+  #   plotType = c("compoundPlot","draw_treatmentDendrogram","plt_dendr","heatmapLagZero","rawTraces","clusteredLines"))
 
   if(is.null(.lts_output)){
     print("enter results from lts_calc()")
@@ -48,7 +47,7 @@ lts_plot_ccfs <- function(
 
 
 
-.lts_output$lts_rawCCFout$lts_mCCF_chosenLAG #this is the matrix of correlations at the chosen type of lag
+  .lts_output$lts_rawCCFout$lts_mCCF_chosenLAG #this is the matrix of correlations at the chosen type of lag
 
 
 
@@ -117,7 +116,7 @@ lts_plot_ccfs <- function(
       length(levels(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[1]]]))*
       length(levels(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[2]]]))
 
-    category1_name <- .lts_output$gridExtralts_variables$lts_compare_by[[1]]
+    category1_name <- .lts_output$lts_variables$lts_compare_by[[1]]
     category1_contents <- unique(.lts_output$lts_variables$lts_data[,.lts_output$lts_variables$lts_compare_by[[1]]])
     category1_levels <- levels( subset_sum_join_outputCCFdata[,category1_name])
 
@@ -151,7 +150,7 @@ lts_plot_ccfs <- function(
   names(heatmapAnno)[names(heatmapAnno) == 'df_category2_name'] <-category2_name
 
   #here colour rectangle values by clustering matrix values
-  #go to source of cluster matrix gridExtra(a summary sheet)
+  #go to source of cluster matrix (a summary sheet)
 
   # .summ_for_matrix
   # lts2$lts_CCFcalcs
@@ -176,24 +175,24 @@ lts_plot_ccfs <- function(
 
   heatmapLagZero <- ggplot2::ggplot()+
     ggplot2::geom_rect(data=lts_heatmapAnno,
-              ggplot2::aes(ymin=-Inf, ymax=Inf,
-                  xmin=-Inf, xmax=Inf,
-                  fill= catGroups_mean_corr_atModeLAG), alpha =0.5)+
+                       ggplot2::aes(ymin=-Inf, ymax=Inf,
+                                    xmin=-Inf, xmax=Inf,
+                                    fill= catGroups_mean_corr_atModeLAG), alpha =0.5)+
     ggplot2::geom_line(data = subset_sum_join_outputCCFdata, ggplot2::aes(x =theLAG,
-                                                        y = theCCF,
-                                                        group = !!sym(.lts_output$lts_variables$lts_uniqueID_colname)), alpha = 0.5, color = "black")+  ##fix this instance of keynum
+                                                                          y = theCCF,
+                                                                          group = !!sym(.lts_output$lts_variables$lts_uniqueID_colname)), alpha = 0.5, color = "black")+  ##fix this instance of keynum
     ggplot2::scale_color_viridis_c("mean Corr at most\n  frequent max lag", option ="magma")+
     ggplot2::scale_fill_viridis_c("mean Corr at most\n  frequent max lag", option ="magma")+
     ggplot2::facet_grid( vars(!!sym(category2_name)), vars(!!sym(category1_name)) )+
-    ggplot2::stat_summary(data = sgridExtraubset_sum_join_outputCCFdata,ggplot2::aes(x = theLAG, y = theCCF,group=1), fun=mean, colour="darkorange", geom="line",group=1, size = 1)+
+    ggplot2::stat_summary(data = subset_sum_join_outputCCFdata,ggplot2::aes(x = theLAG, y = theCCF,group=1), fun=mean, colour="darkorange", geom="line",group=1, size = 1)+
     ggplot2::theme_classic() +
     ggplot2::theme(legend.position="bottom")+
     # + ylab() +
     ggplot2::theme(strip.text.y.right = ggplot2::element_text(angle = 0)) #remove this if a problem
-    # ggplot2::guides(fill=  ggplot2:::guide_legend(title="mean Corr at most\n  frequent max lag"))
+  # ggplot2::guides(fill=  ggplot2:::guide_legend(title="mean Corr at most\n  frequent max lag"))
 
-# info on guides labels
-# https://stackoverflow.com/questions/14622421/how-to-change-legend-title-in-ggplot
+  # info on guides labels
+  # https://stackoverflow.com/questions/14622421/how-to-change-legend-title-in-ggplot
   # heatmapLagZero
 
   # compoundPlot <- ggpubr::ggarrange(plt_dendr, heatmapLagZero + ggpubr::rremove("x.text"),
@@ -204,7 +203,7 @@ lts_plot_ccfs <- function(
 
 
 
-##egg and grid approach to compound plot for greater control of panel alignment
+  ##egg and grid approach to compound plot for greater control of panel alignment
 
   p1 <- plt_dendr
 
@@ -230,7 +229,6 @@ lts_plot_ccfs <- function(
 
   # return((ensym_plotType))
 
-    # return(eval(ensym_plotType))
- }
-
+  # return(eval(ensym_plotType))
+}
 

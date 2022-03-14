@@ -14,6 +14,9 @@ LGD
         variables**](#single-categorical-variable-with-multiple-measured-variables)
 -   [**Downstream analysis: Rainfall and river
     flow**](#downstream-analysis-rainfall-and-river-flow)
+    -   [**Output summary statistics**](#output-summary-statistics)
+    -   [**Visualising principal component
+        space**](#visualising-principal-component-space)
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
@@ -39,7 +42,9 @@ determination by Rho GTPase regulators in melanoma.** doi:
 
 ## **Quick start**
 
-\#**Install lifeTimes**
+[Back to top](#)
+
+**Install lifeTimes**
 
 ``` r
 #install devtools if needed
@@ -122,6 +127,8 @@ i.landscape scale datasets, ii.subcellular scale datasets.
 
 ## **Dataset 1: Rainfall and river flow**
 
+[Back to top](#)
+
 **Landscape scale data** lifeTimes can be used to find coupling between
 processes at the landscape or ecosystem scale. For this example, I have
 used data from the United Kingdom, National River Flow Archive
@@ -202,6 +209,8 @@ lts_pairedVars
 
 ### **Two categorical variable with single pair of measured variables**
 
+[Back to top](#)
+
 ``` r
 #arguments for lts_in() with default inputs (the "river catchments "rain_flow" dataset) shown
 lts_in(.in_tsData = rain_flow  , #1. the dataset
@@ -215,14 +224,14 @@ lts_in(.in_tsData = rain_flow  , #1. the dataset
 ```
 
 <p>
+
 I will now give a walkthrough that explains the arguments above, and how
 to run lifeTimes, on your own data! To make any data suitable for
 lifeTimes, we need the raw data, and four types labels which identify
 the “time”,“unique ID”, “categorical variable” and “measured variable”
-columns. There is also an option to identify metadata:  
-<p>
-**The Arguments**  
-<p>
+columns. There is also an option to identify metadata:
+
+**The Arguments**
 
 **1:`.in_tsData =` A series dataframe:** Time series measurements. These
 should have:  
@@ -232,9 +241,8 @@ iii. Complete sets of observations (e.g NAs, can be imputed).
 iv. Time series of equal length.  
 v. At least two categorical variables (e.g Treatment vs Control)
 
-TODO: lifeTimes will be compatible with single categorical variable, and
-missing observations. A helper function to impute NAs will also be
-included.
+TODO: lifeTimes will be compatible with orical variable, and missing
+observations. A helper function to impute NAs will also be included.
 
 **2: `.in_time =` A unit of time:** So we need to find the column in the
 dataset that indicates this. In this data we have years, months and
@@ -311,6 +319,8 @@ creates a new column of uniqueIDs.
 column names of any attributes you would like to append to data
 
 ## **Dataset 2: Cell and nucleus**
+
+[Back to top](#)
 
 **Subcellular scale data** We have seen that lifeTimes can be used to
 detect the coupling between lanscape scale processes such as rainfall
@@ -424,6 +434,8 @@ lts_pairs <- lts_pairsMaker(my_pairs, defined = TRUE)
 
 ### **Single categorical variable with multiple measured variables**
 
+[Back to top](#)
+
 The data, relevant column names and list of pairs can all be entered
 into `lts_in()`. The important and interesting difference between this
 example and the “rain\_flow” example, is that we are now using a
@@ -433,7 +445,7 @@ cluster and plot the different measured variables.
 <p>
 
 TODO: Improve UI by either removing `.in_plot_measured_variables = TRUE`
-argu,ent, and making it automatic when only one categorical is entered,
+argument, and making it automatic when only one categorical is entered,
 OR make it possible to enter only one categorical, while
 `.in_plot_measured_variables = FALSE`.
 
@@ -490,6 +502,8 @@ lts_plot_coupled(lts_oneCat,
 
 ## **Downstream analysis: Rainfall and river flow**
 
+[Back to top](#)
+
 Cross correlations, or lagged correlations between features have many
 uses. Two of these are:  
 i. generating hypotheses about cause and effect between parts of a
@@ -508,198 +522,110 @@ library(lifeTimes)
 lts_demo <- lts_in()
 ```
 
-``` r
-#access the summary statistics output from lifeTimes
-#there are a range of these in a list called "lts_ccf_summaries"
+### **Output summary statistics**
 
-#ccf summary statistics are stored at the level of individual observations 
-#these are in "lts_singleton_summ_metadata"
-#here is an example ofthe first 9 summaries
-head(lts_demo$lts_ccf_summaries$lts_singleton_summ_metadata, 9)
+[Back to top](#)
+
+lifeTimes outputs a range of ccf summary statistics. These are stored in
+a list called “lts\_ccf\_summaries”
+
+``` r
+#Here is an example of accessing one set of summary statistics
+#and assigning it to an object
+lts_summary_output <- lts_demo$lts_ccf_summaries$lts_singleton_summ_metadata
 ```
 
-    ##   key_num   lag_range mean_corr_by_lag_range max_corr_by_lag_range
-    ## 1   key_1 negativeLAG            -0.03899845            0.09724116
-    ## 2   key_1 positiveLAG             0.02162797            0.73764478
-    ## 3   key_1     zeroLAG             0.15692657            0.15692657
-    ## 4  key_10 negativeLAG            -0.06618308            0.18799905
-    ## 5  key_10 positiveLAG             0.16726856            0.55213014
-    ## 6  key_10     zeroLAG             0.19257648            0.19257648
-    ## 7 key_100 negativeLAG            -0.02128817            0.25414531
-    ## 8 key_100 positiveLAG             0.08202752            0.59733411
-    ## 9 key_100     zeroLAG             0.15889929            0.15889929
-    ##   min_corr_by_lag_range var_corr_by_lag_range sd_corr_lag_by_range
-    ## 1           -0.10770390           0.002185072           0.04674475
-    ## 2           -0.11536337           0.041744477           0.20431465
-    ## 3            0.15692657                    NA                   NA
-    ## 4           -0.21163487           0.016040207           0.12664994
-    ## 5           -0.01048577           0.023601916           0.15362915
-    ## 6            0.19257648                    NA                   NA
-    ## 7           -0.12270161           0.008115395           0.09008549
-    ## 8           -0.11054365           0.030432511           0.17444916
-    ## 9            0.15889929                    NA                   NA
-    ##   median_corr_by_lag_range mean_corr_by_lag_range_maxLag_0.25
-    ## 1              -0.04764419                        -0.06310762
-    ## 2              -0.04439647                         0.27158059
-    ## 3               0.15692657                         0.15692657
-    ## 4              -0.10506722                         0.08492328
-    ## 5               0.13816208                         0.35193834
-    ## 6               0.19257648                         0.19257648
-    ## 7              -0.02960596                        -0.05110460
-    ## 8               0.07451034                         0.34682505
-    ## 9               0.15889929                         0.15889929
-    ##   max_corr_by_lag_range_maxLag_0.25 min_corr_by_lag_range_maxLag_0.25
-    ## 1                       -0.01969124                      -0.107703901
-    ## 2                        0.73764478                      -0.057178837
-    ## 3                        0.15692657                       0.156926569
-    ## 4                        0.18799905                       0.004409065
-    ## 5                        0.55213014                       0.166652559
-    ## 6                        0.19257648                       0.192576482
-    ## 7                        0.01341341                      -0.095055712
-    ## 8                        0.59733411                       0.219826212
-    ## 9                        0.15889929                       0.158899293
-    ##   var_corr_by_lag_range_maxLag_0.25 sd_corr_lag_by_range_maxLag_0.25
-    ## 1                       0.001937601                       0.04401819
-    ## 2                       0.172075594                       0.41481995
-    ## 3                                NA                               NA
-    ## 4                       0.008808088                       0.09385142
-    ## 5                       0.037314883                       0.19317061
-    ## 6                                NA                               NA
-    ## 7                       0.003258636                       0.05708446
-    ## 8                       0.047069134                       0.21695422
-    ## 9                                NA                               NA
-    ##   median_corr_by_lag_range_maxLag_0.25   mean_corr  max_corr   min_corr
-    ## 1                          -0.06192772 -0.00366670 0.7376448 -0.1153634
-    ## 2                           0.13427582 -0.00366670 0.7376448 -0.1153634
-    ## 3                           0.15692657 -0.00366670 0.7376448 -0.1153634
-    ## 4                           0.06236172  0.05484679 0.5521301 -0.2116349
-    ## 5                           0.33703232  0.05484679 0.5521301 -0.2116349
-    ## 6                           0.19257648  0.05484679 0.5521301 -0.2116349
-    ## 7                          -0.07167151  0.03426451 0.5973341 -0.1227016
-    ## 8                           0.22331483  0.03426451 0.5973341 -0.1227016
-    ## 9                           0.15889929  0.03426451 0.5973341 -0.1227016
-    ##     var_corr   sd_corr  median_corr mean_corr_maxLag_0.25 max_corr_maxLag_0.25
-    ## 1 0.02234200 0.1494724 -0.047202941             0.1117636            0.7376448
-    ## 2 0.02234200 0.1494724 -0.047202941             0.1117636            0.7376448
-    ## 3 0.02234200 0.1494724 -0.047202941             0.1117636            0.7376448
-    ## 4 0.03281848 0.1811587  0.040444165             0.2147373            0.5521301
-    ## 5 0.03281848 0.1811587  0.040444165             0.2147373            0.5521301
-    ## 6 0.03281848 0.1811587  0.040444165             0.2147373            0.5521301
-    ## 7 0.02123847 0.1457342  0.003918053             0.1494372            0.5973341
-    ## 8 0.02123847 0.1457342  0.003918053             0.1494372            0.5973341
-    ## 9 0.02123847 0.1457342  0.003918053             0.1494372            0.5973341
-    ##   min_corr_maxLag_0.25 var_corr_maxLag_0.25 sd_corr_maxLag_0.25
-    ## 1         -0.107703901           0.08640505           0.2939474
-    ## 2         -0.107703901           0.08640505           0.2939474
-    ## 3         -0.107703901           0.08640505           0.2939474
-    ## 4          0.004409065           0.03329408           0.1824666
-    ## 5          0.004409065           0.03329408           0.1824666
-    ## 6          0.004409065           0.03329408           0.1824666
-    ## 7         -0.095055712           0.05638033           0.2374454
-    ## 8         -0.095055712           0.05638033           0.2374454
-    ## 9         -0.095055712           0.05638033           0.2374454
-    ##   median_corr_maxLag_0.25 posNegDiffmean_corr_by_lag_range
-    ## 1             -0.01969124                       0.06062643
-    ## 2             -0.01969124                       0.06062643
-    ## 3             -0.01969124                       0.06062643
-    ## 4              0.18799905                       0.23345164
-    ## 5              0.18799905                       0.23345164
-    ## 6              0.18799905                       0.23345164
-    ## 7              0.15889929                       0.10331570
-    ## 8              0.15889929                       0.10331570
-    ## 9              0.15889929                       0.10331570
-    ##   posNegDiffmax_corr_by_lag_range posNegDiffmin_corr_by_lag_range
-    ## 1                       0.6404036                    -0.007659471
-    ## 2                       0.6404036                    -0.007659471
-    ## 3                       0.6404036                    -0.007659471
-    ## 4                       0.3641311                     0.201149107
-    ## 5                       0.3641311                     0.201149107
-    ## 6                       0.3641311                     0.201149107
-    ## 7                       0.3431888                     0.012157960
-    ## 8                       0.3431888                     0.012157960
-    ## 9                       0.3431888                     0.012157960
-    ##   posNegDiffvar_corr_by_lag_range posNegDiffsd_corr_lag_by_range
-    ## 1                      0.03955941                     0.15756990
-    ## 2                      0.03955941                     0.15756990
-    ## 3                      0.03955941                     0.15756990
-    ## 4                      0.00756171                     0.02697921
-    ## 5                      0.00756171                     0.02697921
-    ## 6                      0.00756171                     0.02697921
-    ## 7                      0.02231712                     0.08436368
-    ## 8                      0.02231712                     0.08436368
-    ## 9                      0.02231712                     0.08436368
-    ##   posNegDiffmedian_corr_by_lag_range
-    ## 1                        0.003247717
-    ## 2                        0.003247717
-    ## 3                        0.003247717
-    ## 4                        0.243229303
-    ## 5                        0.243229303
-    ## 6                        0.243229303
-    ## 7                        0.104116299
-    ## 8                        0.104116299
-    ## 9                        0.104116299
-    ##   posNegDiffmean_corr_by_lag_range_maxLag_0.25
-    ## 1                                    0.3346882
-    ## 2                                    0.3346882
-    ## 3                                    0.3346882
-    ## 4                                    0.2670151
-    ## 5                                    0.2670151
-    ## 6                                    0.2670151
-    ## 7                                    0.3979297
-    ## 8                                    0.3979297
-    ## 9                                    0.3979297
-    ##   posNegDiffmax_corr_by_lag_range_maxLag_0.25
-    ## 1                                   0.7573360
-    ## 2                                   0.7573360
-    ## 3                                   0.7573360
-    ## 4                                   0.3641311
-    ## 5                                   0.3641311
-    ## 6                                   0.3641311
-    ## 7                                   0.5839207
-    ## 8                                   0.5839207
-    ## 9                                   0.5839207
-    ##   posNegDiffmin_corr_by_lag_range_maxLag_0.25
-    ## 1                                  0.05052506
-    ## 2                                  0.05052506
-    ## 3                                  0.05052506
-    ## 4                                  0.16224349
-    ## 5                                  0.16224349
-    ## 6                                  0.16224349
-    ## 7                                  0.31488192
-    ## 8                                  0.31488192
-    ## 9                                  0.31488192
-    ##   posNegDiffvar_corr_by_lag_range_maxLag_0.25
-    ## 1                                  0.17013799
-    ## 2                                  0.17013799
-    ## 3                                  0.17013799
-    ## 4                                  0.02850679
-    ## 5                                  0.02850679
-    ## 6                                  0.02850679
-    ## 7                                  0.04381050
-    ## 8                                  0.04381050
-    ## 9                                  0.04381050
-    ##   posNegDiffsd_corr_lag_by_range_maxLag_0.25
-    ## 1                                 0.37080176
-    ## 2                                 0.37080176
-    ## 3                                 0.37080176
-    ## 4                                 0.09931919
-    ## 5                                 0.09931919
-    ## 6                                 0.09931919
-    ## 7                                 0.15986976
-    ## 8                                 0.15986976
-    ## 9                                 0.15986976
-    ##   posNegDiffmedian_corr_by_lag_range_maxLag_0.25 season catchmentRegion
-    ## 1                                      0.1962035 autumn  Ash at Mardock
-    ## 2                                      0.1962035 autumn  Ash at Mardock
-    ## 3                                      0.1962035 autumn  Ash at Mardock
-    ## 4                                      0.2746706 spring  Ash at Mardock
-    ## 5                                      0.2746706 spring  Ash at Mardock
-    ## 6                                      0.2746706 spring  Ash at Mardock
-    ## 7                                      0.2949863 winter  Ash at Mardock
-    ## 8                                      0.2949863 winter  Ash at Mardock
-    ## 9                                      0.2949863 winter  Ash at Mardock
+lifeTimes has a built in function to clean summary statistics for
+downstream analysis.
 
-TODO: A tutorial on how to use these summary statistics in PCA
-visualisation and PLSR will follow.
+``` r
+#Just enter the output from lts_in(), into the lts_summs_clean() function
+lts_clean_demo <- lts_summs_clean(lts_demo)
+```
+
+This attaches a list called `"lts_clean_summs"` to the `lts_in()`
+output, which contains:
+
+1.  summary statistics of original time series input, called
+    `lts_clean_summ_original`
+
+2.  summary statistics of ccf calculations, called `lts_clean_summ_ccf`
+
+3.  a join of both (i) and (ii), to give combined summary statistics,
+    `lts_clean_summ_join`  
+
+    <p>
+
+    This new list can be passed to `lts_prcom`, to generate principle
+    components.
+
+``` r
+#Use lapply to iterate over "lts_clean_summs", to generate principle components
+lts_pc_list <- lapply(lts_clean_demo$lts_clean_summs, lts_prcomp) #run pc analyis on each
+```
+
+### **Visualising principal component space**
+
+[Back to top](#)
+
+Principle component space can be plotted for each of the three summary
+statistics. First we install the needed packages. Then we assign labels,
+and use lapply on our already computed principle components. This
+generates a list of plots.
+
+``` r
+#install ggfortify if needed
+if(!require("ggfortify")) install.packages("ggfortify")
+```
+
+    ## Loading required package: ggfortify
+
+    ## Loading required package: ggplot2
+
+``` r
+library(ggfortify)
+
+#make labels
+lts_pca_labels <- lts_pc_list$lts_clean_summ_original$lts_labels_pc
+
+#make 3 versions of PCA space
+p <- lapply(lts_pc_list, function(x) autoplot(x$lts_pc_values, 
+                                              data =lts_pca_labels,     
+                                              colour = "catchmentRegion")+
+  scale_color_manual(values = c("dodgerblue","darkorange"))+  theme_classic())
+```
+
+Principle component space can be plotted for each of the three summary
+statistics:  
+i. original data summaries
+
+2.  calculated ccfs summaries
+
+3.  combined data summaries
+
+``` r
+#plot PCA space
+if(!require("gridExtra")) install.packages("gridExtra")
+```
+
+    ## Loading required package: gridExtra
+
+``` r
+library(gridExtra)
+do.call("grid.arrange", p)
+```
+
+![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
+In comparison to the original data, the combined dataset give improved
+performance in classification tasks. Importantly, this improvement comes
+from the same original data without the addition of any new variables or
+measures. Instead, the improvement comes from the CCFs which give a
+better account of the relationship or coupling between measured
+variables and how these change between conditions.
+
+TODO: A tutorial an example using PLSR will follow.
+
+[Back to top](#)
 
 © 2022 GitHub, Inc. Terms Privacy Security Status
