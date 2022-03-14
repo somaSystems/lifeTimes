@@ -31,8 +31,10 @@ This is a package for **detecting** and **visualising** correlations between obj
 
 **Quick start**  
 ----
+[Back to top](#) 
 
-#**Install lifeTimes**
+
+**Install lifeTimes**
 ```{r include=TRUE, eval = FALSE}
 #install devtools if needed
 if(!require("devtools")) install.packages("devtools")
@@ -95,6 +97,8 @@ ii.subcellular scale datasets.
 
 **Dataset 1: Rainfall and river flow**
 -----
+[Back to top](#) 
+
 **Landscape scale data**
 lifeTimes can be used to find coupling between processes at the landscape or ecosystem scale. For this example, I have used data from the United Kingdom, National River Flow Archive (https://nrfa.ceh.ac.uk/web-download-service). We will look at two types of data, i) Gauged Daily Flows (GDF) which measure how much water is in a river, and ii) Catchment Daily Rainfall (CDR) which measure the amount of rain on the landscape around the river. River flows are in cubic meters per second, and rainfall is in mm across the catchment in the given reference period (https://nrfa.ceh.ac.uk/data-formats-types).  
 <p>
@@ -123,7 +127,9 @@ lts_pairedVars <- lts_pairsMaker(c("rainfall_cm","flow_m3s"))
 lts_pairedVars
 ```
 
-### **Two categorical variable with single pair of measured variables** 
+### **Two categorical variable with single pair of measured variables**  
+
+[Back to top](#) 
 
 ```{r include=TRUE, eval = FALSE}
 
@@ -140,9 +146,9 @@ lts_in(.in_tsData = rain_flow  , #1. the dataset
 
 <p>
 I will now give a walkthrough that explains the arguments above, and how to run lifeTimes, on your own data! To make any data suitable for lifeTimes, we need the raw data, and four types labels which identify the "time","unique ID", "categorical variable" and "measured variable" columns. There is also an option to identify metadata:  
-<p>
+
 **The Arguments**  
-<p>
+
 **1:```.in_tsData = ``` A series dataframe:** Time series measurements. These should have:  
 i. at least two variables,  
 ii.  evenly spaced intervals,  
@@ -150,7 +156,7 @@ iii. Complete sets of observations (e.g NAs, can be imputed).
 iv. Time series of equal length.  
 v. At least two categorical variables (e.g Treatment vs Control)
 
-TODO: lifeTimes will be compatible with single categorical variable, and missing observations. A helper function to impute NAs will also be included.
+TODO: lifeTimes will be compatible with orical variable, and missing observations. A helper function to impute NAs will also be included.
 
 
 **2: ```.in_time =``` A unit of time:** So we need to find the column in the dataset that indicates this. In this data we have years, months and days, but the unit of time I am interested in is at the resolution of days. The column in the datset with days is called ```"dayOfseason"```. On the first day of each season (summer, autumn, winter, spring) this value starts at one and increments up until the end of the season.
@@ -181,6 +187,8 @@ TODO: Future updates to lifetimes will include a helper function that inputs a s
 
 **Dataset 2: Cell and nucleus**
 ------
+[Back to top](#) 
+
 **Subcellular scale data**
 We have seen that lifeTimes can be used to detect the coupling between lanscape scale processes such as rainfall and riverflow, and to highlight how this coupling varies between seasons and geographical regions. In this next example, I am using lifeTimes to look at coupling between the overall geometry of a living cell, and the nucleus compartment within that cell. For this example I have used data from melanoma cells imaged in a 3D collagen matrix, treated with different drugs that affect cell function. The data here are just 30 cells (5 cells for each drug treatment), sampled for demonstration purposes, from a larger dataset.  
 <p>
@@ -220,9 +228,11 @@ lts_pairs <- lts_pairsMaker(my_pairs, defined = TRUE)
 ```
 <p>
 ### **Single categorical variable with multiple measured variables** 
+[Back to top](#)  
+
 The data, relevant column names and list of pairs can all be entered into ```lts_in()```. The important and interesting difference between this example and the "rain_flow" example, is that we are now using a **single categorical variable**, "Treatment". In this situation you must set ```.in_plot_measured_variables = TRUE```. This means lifeTimes will cluster and plot the different measured variables.  
 <p>
-TODO: Improve UI by either removing ```.in_plot_measured_variables = TRUE``` argu,ent, and making it automatic when only one categorical is entered, OR make it possible to enter only one categorical, while ```.in_plot_measured_variables = FALSE```.
+TODO: Improve UI by either removing ```.in_plot_measured_variables = TRUE``` argument, and making it automatic when only one categorical is entered, OR make it possible to enter only one categorical, while ```.in_plot_measured_variables = FALSE```.
 ```{r include=TRUE, results = 'hide'}
 # enter arguments into lts_in
 # here there is one categorical variable and multiple measured variables
@@ -257,6 +267,8 @@ lts_plot_coupled(lts_oneCat,
 
 **Downstream analysis: Rainfall and river flow**
 ------
+[Back to top](#)  
+
 Cross correlations, or lagged correlations between features have many uses. Two of these are:  
 i. generating hypotheses about cause and effect between parts of a system  
 ii. improving the results of classification tasks indynamic datasets  
@@ -269,20 +281,74 @@ library(lifeTimes)
 #run lifeTimes
 lts_demo <- lts_in()
 ```
+### **Output summary statistics**
+[Back to top](#)  
+
+lifeTimes outputs a range of ccf summary statistics. These are stored in a list called "lts_ccf_summaries"
+```{r}
+#Here is an example of accessing one set of summary statistics
+#and assigning it to an object
+lts_summary_output <- lts_demo$lts_ccf_summaries$lts_singleton_summ_metadata
+```
+lifeTimes has a built in function to clean summary statistics for downstream analysis.
+```{r}
+#Just enter the output from lts_in(), into the lts_summs_clean() function
+lts_clean_demo <- lts_summs_clean(lts_demo)
+```
+
+This attaches a list called ```"lts_clean_summs"``` to the ```lts_in()``` output, which contains:  
+
+ i.   summary statistics of original time series input, called ```lts_clean_summ_original```  
+ 
+ ii.  summary statistics of ccf calculations, called ```lts_clean_summ_ccf```  
+ 
+ iii. a join of both (i) and (ii), to give combined summary statistics, ```lts_clean_summ_join```  
+ <p>
+This new list can be passed to ```lts_prcom```, to generate principle components.
+```{r}
+#Use lapply to iterate over "lts_clean_summs", to generate principle components
+lts_pc_list <- lapply(lts_clean_demo$lts_clean_summs, lts_prcomp) #run pc analyis on each
+```
+### **Visualising principal component space**  
+[Back to top](#)  
+
+Principle component space can be plotted for each of the three summary statistics. First we install the needed packages. Then we assign labels, and use lapply on our already computed principle components. This generates a list of plots.
+```{r}
+#install ggfortify if needed
+if(!require("ggfortify")) install.packages("ggfortify")
+library(ggfortify)
+
+#make labels
+lts_pca_labels <- lts_pc_list$lts_clean_summ_original$lts_labels_pc
+
+#make 3 versions of PCA space
+p <- lapply(lts_pc_list, function(x) autoplot(x$lts_pc_values, 
+                                              data =lts_pca_labels,     
+                                              colour = "catchmentRegion")+
+  scale_color_manual(values = c("dodgerblue","darkorange"))+  theme_classic())
+```
+Principle component space can be plotted for each of the three summary statistics:  
+i. original data summaries  
+
+ii. calculated ccfs summaries  
+
+iii. combined data summaries  
 
 
 ```{r}
-#access the summary statistics output from lifeTimes
-#there are a range of these in a list called "lts_ccf_summaries"
-
-#ccf summary statistics are stored at the level of individual observations 
-#these are in "lts_singleton_summ_metadata"
-#here is an example ofthe first 9 summaries
-head(lts_demo$lts_ccf_summaries$lts_singleton_summ_metadata, 9)
+#plot PCA space
+if(!require("gridExtra")) install.packages("gridExtra")
+library(gridExtra)
+do.call("grid.arrange", p)
 ```
-TODO: A tutorial on how to use these summary statistics in PCA visualisation and PLSR will follow.
+
+In comparison to the original data, the combined dataset give improved performance in classification tasks.
+Importantly, this improvement comes from the same original data without the addition of any new variables or measures. Instead, the improvement comes from the CCFs which give a better account of the relationship or coupling between measured variables and how these change between conditions.
+
+TODO: A tutorial an example using PLSR will follow.
 
 
+[Back to top](#) 
 
 
 

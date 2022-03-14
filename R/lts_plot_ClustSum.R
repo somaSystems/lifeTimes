@@ -7,7 +7,6 @@
 #'@importFrom circlize colorRamp2
 #'@importFrom dplyr ungroup %>%
 #'@importFrom magrittr %>%
-#'@import magrittr
 #'@param .removeInstanceOfCategoricalByName name a feature that should be removed from
 #'clustering (eg. because of perfect correlation, high noise, or artefact)
 #'@param .lts_output results of lts_input() function, includes

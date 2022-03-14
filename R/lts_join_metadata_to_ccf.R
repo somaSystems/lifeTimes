@@ -1,5 +1,4 @@
 #' lts_join_metadata_to_ccf
-#' @import magrittr
 #' @importFrom magrittr "%>%"
 #' @importFrom magrittr %>%
 #' @param .lts_variables user description of variables taken from "lts_input()", otherwise taken from built in default set of variables.

@@ -91,9 +91,9 @@ singleSums <- lts_cluster$lts_ccf_summaries$lts_singleton_summ_metadata
 
 #get values
  .lts_compare_by <- as.vector(lts_cluster$lts_variables$lts_compare_by)
-# .lts_unique_ID_colnames <- lts_cluster$lts_variables$lts_uniqueID_colname
-# .lts_measures <- unlist(lts_cluster$lts_variables$lts_pariedComparisons)
-# names(.lts_measures) <- .lts_measures #fix names to be the same as the variables
+.lts_unique_ID_colnames <- lts_cluster$lts_variables$lts_uniqueID_colname
+.lts_measures <- unlist(lts_cluster$lts_variables$lts_pariedComparisons)
+names(.lts_measures) <- .lts_measures #fix names to be the same as the variables
 #
 
 # valsFromKey <- c(.lts_compare_by,.lts_unique_ID_colnames)
@@ -291,8 +291,8 @@ lts_prcomp_list <- lapply(lts_prcomps, lts_calc_prcomp)
 
 # https://stackoverflow.com/questions/42588761/how-can-i-make-multiple-ggplots-from-a-list-of-dataframes-and-have-them-on-one-p
 
-
-
+print("START")
+str(lts_prcomp_list)
 
 p <- lapply(lts_prcomp_list, function(x) autoplot(x$lts_pc_values, data = pcTest$lts_pc_labels, colour = "catchmentRegion"
 # shape = "season"
