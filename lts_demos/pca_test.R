@@ -60,3 +60,39 @@ p <- lapply(lts_prcomp_list, function(x) autoplot(x$lts_pc_values, data = pcTest
 )
 
 do.call("grid.arrange", p)
+
+
+
+
+
+
+#get categorical variables and predictors
+lts_PLSR <- lts_pc_list$lts_clean_summ_original
+#Get column names of predictors
+lts_predictors <- lts_PLSR$lts_values_pc
+lts_response <- as.numeric(lts_PLSR$lts_labels_pc$catchmentRegion)
+
+library(pls)
+PLSR_model <- plsr(lts_response ~ ., data=lts_predictors, scale=TRUE, validation="CV")
+
+summary(PLSR_model)
+plot(PLSR_model)+abline(h =1.5, col = "magenta")
+plot(RMSEP(PLSR_model), legendpos = "topright")
+RMSEP(PLSR_model)
+
+
+
+#get categorical variables and predictors
+lts_PLSR <- lts_pc_list$lts_clean_summ_join
+#Get column names of predictors
+lts_predictors <- lts_PLSR$lts_values_pc
+lts_response <- as.numeric(lts_PLSR$lts_labels_pc$catchmentRegion)
+
+library(pls)
+PLSR_model <- plsr(lts_response ~ ., data=lts_predictors, scale=TRUE, validation="CV")
+
+summary(PLSR_model)
+plot(PLSR_model)+abline(h =1.5, col = "magenta")
+plot(RMSEP(PLSR_model), legendpos = "topright")
+RMSEP(PLSR_model)
+

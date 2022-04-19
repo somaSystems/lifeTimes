@@ -63,6 +63,7 @@ install_github("somaSystems/lifeTimes",
 auth_token = "<paste your github token as a string here>") 
 
 # If you need a github token you make one with the commented code below:
+# if(!require("usethis")) install.packages("usethis")
 # usethis::create_github_token() 
 ```
 
@@ -150,7 +151,9 @@ period where both stations were operating, and recording measurements.
 <p>
 
 After some data wrangling, these two datsets produce a csv which I read
-into a dataframe. The first five observations look like this:
+into a dataframe. You can [download a version of the dataframe
+here](https://github.com/somaSystems/lifeTimes/blob/main/data-raw/rain_flow_Thames_Ash.csv).
+The first five observations look like this:
 
 ``` r
 rain_flow <- read.csv(file ="data-raw/rain_flow_Thames_Ash.csv")
@@ -529,7 +532,7 @@ lts_demo <- lts_in()
 [Back to top](#)
 
 lifeTimes outputs a range of ccf summary statistics. These are stored in
-a list called “lts\_ccf\_summaries”
+a list called “lts\_ccf\_summaries”.
 
 ``` r
 #Here is an example of accessing one set of summary statistics
@@ -537,8 +540,10 @@ a list called “lts\_ccf\_summaries”
 lts_summary_output <- lts_demo$lts_ccf_summaries$lts_singleton_summ_metadata
 ```
 
-lifeTimes has a built in function to clean summary statistics for
-downstream analysis.
+**summary cleaning functions** lifeTimes has a built in function
+`lts_summs_clean()`, to clean summary statistics for downstream
+analysis. This function just takes the output of the `lts_in()`
+function.
 
 ``` r
 #Just enter the output from lts_in(), into the lts_summs_clean() function
@@ -558,7 +563,7 @@ output, which contains:
 
     <p>
 
-    This new list can be passed to `lts_prcom`, to generate principle
+    This new list can be passed to `lts_prcomp()`, to generate principle
     components.
 
 ``` r

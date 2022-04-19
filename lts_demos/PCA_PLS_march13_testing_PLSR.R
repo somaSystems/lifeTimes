@@ -349,7 +349,6 @@ summary(PLSR_model)
 plot(PLSR_model)+abline(h =1.5, col = "magenta")
 plot(RMSEP(PLSR_model), legendpos = "topright")
 RMSEP(PLSR_model)
-
 # str(lts_PLSR$lts_labels_pc)
 
 # lts_PLSR$lts_labels_pc
