@@ -2,6 +2,187 @@
 
 lts_tnf <- read.csv(file = "data-raw/211021_TNF_washout_selected_tracks_FILTERED.csv")
 
+colnames(lts_tnf)
+
+library(ggplot2)
+
+
+# hist(lts_tnf$Cell_Area, breaks = 100,)
+
+
+
+ggplot(lts_tnf, aes(x = Time_min, y = lts_tnf$RELAratio, color = as.character(Position_TrackID), group = Position_TrackID))+
+         geom_line()+
+  xlim(0,200)
+
+#subset so that max time is 500
+
+
+#filter to remove tracks beyond 290
+
+# ?subset()
+#subset to reduced time
+f_lts_tnf <- subset(lts_tnf,lts_tnf$Time_min <300)
+
+# f_lts_tnf
+
+###subset Data
+library(dplyr)
+TNF_matrix <- f_lts_tnf %>% select(Time_min,RELAratio,Position_TrackID, contains("Cell"), contains("Nucleus"))
+
+
+TNF_matrix$sizeSplit <- ifelse(TNF_matrix$Cell_Area > mean(TNF_matrix$Cell_Area),"LargerCell","SmallerCell")
+
+library(tidyr)
+dim(TNF_matrix)
+
+colnames(w_TNF_matrix)
+
+
+l_TNF_matrix <- TNF_matrix %>%
+  pivot_longer(cols = contains("Cell") | contains("Nucleus") | contains("ratio"),
+               names_to = "measure")
+
+colnames(l_TNF_matrix)
+
+w_TNF_matrix <- pivot_wider(l_TNF_matrix,
+                            id_cols = Time_min,
+                            names_from = c(Position_TrackID, measure),
+                            values_from = value)
+
+w_TNF_matrix
+# ?pivot_wider()
+
+# w_TNF_matrix
+
+
+#Impute missing values
+library(imputeTS)
+
+library(dplyr)
+library(imputeTS)
+
+wide_w_TNF_matrix_impute <- w_TNF_matrix %>%
+  # filter()
+  # select((where(is.numeric)))%>%
+  # group_by(c_IDcellNumber_frame, geomFeature)%>%
+  purrr::map_dfc(~na_ma(.x,k=1, maxgap =5))
+
+wide_w_TNF_matrix_impute
+
+
+rl_TNF <- pivot_longer(wide_w_TNF_matrix_impute,
+                       cols = c(2:length(wide_w_TNF_matrix_impute)),
+                       names_to = "posID_measureName",
+                       values_to = "measureValue")
+
+
+TNF_measure_name <- strsplit(sub('(^[^_]+_[^_]+)_(.*)$', '\\1 \\2', rl_TNF$posID_measureName), ' ')
+head(TNF_measure_name)
+
+table_TNF_measure_name <- do.call(rbind,TNF_measure_name)
+
+
+# df_TNF_measure_name <- data.frame(TNF_measure_name)
+
+
+rl_TNF$posID <- table_TNF_measure_name[,1]
+rl_TNF$measureName <- table_TNF_measure_name[,2]
+
+# w_rl_TNF$Cell_Area
+w_rl_TNF <- pivot_wider(rl_TNF,
+            id_cols = c(posID,Time_min),
+            names_from = measureName,
+            values_from = measureValue)
+
+
+mw_rl_TNF <-w_rl_TNF %>%
+  group_by(posID)%>%
+  dplyr::mutate(avSize = mean(Cell_Area))
+
+
+mw_rl_TNF$cellCategory <-  ifelse(mw_rl_TNF$avSize > median(mw_rl_TNF$avSize, na.rm = TRUE), "largerCell","smallerCell")
+mw_rl_TNF$oneCategory <-  "aCell"
+
+# w_rl_TNF$cellCategory
+
+library(lifeTimes)
+
+colnames(w_rl_TNF)
+
+#pair RELAratio with every other
+
+#Use for writing rela data
+# write.csv(mw_rl_TNF,"lts_RELAdata.csv")
+
+TNFvars <- mw_rl_TNF %>% dplyr::select(contains("Area"),contains("Solidity"),contains("Eccentricity"))%>%colnames()
+
+TNFvars <- TNFvars[-1]
+
+TNFratio <- rep("RELAratio",length(TNFvars))
+
+
+TNFvars
+
+myPairs <- cbind(TNFratio,TNFvars)
+
+lts_RELApairs <- lts_pairsMaker(myPairs, defined = TRUE)
+
+lts_RELApairs
+
+mw_rl_TNF$posIDnew <- paste0(mw_rl_TNF$posID,mw_rl_TNF$cellCategory)
+
+dim(mw_rl_TNF)
+mw_rl_TNF <- mw_rl_TNF %>%
+  filter(!is.na(cellCategory))
+dim(mw_rl_TNF)
+levels(as.factor(mw_rl_TNF$cellCategory))
+
+
+str(mw_rl_TNF)
+
+#had error with labels changing categories
+
+
+lts_RELA <- lts_in(.in_tsData = mw_rl_TNF,
+       .in_time = "Time_min",
+       .in_compare_categorical = "oneCategory",
+       .in_plot_measured_variables = TRUE,
+       .in_pairedComparisons = lts_RELApairs,
+       .in_uniqueID_colname = "posIDnew")
+
+
+#start trouble shooting here!
+#must have more than 2 objects to cluster
+#if less than 2 objects, don't cluster,
+
+
+lts_plot_ccfs(lts_RELA)
+lts_plot_ClustSum(lts_RELA)
+lts_plot_coupled(lts_RELA, .lts_facet_by = "cat1", .lts_colour_by = "cat2")
+
+
+#remove NA factor levels
+
+w_rl_TNF$posIDnew
+w_rl_TNF %>%
+  filter(posID == "17_1")
+
+
+col
+
+pair1 <- c("RELAratio","Cell_Area")
+pair2
+
+lts_pairsMaker(c("RELAratio",
+                 "Cell_Area",
+                 "Cell_Solidity",
+                 "Nucleus_Area" ))
+
+
+w_TNF_matrix
+
+lts_tnf[,c("Time_min","RELAratio")]
 
 colnames(lts_tnf)
 vars_lts_tnf <- lts_tnf[,10:length(lts_tnf)]
