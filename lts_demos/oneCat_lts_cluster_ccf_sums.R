@@ -1,4 +1,7 @@
 
+install.packages("lifeTimes")
+
+
 ####################### get data ######################################
 lts_tnf <- read.csv(file = "data-raw/211021_TNF_washout_selected_tracks_FILTERED.csv")
 

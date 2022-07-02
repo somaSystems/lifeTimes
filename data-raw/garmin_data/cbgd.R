@@ -5,18 +5,18 @@
 
 #option 2 https://cran.r-project.org/web/packages/trackeR/vignettes/TourDetrackeR.html
 #TCX convert
-if(!require("trackeR"))(install.packages("trackeR"))
+if(!require("trackeR")){install.packages("trackeR")}
 
-# install.packages("trackeR") #install software
+install.packages("trackeR") #install software
 
 
 library("trackeR")
 
 # filepath <- system.file("extdata/tcx/", "2013-06-01-183220.TCX.gz", package = "trackeR")
 
-runDF <- readTCX(file = "data-raw/garmin_data/activity_1858059346.tcx", timezone = "GMT")
+cbgd <- readTCX(file = "data-raw/garmin_data/activity_1858059346.tcx", timezone = "GMT")
 
-# runDF <- cbgd
+runDF <- cbgd
 
 str(runDF)
 
@@ -47,7 +47,7 @@ runDF$time_num_zero
 
 runDF$time_num_zero_twoMinReset <- (runDF$time_num_zero) - (floor(runDF$time_num_zero/120) * 120)
 runDF$time_num_zero_twoMinReset
-# View(runDF)
+View(runDF)
 
 unique(runDF$time_num_zero_twoMinReset)
 
@@ -79,7 +79,6 @@ length(cut_trim_runDF)
 #Join two minute intervals back to main data
 
 trim_runDF_twoMins <- cbind(trim_runDF, cut_trim_runDF)
-nrow(trim_runDF_twoMins)
 head(trim_runDF)
 
 # split data into quarters
@@ -92,9 +91,6 @@ length(session_fifths)
 
 #Join session fifths back to original
 trim_runDF_twoMins_session <- cbind(trim_runDF_twoMins, session_fifths)
-nrow(trim_runDF_twoMins_session)
-
-View(trim_runDF_twoMins_session)
 
 tail(trim_runDF_twoMins_session$time_num_zero_twoMinReset,1000)
 head(trim_runDF_twoMins_session$time_num_zero_twoMinReset,400)
@@ -103,7 +99,21 @@ head(trim_runDF)
 
 
 
+trim_runDF
 
+
+library(imputeTS)
+library(purrr)
+#make wide and impute
+
+
+trim_runDF_impute<- trim_runDF %>%
+  # filter()
+  dplyr::select((where(is.numeric)))%>%
+  # group_by(c_IDcellNumber_frame, geomFeature)%>%
+  purrr::map_dfc(~na_ma(.x,k=1))
+
+trim_runDF_impute
 
 #unique ID for each two minute interval is key_num
 #categorical variable is session fifths
