@@ -30,7 +30,7 @@ lts_TNF <- read.csv("lts_RELAdata.csv")
 
 
 
-NFvars <- lts_TNF %>% dplyr::select(contains("Area"),contains("Solidity"),contains("Eccentricity"))%>%colnames()
+TNFvars <- lts_TNF %>% dplyr::select(contains("Area"),contains("Solidity"),contains("Eccentricity"))%>%colnames()
 
 TNFvars <- TNFvars[-1]
 
@@ -129,6 +129,8 @@ mCCF_chosenLAG[lts_hclustRow_order_feature2, lts_hclustColumn_order_feature1] #d
 column_feature1 <- lts_hclustColumn_LABELS_feature1
 column_feature1
 
+hclust(dist((mCCF_chosenLAG)))$order
+
 #original row ordering from matrix
 row_feature2 <- lts_hclustColumn_LABELS_feature2
 row_feature2
@@ -184,8 +186,8 @@ lts_clustered_ccf_summs <- c(
   list(lts_clust_ccfs_with_meta = .lts_ccf_with_meta) #the ccfs with factor levels ordered by clustering,
   )
 
-
-return(lts_clustered_ccf_summs)
-}
+#
+# return(lts_clustered_ccf_summs)
+# }
 
 

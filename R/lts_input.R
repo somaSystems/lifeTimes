@@ -22,6 +22,7 @@ lts_input <-  function(.tsData = NULL,
                        .plot_measured_variables = FALSE,
                        .pairedComparisons =  NULL, #pairedVarCCF
                        .uniqueID_colname = NULL,
+                       .lagMax = NULL, #hotfix july 27 2022
                        .metaData = NULL) {
 
 # lts_input <-  function(.tsData = NULL,
@@ -47,6 +48,7 @@ lts_input <-  function(.tsData = NULL,
                         lts_plot_measured_variables = .plot_measured_variables,
                         lts_pariedComparisons = .pairedComparisons,
                         lts_uniqueID_colname = .uniqueID_colname,
+                        lts_lagMax = .lagMax, # hotfix july 27 2-22
                         lts_metaData = .metaData)
 
   lts_inputVars <-lts_variables

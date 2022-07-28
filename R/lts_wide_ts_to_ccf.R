@@ -19,6 +19,7 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = NULL, .lts_variables = NULL) {
   Lts_CCFunqVars <- as.data.frame(c(.lts_variables$lts_data[,c( .lts_variables$lts_uniqueID_colname, .lts_variables$lts_compare_by)]))
   Lts_CCFunqVars[.lts_variables$lts_compare_by] <- lapply(Lts_CCFunqVars[.lts_variables$lts_compare_by],  as.character) #select column "containers", not just contents, so no ","
   Lts_CCFunqVars$unqCCFtsLabel <- apply(Lts_CCFunqVars, 1, function(x) paste(x, collapse="_")) ###this is just for PRINTING
+  lts_lagMax <- .lts_variables$lts_lagMax #hotfix July 27 2022
 
   .key_unqIDcombo <- unique(Lts_CCFunqVars[c("unqCCFtsLabel",.lts_variables$lts_uniqueID_colname)]) #make unique col name a variable
   .unqNameKey <- .key_unqIDcombo$unqCCFtsLabel
@@ -66,7 +67,7 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = NULL, .lts_variables = NULL) {
 
       # print(paste("chosenObs_x:", .key_num, pair$x))
       print(paste("chosenObs_x:", .key_num, pair[[2]]))
-      instanceOfCCF <- stats::ccf(chosenObs_y, chosenObs_x, plot = FALSE, na.action = na.pass) #calculate CCF for chosen pairing
+      instanceOfCCF <- stats::ccf(chosenObs_y, chosenObs_x, plot = FALSE, na.action = na.pass, lag.max=lts_lagMax) #calculate CCF for chosen pairing
       print("ccf complete")
       anCCF_ACF <- instanceOfCCF$acf #current CCF_correlation values
       anCCF_LAG <- instanceOfCCF$lag #current CCF set of lags

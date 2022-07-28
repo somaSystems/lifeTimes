@@ -20,6 +20,7 @@ lts_in <- function(.in_tsData = lts_catchmentsAndRivers,
                        .in_pairedComparisons = list(
                          pair_1 =list(y ="flow_m3s",x ="rainfall_cm")), #pairedVarCCF
                        .in_uniqueID_colname = "key_num",
+                        .in_lagMax = NULL, #hotfix July 27 2022
                        .in_metaData = NULL){
 
   lts_inputVars <- lts_input(.tsData = .in_tsData,
@@ -28,6 +29,7 @@ lts_in <- function(.in_tsData = lts_catchmentsAndRivers,
                              .plot_measured_variables =.in_plot_measured_variables,
                              .pairedComparisons = .in_pairedComparisons, #pairedVarCCF
                              .uniqueID_colname = .in_uniqueID_colname,
+                             .lagMax = .in_lagMax,  #hotfix July 27 2022
                              .metaData = .in_metaData )
 
   lts_tsToWide(lts_inputVars) %>%
