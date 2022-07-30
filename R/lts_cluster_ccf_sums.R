@@ -24,7 +24,9 @@ lts_cluster_ccf_summs <- function(
 
     # mapping arguments to function variables
   .lts_compare_by <- .lts_variables$lts_compare_by
-  .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG
+  .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG # commented out July 30 2022
+  # .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG #hotfix july 30 2022
+
   .lts_ccf_with_meta <- .lts_ccf_with_summs$lts_ccfs_with_meta$lts_metadf
 
 

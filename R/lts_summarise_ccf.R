@@ -487,6 +487,29 @@ lts_catGroups_summ_modeMaxCorrLAG <- .lts_ccfWithMetaData %>%
 lts_catGroups_summ_modeMax <-  merge(lts_catGroups_summ, lts_catGroups_summ_modeMaxCorrLAG, by = c(.lts_compare_by))
 
 
+###start addition of new summary July 30 2022 ###
+ lts_compare_by_1_totals <- .lts_ccfWithMetaData %>%
+  # dplyr::select(theLAG, theCCF, !!rlang::sym(.lts_uniqueID_colname))%>% #group by unique ID
+  dplyr::group_by(!!rlang::sym(.lts_compare_by[[1]])) %>% #group by categorical variables
+  dplyr::tally(name = "n_cat1")
+
+lts_compare_by_1_with_compare_by_2_breakdown <- .lts_ccfWithMetaData %>%
+  dplyr::group_by(!!rlang::sym(.lts_compare_by[[1]]), #group by categorical variables
+                  !!rlang::sym(.lts_compare_by[[2]])) %>%
+  dplyr::tally(name = "n_cat2_per_cat1")
+
+
+lts_compare_by_portions <- dplyr::left_join(lts_compare_by_1_totals, lts_compare_by_1_with_compare_by_2_breakdown, by = c(.lts_compare_by[[1]]))
+lts_cat_portions$cat2_portion <- lts_compare_by_portions$n_cat2_per_cat1/lts_compare_by_portions$n_cat1
+
+# lts_cat_portions <- lts_compare_by_portions$cat2_portion
+lts_catGroups_portions <-  merge(lts_catGroups_summ, lts_cat_portions, by = c(.lts_compare_by))
+
+# lts_catGroups_summ_modeMaxCorrLAG <- lts_catGroups_portions #hotfix july 30 2022
+
+# lts_catGroups_summ_modeMax <-  merge(lts_catGroups_summ, lts_catGroups_portions, by = c(.lts_compare_by))
+
+###end addition of new summary july 30 2022 ###
 
 # lts_catGroups_summ_modeMaxCorrLAG
 
@@ -506,7 +529,9 @@ lts_sum_ccf <- list(
 
     lts_catGroups_summ_perLAG = lts_catGroups_summ_perLAG,
     lts_catGroups_mut_modeMaxCorrLAG = lts_catGroups_mut_modeMaxCorrLAG,
-    lts_catGroups_summ_modeMaxCorrLAG = lts_catGroups_summ_modeMaxCorrLAG
+    lts_catGroups_summ_modeMaxCorrLAG = lts_catGroups_summ_modeMaxCorrLAG #commented out on July 30 2022
+
+    # lts_catGroups_portions = lts_catGroups_portions #hotfix July 30 2022
   )
 
                     )
