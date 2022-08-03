@@ -24,9 +24,7 @@ lts_cluster_ccf_summs <- function(
 
     # mapping arguments to function variables
   .lts_compare_by <- .lts_variables$lts_compare_by
-  .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG # commented out July 30 2022
-  # .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG #hotfix july 30 2022
-
+  .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG
   .lts_ccf_with_meta <- .lts_ccf_with_summs$lts_ccfs_with_meta$lts_metadf
 
 
@@ -54,7 +52,6 @@ lts_hclustColumn_LABELS_feature1 <-hclust(dist(t(mCCF_chosenLAG)))$labels
 } else{
   lts_hclustColumn_order_feature1 <- 1
   lts_hclustColumn_LABELS_feature1 <-  row.names(t(mCCF_chosenLAG))
-
 }
 
 #cluster matrix columns if dimension of rows (transposed matrix) greater than 1

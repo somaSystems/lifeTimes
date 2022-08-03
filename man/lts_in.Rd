@@ -11,6 +11,8 @@ lts_in(
   .in_plot_measured_variables = FALSE,
   .in_pairedComparisons = list(pair_1 = list(y = "flow_m3s", x = "rainfall_cm")),
   .in_uniqueID_colname = "key_num",
+  .in_lagMax = NULL,
+  .in_clusterBy = NULL,
   .in_metaData = NULL
 )
 }
@@ -25,7 +27,11 @@ lts_in(
 
 \item{.in_pairedComparisons}{a single pair or list of pairs, of names of variables to generate cross correlations for.}
 
-\item{.in_uniqueID_colname}{name of colum with unique identifier}
+\item{.in_uniqueID_colname}{name of column with unique identifier}
+
+\item{.in_lagMax}{maximum lag in CCFs}
+
+\item{.in_clusterBy}{defaults to cluster by mean correlation at mode maximum correlated lag, otherwise clusters by "portion" that each grouping/facet of data represents as a total of category 1.}
 
 \item{.in_metaData}{name of columns with metaData}
 }

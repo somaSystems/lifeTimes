@@ -11,9 +11,6 @@ lts_ccf_df(.lts_ccflist = lts_ccf_list, .lts_variables = NULL)
 
 \item{.lts_variables}{output from lts_input()}
 }
-\value{
-
-}
 \description{
 lts_ccf_to_df
 }

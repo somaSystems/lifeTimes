@@ -11,6 +11,8 @@ lts_input(
   .plot_measured_variables = FALSE,
   .pairedComparisons = NULL,
   .uniqueID_colname = NULL,
+  .lagMax = NULL,
+  .clusterBy = NULL,
   .metaData = NULL
 )
 }
@@ -26,6 +28,10 @@ lts_input(
 \item{.pairedComparisons}{a single pair or list of pairs, of names of variables to generate cross correlations for.}
 
 \item{.uniqueID_colname}{name of colum with unique identifier}
+
+\item{.lagMax}{maximum lag in CCFs}
+
+\item{.clusterBy}{defaults to cluster by mean correlation at mode maximum correlated lag, otherwise clusters by "portion" that each grouping/facet of data represents as a total of category 1.}
 
 \item{.metaData}{name of columns with metaData}
 }
