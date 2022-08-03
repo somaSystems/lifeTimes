@@ -1,5 +1,39 @@
 
-lts_ERKAKT_max <- readRDS(file="../lifetimes_testWorkflows/lts_ERKAKT_max_clustered.rds")
+install.packages("gsignal")
+library(gsignal)
+
+
+T <- 10 * (1 / 50)
+fs <- 1000
+t <- seq(0, T-1/fs, 1/fs)
+y <- sawtooth(2 * pi * 50 * t, 1/2)
+plot(t, y, type="l", xlab = "", ylab = "", main = "50 Hz triangle wave")
+
+plot(t, y, type="l", xlab = "", ylab = "", main = "50 Hz triangle wave")
+
+# plot(sin(0.01*(x+0.4)))
+
+#sample data generation
+
+# y = abs((x++ % 6) - 3)
+
+# https://stat.ethz.ch/pipermail/r-help/2012-March/308173.html
+
+x<- seq(0, 10, length = 1000)
+y<- x %%1
+
+
+x<- runif(500, min = -2, max = 2)
+x
+y<- (1 -abs(x*3))* ((x*3)<= 1)
+y
+combined<- data.frame(x = x*3, y = y*3)
+plot(combined)
+
+plot(x,y)
+
+
+
 head(lts_ERKAKT_max)
 library(lifeTimes)
 
@@ -25,15 +59,22 @@ lts_test$lts_ccf_summaries$lts_catGroups_portions
 
 lts_test$lts_ccf_summaries$lts_catGroups_portions$cat2_portion
 
-erkakt <- lts_ERKAKT_max$lts_variables$lts_data
 
 erkakt
 
 
 ####Test portions
+lts_ERKAKT_max <- readRDS(file="../lifetimes_testWorkflows/lts_ERKAKT_max_clustered.rds")
+erkakt <- lts_ERKAKT_max$lts_variables$lts_data
+
 
 library(lifeTimes)
 lts_pairs <- lts_pairsMaker(c("ERK","AKT"))
+
+print(lts_pairs)
+
+lts_learn <- lts_in()
+lts_learn$lts_variables$lts_pariedComparisons
 
 lts_ERKAKT_max <- lts_in(erkakt,
                          .in_time = "timepoint",
@@ -44,6 +85,8 @@ lts_ERKAKT_max <- lts_in(erkakt,
                          .in_lagMax = 199,
                          .in_clusterBy = "portions" )
 
+# getwd()
+saveRDS(lts_ERKAKT_max, file = "../lifetimes_testWorkflows/ERKAKT_199Lag.rds")
 
 lts_ERKAKT_max$lts_clust_outputs
 lts_ERKAKT_max$lts_clust_outputs$clust_column_feature1

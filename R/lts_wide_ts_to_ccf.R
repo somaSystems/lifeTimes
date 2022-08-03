@@ -34,10 +34,10 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = NULL, .lts_variables = NULL) {
   numberOfObjects <- length(.unqNumKey)
   numberOfComparisons <- length(.pairedComparisons)
   lts_ccf_list <- vector("list", numberOfObjects*numberOfComparisons) #number of observation * number of comparisons per cell
-  print(paste("Generating empty list of:",length(lts_ccf_list))) #Jan2022
+  print(paste("Initialising empty CCF list of:",length(lts_ccf_list))) #Jan2022
   element <- 1
   for(keyIndex in seq_along(.unqNumKey)){
-    if(element %% 10 == 0){print(paste("element is", element))} #hotfix added on August 2 2022
+    if(element %% 10 == 0){print(paste("Adding CCF number,", element))} #hotfix added on August 2 2022
     # print(paste("element is", element))
     #get the index number of the key # hot fix number three, change this here
     key_name <- .unqNameKey[keyIndex] #get the actual name descriptive name of the key instead of index number
@@ -96,8 +96,8 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = NULL, .lts_variables = NULL) {
 
 
     }
-
   }
+  cat("finihsed calculating ccf( x = ", pair[[1]], ", y = ", pair[[2]], " )")
   return(lts_ccf_list)
 }
 
