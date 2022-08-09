@@ -1,7 +1,6 @@
 
-install.packages("gsignal")
+if(!require(gsignal)){install.packages("gsignal")}
 library(gsignal)
-
 
 T <- 10 * (1 / 50)
 fs <- 1000
@@ -66,6 +65,9 @@ erkakt
 ####Test portions
 lts_ERKAKT_max <- readRDS(file="../lifetimes_testWorkflows/lts_ERKAKT_max_clustered.rds")
 erkakt <- lts_ERKAKT_max$lts_variables$lts_data
+
+
+
 
 
 library(lifeTimes)
@@ -236,3 +238,123 @@ lts_catGroups_summ_facet_portion <- .lts_ccfWithMetaData %>%
 
 
 lts_catGroups_summ_facet_portion
+
+
+
+#get average i.e get CCF motif
+# show closest x number to motifs.
+
+
+
+lts_ERKAKT_max$lts_ccfs_with_meta
+
+library(dplyr)
+
+colnames(as.data.frame(lts_ERKAKT_max$lts_ccfs_with_meta))
+
+lts_motifs <- as.data.frame(lts_ERKAKT_max$lts_ccfs_with_meta) %>%
+  dplyr::group_by(lts_metadf.sub_grp, lts_metadf.theLAG)%>%
+  dplyr::mutate(motif_pos = mean(lts_metadf.theCCF))
+
+lts_motifs_unq <- lts_motifs %>%
+  dplyr::select(lts_metadf.theLAG, lts_metadf.sub_grp, motif_pos)%>%
+  unique()
+
+dim(lts_motifs)
+dim(lts_motifs_unq)
+ggplot(lts_motifs_unq, aes(x = lts_metadf.theLAG, y = motif_pos))+
+  geom_line(size = 1)+
+  facet_wrap(~lts_metadf.sub_grp, nrow = 1)+
+  theme_classic()
+
+#to do need to remove to unqiue
+
+nDiffs <- 1
+
+#find squared difference between each CCF and the
+lts_unwind <- lts_motifs %>%
+  dplyr::mutate(square_diff = (lts_metadf.theCCF - motif_pos)^2)%>% # calculate square difference
+  dplyr::group_by(lts_metadf.sub_grp) %>% #grouping in by cluster(individual time traces, per cluster)
+  dplyr::mutate(sum_square_diffs = sum(square_diff)) %>%
+  dplyr::slice_min(square_diff, n = nDiffs) %>%
+  dplyr::select(lts_metadf.ID, lts_metadf.sub_grp)%>%
+  unique()
+
+
+lts_unwind
+lts_examplarIDs <- c(lts_unwind$lts_metadf.ID)
+lts_examplarIDs
+
+lts_originalERKAKT <- lts_ERKAKT_max$lts_variables$lts_data
+
+library(tidyr)
+
+lts_motif_examples <- lts_originalERKAKT %>%
+  dplyr::filter(ID %in% lts_examplarIDs) %>%
+  pivot_longer(cols = c(ERK, AKT),
+               names_to = "lts_motif_measures",
+               values_to = "lts_motif_values")
+
+lts_motif_examples$class_name
+
+length(unique(lts_motif_examples$ID))
+
+
+ggplot(lts_motif_examples, aes(x = as.numeric(timepoint), y = lts_motif_values,  color = lts_motif_measures, group = lts_motif_measures))+
+  geom_line(size = 1)+
+  scale_color_manual(values = c("darkorange","dodgerblue"))+
+  facet_wrap(~sub_grp, nrow = 1)+
+  theme_classic()+
+  coord_cartesian(xlim = c(0,200))+
+  theme(legend.position="bottom")
+
+
+lts_in()
+lts_originalERKAKT$ID_class <- lts_originalERKAKT$ID
+lts_originalERKAKT$sub_grp
+examples<- lts_originalERKAKT%>% dplyr::filter(ID %in% lts_examplarIDs)%>%
+  droplevels()
+
+# examples$class_name
+
+lts_pairs
+
+lts_motifs_ccf <- lts_in(examples,
+       .in_time = "timepoint",
+       .in_compare_categorical = c("sub_grp"),
+       .in_plot_measured_variables = TRUE,
+       .in_pairedComparisons = lts_pairs,
+       .in_uniqueID_colname = "ID",
+       .in_lagMax = 199)
+
+lts_plot_ccfs(lts_motifs_ccf)
+
+df_lts_motifs <- lts_motifs_ccf$lts_ccfs_with_meta$lts_metadf
+ggplot(df_lts_motifs, aes(x = as.numeric(theLAG), y = theCCF))+
+  geom_line(size = 1, color = "orchid4")+
+  # scale_color_manual(values = c("coral"))+
+  facet_wrap(~ sub_grp, nrow = 1)+
+  theme_classic()
+
+
+# longOriginal, pivot_longer(lts_originalERKAKT,
+#
+#
+#
+# ggplot(lts_ERKAKT_max$lts_variables$lts_data, aes( x= ))
+
+
+dim(lts_motifs)
+dim(lts_unwind)
+
+?top_frac
+lts_unwind
+
+#Visualise motifs
+library(ggplot2)
+# ggplot(lts_motifs, aes(x = lts_metadf.theLAG, y = motif_pos, group = lts_metadf.ID))+
+#   geom_line(size = 1)+
+#   facet_wrap(~lts_metadf.sub_grp)+
+#   theme_classic()
+
+
