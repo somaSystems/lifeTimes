@@ -19,6 +19,21 @@ lts_tsToWide <- function(.lts_variables = NULL) {
     values_to ="melted_measures"
   )
 
+  ### START added hotfix in August 14 2022
+  ##allows calculation of diffs
+
+  ####commented out August 15th
+  # if(lts_inputVars$lts_differenced == TRUE){ #take difference if differenced is true
+  #   melt_ts <- melt_ts %>%
+  #     dplyr::arrange(.lts_variables$lts_uniqueID_colname,
+  #                    .lts_variables$lts_time)%>%
+  #     dplyr::group_by(.lts_variables$lts_uniqueID_colname,
+  #                     melted_var) %>%
+  #     dplyr::mutate(across(.cols = melted_measures, ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" ))
+  # }
+  # ### END added hotfix in August 14 2022
+
+
   #This is already the final set of comparisons to make ()
   #cast using feature and observational unit (this includes)
   lts_cast_ts <- melt_ts %>% tidyr::pivot_wider(
@@ -30,6 +45,8 @@ lts_tsToWide <- function(.lts_variables = NULL) {
     values_from = melted_measures
   ) # this gives a dataframe with nested lists of time series
   # cast_ts
+
+
 
   return(lts_cast_ts)
 }

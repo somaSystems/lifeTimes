@@ -38,10 +38,12 @@ library(lifeTimes)
 
 lts_test <- lts_in(.in_clusterBy = "portions")
 
+lts_test <- lts_in()
 
 lts_test$lts_ccf_summaries$lts_catGroups_portions
-
 lts_plot_ccfs(lts_test)
+
+
 
 lts_test$lts_ccf_summaries$lts_catGroups_portions
 
@@ -78,7 +80,16 @@ print(lts_pairs)
 lts_learn <- lts_in()
 lts_learn$lts_variables$lts_pariedComparisons
 
-lts_ERKAKT_max <- lts_in(erkakt,
+
+
+levels(erkakt$class_name)
+
+erksmall <- erkakt %>%
+  dplyr::filter(class_name == "BTC" |
+                  class_name == "CTR")
+
+
+lts_ERKAKT_max <- lts_in(erksmall,
                          .in_time = "timepoint",
                          .in_compare_categorical = c("class_name","sub_grp"),
                          .in_plot_measured_variables = FALSE,
@@ -86,6 +97,22 @@ lts_ERKAKT_max <- lts_in(erkakt,
                          .in_uniqueID_colname = "ID",
                          .in_lagMax = 199,
                          .in_clusterBy = "portions" )
+
+
+lts_plot_ccfs(lts_ERKAKT_max)
+
+lts_ERKAKT_max_diff <- lts_in(erkakt,
+                         .in_time = "timepoint",
+                         .in_compare_categorical = c("class_name"),
+                         .in_plot_measured_variables = TRUE,
+                         .in_pairedComparisons = lts_pairs,
+                         .in_uniqueID_colname = "ID",
+                         .in_lagMax = 20,
+                         .in_differenced = TRUE,
+                         .in_clusterBy = "portions" )
+
+
+  lts_plot_ccfs(lts_ERKAKT_max_diff)
 
 # getwd()
 saveRDS(lts_ERKAKT_max, file = "../lifetimes_testWorkflows/ERKAKT_199Lag.rds")

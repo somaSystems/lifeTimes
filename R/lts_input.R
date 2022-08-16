@@ -26,6 +26,7 @@ lts_input <-  function(.tsData = NULL,
                        .uniqueID_colname = NULL,
                        .lagMax = NULL, #hotfix july 27 2022
                        .clusterBy = NULL, #hotfix August 2 2022
+                       .differenced = FALSE, #hotfix added August 14 2022
                        .metaData = NULL) {
 
 # lts_input <-  function(.tsData = NULL,
@@ -53,6 +54,7 @@ lts_input <-  function(.tsData = NULL,
                         lts_uniqueID_colname = .uniqueID_colname,
                         lts_lagMax = .lagMax, # hotfix july 27 2-22
                         lts_clusterBy = .clusterBy, #hotfix August 2 2022
+                        lts_differenced = .differenced,
                         lts_metaData = .metaData)
 
   lts_inputVars <-lts_variables

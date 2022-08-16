@@ -23,6 +23,7 @@ lts_in <- function(.in_tsData = lts_catchmentsAndRivers,
                        .in_uniqueID_colname = "key_num",
                         .in_lagMax = NULL, #hotfix July 27 2022,
                        .in_clusterBy = NULL, #hotfix added August 2 2022
+                        .in_differenced = FALSE, #hotfix added August 14 2022
                        .in_metaData = NULL
                         ){
 
@@ -34,6 +35,7 @@ lts_in <- function(.in_tsData = lts_catchmentsAndRivers,
                              .uniqueID_colname = .in_uniqueID_colname,
                              .lagMax = .in_lagMax,  #hotfix July 27 2022
                              .clusterBy = .in_clusterBy, #hotfix added August 2 2022
+                             .differenced = .in_differenced, #hotfix added August 14 2022
                              .metaData = .in_metaData )
 
   lts_tsToWide(lts_inputVars) %>%

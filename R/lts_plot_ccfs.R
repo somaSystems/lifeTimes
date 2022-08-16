@@ -57,6 +57,7 @@ lts_plot_ccfs <- function(
 
   # .summ_for_matrix <- .lts_output$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG # comment out on August 2 2022
   # .Value_name_in_summ_for_matrix <- "catGroups_mean_corr_atModeLAG" #comment out hotfix August 2 2022
+
   .summ_for_matrix <- .lts_output$lts_ccf_summaries$lts_catGroups_portions #hotfix added August 2 2022
     .Value_name_in_summ_for_matrix <- "cat2_portion" #hotfix August 2 2022
 
