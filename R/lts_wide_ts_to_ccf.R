@@ -97,7 +97,7 @@ lts_wide_ts_to_ccf <- function(.lts_cast_ts = NULL, .lts_variables = NULL) {
 
     }
   }
-  cat("finihsed calculating ccf( x = ", pair[[1]], ", y = ", pair[[2]], " )")
+  cat("finished calculating ccf( x = ", pair[[1]], ", y = ", pair[[2]], " )")
   return(lts_ccf_list)
 }
 

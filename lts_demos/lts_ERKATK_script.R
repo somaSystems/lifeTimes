@@ -2,34 +2,34 @@
 if(!require(gsignal)){install.packages("gsignal")}
 library(gsignal)
 
-T <- 10 * (1 / 50)
-fs <- 1000
-t <- seq(0, T-1/fs, 1/fs)
-y <- sawtooth(2 * pi * 50 * t, 1/2)
-plot(t, y, type="l", xlab = "", ylab = "", main = "50 Hz triangle wave")
-
-plot(t, y, type="l", xlab = "", ylab = "", main = "50 Hz triangle wave")
-
-# plot(sin(0.01*(x+0.4)))
-
-#sample data generation
-
-# y = abs((x++ % 6) - 3)
-
-# https://stat.ethz.ch/pipermail/r-help/2012-March/308173.html
-
-x<- seq(0, 10, length = 1000)
-y<- x %%1
-
-
-x<- runif(500, min = -2, max = 2)
-x
-y<- (1 -abs(x*3))* ((x*3)<= 1)
-y
-combined<- data.frame(x = x*3, y = y*3)
-plot(combined)
-
-plot(x,y)
+# T <- 10 * (1 / 50)
+# fs <- 1000
+# t <- seq(0, T-1/fs, 1/fs)
+# y <- sawtooth(2 * pi * 50 * t, 1/2)
+# plot(t, y, type="l", xlab = "", ylab = "", main = "50 Hz triangle wave")
+#
+# plot(t, y, type="l", xlab = "", ylab = "", main = "50 Hz triangle wave")
+#
+# # plot(sin(0.01*(x+0.4)))
+#
+# #sample data generation
+#
+# # y = abs((x++ % 6) - 3)
+#
+# # https://stat.ethz.ch/pipermail/r-help/2012-March/308173.html
+#
+# x<- seq(0, 10, length = 1000)
+# y<- x %%1
+#
+#
+# x<- runif(500, min = -2, max = 2)
+# x
+# y<- (1 -abs(x*3))* ((x*3)<= 1)
+# y
+# combined<- data.frame(x = x*3, y = y*3)
+# plot(combined)
+#
+# plot(x,y)
 
 
 
@@ -45,7 +45,7 @@ lts_plot_ccfs(lts_test)
 
 lts_test$lts_ccf_summaries$lts_catGroups_portions
 
-lts_test$
+# lts_test$
 
 lts_plot_ccfs(lts_test)
 
