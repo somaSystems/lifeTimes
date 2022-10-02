@@ -24,7 +24,11 @@ lts_cluster_ccf_summs <- function(
 
     # mapping arguments to function variables
   .lts_compare_by <- .lts_variables$lts_compare_by
-  .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG
+  if(.lts_variables$lts_clusterByPortions == TRUE) {.lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_portions}else{ #hotfix October 1 2022
+    .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG #hotfix October 1 2022
+  }#hotfix October 1 2022
+
+  # .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG # commented out hotfix October 1 2022
   .lts_ccf_with_meta <- .lts_ccf_with_summs$lts_ccfs_with_meta$lts_metadf
 
 
@@ -39,7 +43,9 @@ lts_cluster_ccf_summs <- function(
     tidyr::pivot_wider(
       id_cols = c(.lts_variables$lts_compare_by[2]), #use the categorical variable not chosen in names from
       names_from = .lts_variables$lts_compare_by[1], #lts_cluster_feature1 hereafter
-      values_from = "catGroups_mean_corr_atModeLAG")
+      # values_from = "catGroups_mean_corr_atModeLAG") #hotfix October 1 2022, commented out to let type of clustering change
+      values_from =   names(.lts_catGroups_sum_to_cluster[length(.lts_catGroups_sum_to_cluster)]))# final column of group being clustered
+
 
 
 mCCF_chosenLAG <- as.matrix(m_wide_lts_catGroups_summ[-1]) #make a numerical only matrix of mean correlation at lag zero, by removing first column

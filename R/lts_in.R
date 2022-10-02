@@ -22,7 +22,7 @@ lts_in <- function(.in_tsData = lts_catchmentsAndRivers,
                          pair_1 =list(y ="flow_m3s",x ="rainfall_cm")), #pairedVarCCF
                        .in_uniqueID_colname = "key_num",
                         .in_lagMax = NULL, #hotfix July 27 2022,
-                       .in_clusterBy = NULL, #hotfix added August 2 2022
+                       .in_clusterByPortions = FALSE, #hotfix added August 2 2022
                        .in_metaData = NULL
                         ){
 
@@ -33,7 +33,7 @@ lts_in <- function(.in_tsData = lts_catchmentsAndRivers,
                              .pairedComparisons = .in_pairedComparisons, #pairedVarCCF
                              .uniqueID_colname = .in_uniqueID_colname,
                              .lagMax = .in_lagMax,  #hotfix July 27 2022
-                             .clusterBy = .in_clusterBy, #hotfix added August 2 2022
+                             .clusterByPortions = .in_clusterByPortions, #hotfix added August 2 2022
                              .metaData = .in_metaData )
 
   lts_tsToWide(lts_inputVars) %>%
