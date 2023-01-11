@@ -58,7 +58,7 @@ library(devtools)
 #install dependency from github
 install_github("jokergoo/ComplexHeatmap")
 
-#install lifeTimes from github, using package access token
+#install lifeTimes from github
 install_github("somaSystems/lifeTimes")
 ```
 
