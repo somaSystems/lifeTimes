@@ -56,7 +56,7 @@ if(!require("devtools")) install.packages("devtools")
 library(devtools)
 
 #install dependency from github
-install_github("jokergoo/ComplexHeatmap")
+if(!require("ComplexHeatmap")) install_github("jokergoo/ComplexHeatmap")
 
 #install lifeTimes from github
 install_github("somaSystems/lifeTimes")
