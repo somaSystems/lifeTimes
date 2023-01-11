@@ -59,12 +59,7 @@ library(devtools)
 install_github("jokergoo/ComplexHeatmap")
 
 #install lifeTimes from github, using package access token
-install_github("somaSystems/lifeTimes", 
-auth_token = "<paste your github token as a string here>") 
-
-# If you need a github token you make one with the commented code below:
-# if(!require("usethis")) install.packages("usethis")
-# usethis::create_github_token() 
+install_github("somaSystems/lifeTimes")
 ```
 
 **Run lifeTimes on default data**
