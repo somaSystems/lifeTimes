@@ -45,11 +45,24 @@ lts_cluster_ccf_summs <- function(
 mCCF_chosenLAG <- as.matrix(m_wide_lts_catGroups_summ[-1]) #make a numerical only matrix of mean correlation at lag zero, by removing first column
 rownames(mCCF_chosenLAG) <-  m_wide_lts_catGroups_summ[[1]] # add rownames to matrix (#lts_cluster_feature2)
 
-#cluster matrix
+#cluster matrix columns if dimension of columns greater than 1
+if(dim(t(mCCF_chosenLAG))[1] > 1){
 lts_hclustColumn_order_feature1 <- hclust(dist(t(mCCF_chosenLAG)))$order # get column order from clustered matrix and set this as a variable #BROKEN HERE
 lts_hclustColumn_LABELS_feature1 <-hclust(dist(t(mCCF_chosenLAG)))$labels
+} else{
+  lts_hclustColumn_order_feature1 <- 1
+  lts_hclustColumn_LABELS_feature1 <-  row.names(t(mCCF_chosenLAG))
+}
+
+#cluster matrix columns if dimension of rows (transposed matrix) greater than 1
+if(dim(mCCF_chosenLAG)[1] > 1) {
 lts_hclustRow_order_feature2 <- hclust(dist(mCCF_chosenLAG))$order # get row order from clustered matrix and set this as a  variable
 lts_hclustColumn_LABELS_feature2 <-hclust(dist(mCCF_chosenLAG))$labels
+} else{
+  lts_hclustRow_order_feature2 <- 1
+  lts_hclustColumn_LABELS_feature2 <-  row.names(mCCF_chosenLAG)
+}
+
 
 mCCF_chosenLAG[lts_hclustRow_order_feature2, lts_hclustColumn_order_feature1] #display matrix organised by rows and columns
 
@@ -62,13 +75,24 @@ column_feature1
 row_feature2 <- lts_hclustColumn_LABELS_feature2
 row_feature2
 
+#if clustering has been performed reorder columns
 #reorder columns by clustering
+# if(dim(t(mCCF_chosenLAG))[1] > 1){
 clust_column_feature1 <- column_feature1[lts_hclustColumn_order_feature1] #make a new or desired feature order based on the row order
 clust_column_feature1
+# } else {
+#   clust_column_feature1
+# }
 
+#if clustering has been performed reorder rows
 #reorder rows by clustering
+# if(dim(mCCF_chosenLAG)[1] > 1) {
 clust_row_feature2 <- row_feature2[lts_hclustRow_order_feature2] #make a new or desired feature order based on the row order
 clust_row_feature2
+# } else
+# {
+#
+# }
 
 #update main dataframe (update the factor levels for Treatments and Features, to be based on clustering)
 
