@@ -11,6 +11,9 @@ lts_wide_ts_to_ccf(.lts_cast_ts = NULL, .lts_variables = NULL)
 
 \item{.lts_variables}{output from lts_input()}
 }
+\value{
+returns output of cross correlation functions
+}
 \description{
 lts_wide_ts_to_ccf
 }

@@ -1,4 +1,6 @@
 
+install.packages(lifeTimes)
+
 if(!require(gsignal)){install.packages("gsignal")}
 library(gsignal)
 
@@ -35,6 +37,8 @@ library(gsignal)
 
 head(lts_ERKAKT_max)
 library(lifeTimes)
+
+
 
 lts_test <- lts_in(.in_clusterBy = "portions")
 

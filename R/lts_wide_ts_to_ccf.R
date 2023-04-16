@@ -5,7 +5,7 @@
 #' @param .lts_cast_ts output from lts_ts_to_wide()
 #' @param .lts_variables output from lts_input()
 #'
-#' @return
+#' @return returns output of cross correlation functions
 #'
 
 lts_wide_ts_to_ccf <- function(.lts_cast_ts = NULL, .lts_variables = NULL) {

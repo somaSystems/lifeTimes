@@ -7,7 +7,7 @@
 #' @param .in_pairedComparisons a single pair or list of pairs, of names of variables to generate cross correlations for.
 #' @param .in_uniqueID_colname name of column with unique identifier
 #' @param .in_lagMax maximum lag in CCFs
-#' @param .in_clusterBy defaults to cluster by mean correlation at mode maximum correlated lag, otherwise clusters by "portion" that each grouping/facet of data represents as a total of category 1.
+#' @param .in_clusterByPortions defaults to cluster by mean correlation at mode maximum correlated lag, otherwise clusters by "portion" that each grouping/facet of data represents as a total of category 1.
 #' @param .in_metaData name of columns with metaData
 #' @return calculated cross correlations, summary statistics and clustering that can be used for classification or plotting
 #'

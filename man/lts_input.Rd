@@ -12,7 +12,7 @@ lts_input(
   .pairedComparisons = NULL,
   .uniqueID_colname = NULL,
   .lagMax = NULL,
-  .clusterBy = NULL,
+  .clusterByPortions = FALSE,
   .metaData = NULL
 )
 }
@@ -31,7 +31,7 @@ lts_input(
 
 \item{.lagMax}{maximum lag in CCFs}
 
-\item{.clusterBy}{defaults to cluster by mean correlation at mode maximum correlated lag, otherwise clusters by "portion" that each grouping/facet of data represents as a total of category 1.}
+\item{.clusterByPortions}{defaults to cluster by mean correlation at mode maximum correlated lag, otherwise clusters by "portion" that each grouping/facet of data represents as a total of category 1.}
 
 \item{.metaData}{name of columns with metaData}
 }

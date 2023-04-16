@@ -9,7 +9,7 @@
 #' @param .plot_measured_variables logical parameter, set to TRUE if using one categorical variables and want different CCFs plotted against a single categorical variable.
 #' @param .uniqueID_colname name of colum with unique identifier
 #' @param .lagMax maximum lag in CCFs
-#' @param .clusterBy defaults to cluster by mean correlation at mode maximum correlated lag, otherwise clusters by "portion" that each grouping/facet of data represents as a total of category 1.
+#' @param .clusterByPortions defaults to cluster by mean correlation at mode maximum correlated lag, otherwise clusters by "portion" that each grouping/facet of data represents as a total of category 1.
 #' @param .metaData name of columns with metaData
 #'
 #' @return a list that includes time series data, and strings from user input that map variables in the time series data to input in lifeTimes functions. Eg. which column of dataframe is the unit of "time", which is the categorical variables, and which are the variables to compare when generating CCFs.

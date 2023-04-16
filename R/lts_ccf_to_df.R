@@ -6,7 +6,7 @@
 #' @importFrom magrittr "%>%"
 #' @importFrom magrittr %>%
 #'
-#' @return
+#' @return ccfs in the form of a data frame
 
 lts_ccf_df <- function(.lts_ccflist = lts_ccf_list, .lts_variables = NULL){
 
