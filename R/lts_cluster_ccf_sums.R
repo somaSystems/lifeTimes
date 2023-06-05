@@ -24,7 +24,11 @@ lts_cluster_ccf_summs <- function(
 
     # mapping arguments to function variables
   .lts_compare_by <- .lts_variables$lts_compare_by
-  .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG
+  if(.lts_variables$lts_clusterByPortions == TRUE) {.lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_portions}else{ #hotfix October 1 2022
+    .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG #hotfix October 1 2022
+  }#hotfix October 1 2022
+
+  # .lts_catGroups_sum_to_cluster <- .lts_ccf_with_summs$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG # commented out hotfix October 1 2022
   .lts_ccf_with_meta <- .lts_ccf_with_summs$lts_ccfs_with_meta$lts_metadf
 
 
@@ -39,17 +43,32 @@ lts_cluster_ccf_summs <- function(
     tidyr::pivot_wider(
       id_cols = c(.lts_variables$lts_compare_by[2]), #use the categorical variable not chosen in names from
       names_from = .lts_variables$lts_compare_by[1], #lts_cluster_feature1 hereafter
-      values_from = "catGroups_mean_corr_atModeLAG")
+      # values_from = "catGroups_mean_corr_atModeLAG") #hotfix October 1 2022, commented out to let type of clustering change
+      values_from =   names(.lts_catGroups_sum_to_cluster[length(.lts_catGroups_sum_to_cluster)]))# final column of group being clustered
+
 
 
 mCCF_chosenLAG <- as.matrix(m_wide_lts_catGroups_summ[-1]) #make a numerical only matrix of mean correlation at lag zero, by removing first column
 rownames(mCCF_chosenLAG) <-  m_wide_lts_catGroups_summ[[1]] # add rownames to matrix (#lts_cluster_feature2)
 
-#cluster matrix
+#cluster matrix columns if dimension of columns greater than 1
+if(dim(t(mCCF_chosenLAG))[1] > 1){
 lts_hclustColumn_order_feature1 <- hclust(dist(t(mCCF_chosenLAG)))$order # get column order from clustered matrix and set this as a variable #BROKEN HERE
 lts_hclustColumn_LABELS_feature1 <-hclust(dist(t(mCCF_chosenLAG)))$labels
+} else{
+  lts_hclustColumn_order_feature1 <- 1
+  lts_hclustColumn_LABELS_feature1 <-  row.names(t(mCCF_chosenLAG))
+}
+
+#cluster matrix columns if dimension of rows (transposed matrix) greater than 1
+if(dim(mCCF_chosenLAG)[1] > 1) {
 lts_hclustRow_order_feature2 <- hclust(dist(mCCF_chosenLAG))$order # get row order from clustered matrix and set this as a  variable
 lts_hclustColumn_LABELS_feature2 <-hclust(dist(mCCF_chosenLAG))$labels
+} else{
+  lts_hclustRow_order_feature2 <- 1
+  lts_hclustColumn_LABELS_feature2 <-  row.names(mCCF_chosenLAG)
+}
+
 
 mCCF_chosenLAG[lts_hclustRow_order_feature2, lts_hclustColumn_order_feature1] #display matrix organised by rows and columns
 
@@ -62,13 +81,24 @@ column_feature1
 row_feature2 <- lts_hclustColumn_LABELS_feature2
 row_feature2
 
+#if clustering has been performed reorder columns
 #reorder columns by clustering
+# if(dim(t(mCCF_chosenLAG))[1] > 1){
 clust_column_feature1 <- column_feature1[lts_hclustColumn_order_feature1] #make a new or desired feature order based on the row order
 clust_column_feature1
+# } else {
+#   clust_column_feature1
+# }
 
+#if clustering has been performed reorder rows
 #reorder rows by clustering
+# if(dim(mCCF_chosenLAG)[1] > 1) {
 clust_row_feature2 <- row_feature2[lts_hclustRow_order_feature2] #make a new or desired feature order based on the row order
 clust_row_feature2
+# } else
+# {
+#
+# }
 
 #update main dataframe (update the factor levels for Treatments and Features, to be based on clustering)
 

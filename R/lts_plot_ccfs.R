@@ -54,7 +54,11 @@ lts_plot_ccfs <- function(
   subset_sum_join_outputCCFdata <- .lts_output$lts_clust_ccfs_with_meta
   .lts_theLAG <- .lts_output$lts_clust_ccfs_with_meta$theLAG
   clust_matrix <- .lts_output$lts_clust_outputs$clust_matrix
-  .summ_for_matrix <- .lts_output$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG
+
+  .summ_for_matrix <- .lts_output$lts_ccf_summaries$lts_catGroups_summ_modeMaxCorrLAG # comment out on August 2 2022
+  .Value_name_in_summ_for_matrix <- "catGroups_mean_corr_atModeLAG" #comment out hotfix August 2 2022
+  # .summ_for_matrix <- .lts_output$lts_ccf_summaries$lts_catGroups_portions #hotfix added August 2 2022
+    # .Value_name_in_summ_for_matrix <- "cat2_portion" #hotfix August 2 2022
 
   plotType <- match.arg(plotType)
   ensym_plotType <- rlang::sym(plotType)
@@ -156,12 +160,12 @@ lts_plot_ccfs <- function(
   # lts2$lts_CCFcalcs
   rectValues <- dplyr::left_join(heatmapAnno,  #join unique react values to column names
                                  # .lts_output$lts_CCFcalcs[c("meanCorrAtModeMaxLAG", category1_name, category2_name)],
-                                 .summ_for_matrix[c("catGroups_mean_corr_atModeLAG", category1_name, category2_name)],
+                                 .summ_for_matrix[c(.Value_name_in_summ_for_matrix, category1_name, category2_name)],
                                  by = c(category1_name, category2_name))
 
   # unq_rectValues <- unique(rectValues)
 
-  lts_heatmapAnno <- dplyr::left_join(heatmapAnno, rectValues[c("catGroups_mean_corr_atModeLAG", category1_name, category2_name)], by = c(category1_name, category2_name))
+  lts_heatmapAnno <- dplyr::left_join(heatmapAnno, rectValues[c(.Value_name_in_summ_for_matrix, category1_name, category2_name)], by = c(category1_name, category2_name))
   # lts_heatmapAnno
 
 
@@ -177,7 +181,7 @@ lts_plot_ccfs <- function(
     ggplot2::geom_rect(data=lts_heatmapAnno,
                        ggplot2::aes(ymin=-Inf, ymax=Inf,
                                     xmin=-Inf, xmax=Inf,
-                                    fill= catGroups_mean_corr_atModeLAG), alpha =0.5)+
+                                    fill= !!sym(.Value_name_in_summ_for_matrix)), alpha =0.5)+ #hotfix August 2 2022 (was previously variable of CorAtModeMax)
     ggplot2::geom_line(data = subset_sum_join_outputCCFdata, ggplot2::aes(x =theLAG,
                                                                           y = theCCF,
                                                                           group = !!sym(.lts_output$lts_variables$lts_uniqueID_colname)), alpha = 0.5, color = "black")+  ##fix this instance of keynum

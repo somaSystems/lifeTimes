@@ -8,7 +8,7 @@ Description: This package uses cross-correlation analysis to study coupling of b
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Imports: 
     circlize,
     ComplexHeatmap,
