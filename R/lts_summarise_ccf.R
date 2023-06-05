@@ -41,7 +41,8 @@ if(is.null(.lts_variables)){
 #rate of change in  correlation as a function of
 lts_metadf_diffed <- .lts_ccfWithMetaData %>%
   dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname)) %>% #hotfix Feb 20 2022
-  dplyr::mutate_at("theCCF", ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )
+  # dplyr::mutate_at("theCCF", ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" ) # comment out June 5 2023
+  dplyr::mutate_at("theCCF", ~ . - dplyr::lag(., n = 1, default = NA) ) # comment in  June 5 2023
 
 #####TODO
 # lts_metadf #CCFs
@@ -139,7 +140,9 @@ colnames(lts_summ_lag_range_portion) <-
 lts_summ_lag_range_diffed <- lts_summ_lag_range %>%
   dplyr::filter(lag_range != "zeroLAG") %>% #only consider positive or negative lags
   dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>%
-  dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )) %>% #hotfix march 12 2022
+  # dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )) %>% #hotfix march 12 2022 # comment out June 5 2023
+  dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA) )) %>% #hotfix march 12 2022 # comment in June 5 2023
+
   # dplyr::mutate_if(is.numeric, ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" ) %>%
   dplyr::select(!!rlang::sym(.lts_uniqueID_colname),where(is.numeric))%>% # added extra selecct by unique ID on March 12 2022
   dplyr::rename_with(function(x) paste0("posNegDiff",x),where(is.numeric))%>%
@@ -154,7 +157,9 @@ lts_summ_lag_range_diffed <- lts_summ_lag_range %>%
 lts_summ_lag_range_diffed_portion <- lts_summ_lag_range_portion %>% #the portioning is built in from a previous step
   dplyr::filter(lag_range != "zeroLAG") %>% #only consider positive or negative lags
   dplyr::group_by(!!rlang::sym(.lts_uniqueID_colname))%>%
-  dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )) %>% #hotfix march 12 2022
+  # dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )) %>% #hotfix march 12 2022 #comment out June 5 2023
+  dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA))) %>% #hotfix march 12 2022 # comment in June 5
+
   # dplyr::mutate_if(is.numeric, ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" ) %>%
   dplyr::select(!!rlang::sym(.lts_uniqueID_colname),where(is.numeric))%>% #added missing grouping variable March 12 2022
   dplyr::rename_with(function(x) paste0("posNegDiff",x),where(is.numeric)) %>%
@@ -310,7 +315,9 @@ lts_catGroups_summ_lag_range_diffed <- lts_catGroups_summ_lag_range %>%
   dplyr::filter(lag_range != "zeroLAG") %>% #only consider positive or negative lags
   dplyr::group_by(!!rlang::sym(.lts_compare_by[[1]]),
                   !!rlang::sym(.lts_compare_by[[2]])) %>%
-  dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )) %>% #hotfix march 12 2022
+  # dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )) %>% #hotfix march 12 2022 #comment out June 5 2023
+  dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA) )) %>% #hotfix march 12 2022 # comment in June 5 2023
+
   # dplyr::mutate_if(is.numeric, ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" ) %>%
   dplyr::select(!!rlang::sym(.lts_compare_by[[1]]),
                 !!rlang::sym(.lts_compare_by[[2]]),
@@ -329,7 +336,9 @@ lts_catGroups_summ_lag_range_diffed_portion <- lts_catGroups_summ_lag_range_port
   dplyr::filter(lag_range != "zeroLAG") %>% #only consider positive or negative lags
   dplyr::group_by(!!rlang::sym(.lts_compare_by[[1]]),
                   !!rlang::sym(.lts_compare_by[[2]])) %>%
-  dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )) %>% #hotfix march 12 2022
+  # dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" )) %>% #hotfix march 12 2022 #comment out June 5 2023
+  dplyr::mutate(dplyr::across(where(is.numeric), ~ . - dplyr::lag(., n = 1, default = NA))) %>% #hotfix march 12 2022 # comment in June 5 2023
+
     # dplyr::mutate_if(is.numeric, ~ . - dplyr::lag(., n = 1, default = NA),.keep = "all" ) %>%
   dplyr::select(!!rlang::sym(.lts_compare_by[[1]]),
                 !!rlang::sym(.lts_compare_by[[2]]),
