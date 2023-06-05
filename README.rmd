@@ -283,8 +283,7 @@ CCF patterns, shows charactestic enrichment from different treatments (D).
 <br />
 lifeTimes can be used to find motifs, or chacteristic relationships between <br />
 sets of variables. Here 10 motifs of ERK and AKT  are shown. <br />
-<br />
-<br />
+<p/>
 **CCF Motif Extraction** .  
 Average traces for each of 10 CCF clusters identified in ERK versus AKT traces <br /> 
 (data from Jacques et al., 2021). The raw traces most closely matching each <br />
