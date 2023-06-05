@@ -1,4 +1,4 @@
-README
+lifeTimes README
 ================
 LGD
 17/12/2021
@@ -12,22 +12,14 @@ LGD
 -   [**Dataset 2: Cell and nucleus**](#dataset-2-cell-and-nucleus)
     -   [**Single categorical variable with multiple measured
         variables**](#single-categorical-variable-with-multiple-measured-variables)
--   [**Downstream analysis: Rainfall and river
-    flow**](#downstream-analysis-rainfall-and-river-flow)
-    -   [**Output summary statistics**](#output-summary-statistics)
-    -   [**Visualising principal component
-        space**](#visualising-principal-component-space)
-    -   [**Using PLSR to predict catchment
-        location**](#using-plsr-to-predict-catchment-location)
+-   [**Downstream analysis: ERK and AKT data
+    mining**](#downstream-analysis-erk-and-akt-data-mining)
 
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 [![codecov](https://codecov.io/gh/somaSystems/lifeTimes/branch/main/graph/badge.svg?token=4LFWpvvLOq)](https://codecov.io/gh/somaSystems/lifeTimes)
-
-[![test-coverage](https://github.com/somaSystems/lifeTimes/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/somaSystems/lifeTimes/actions/workflows/test-coverage.yaml)
-<p>
 
 <img src="man/figures/lifeTimesLogo.png" style="width:40.0%" />
 
@@ -56,15 +48,10 @@ if(!require("devtools")) install.packages("devtools")
 library(devtools)
 
 #install dependency from github
-install_github("jokergoo/ComplexHeatmap")
+if(!require("ComplexHeatmap")) install_github("jokergoo/ComplexHeatmap")
 
-#install lifeTimes from github, using package access token
-install_github("somaSystems/lifeTimes", 
-auth_token = "<paste your github token as a string here>") 
-
-# If you need a github token you make one with the commented code below:
-# if(!require("usethis")) install.packages("usethis")
-# usethis::create_github_token() 
+#install lifeTimes from github
+install_github("somaSystems/lifeTimes")
 ```
 
 **Run lifeTimes on default data**
@@ -72,6 +59,7 @@ auth_token = "<paste your github token as a string here>")
 ``` r
 #copy and paste to run on test data
 library(lifeTimes)
+# rm(lifeTimes)
 
 lts <- lts_in() #calculate cross correlation
 ```
@@ -151,9 +139,7 @@ period where both stations were operating, and recording measurements.
 <p>
 
 After some data wrangling, these two datsets produce a csv which I read
-into a dataframe. You can [download a version of the dataframe
-here](https://github.com/somaSystems/lifeTimes/blob/main/data-raw/rain_flow_Thames_Ash.csv).
-The first five observations look like this:
+into a dataframe. The first five observations look like this:
 
 ``` r
 rain_flow <- read.csv(file ="data-raw/rain_flow_Thames_Ash.csv")
@@ -505,233 +491,35 @@ lts_plot_coupled(lts_oneCat,
 
 ![](README_files/figure-gfm/unnamed-chunk-13-2.png)<!-- -->
 
-## **Downstream analysis: Rainfall and river flow**
+## **Downstream analysis: ERK and AKT data mining**
 
 [Back to top](#)
 
-Cross correlations, or lagged correlations between features have many
-uses. Two of these are:  
-i. generating hypotheses about cause and effect between parts of a
-system  
-ii. improving the results of classification tasks indynamic datasets  
-<p>
-
-The code below shows how you can access summary statistics about each
-ovbservation, for use in downstream tasks.
-
-``` r
-#load lideTimes
-library(lifeTimes)
-
-#run lifeTimes
-lts_demo <- lts_in()
-```
-
-### **Output summary statistics**
-
-[Back to top](#)
-
-lifeTimes outputs a range of ccf summary statistics. These are stored in
-a list called “lts\_ccf\_summaries”.
-
-``` r
-#Here is an example of accessing one set of summary statistics
-#and assigning it to an object
-lts_summary_output <- lts_demo$lts_ccf_summaries$lts_singleton_summ_metadata
-```
-
-**summary cleaning functions** lifeTimes has a built in function
-`lts_summs_clean()`, to clean summary statistics for downstream
-analysis. This function just takes the output of the `lts_in()`
-function.
-
-``` r
-#Just enter the output from lts_in(), into the lts_summs_clean() function
-lts_clean_demo <- lts_summs_clean(lts_demo)
-```
-
-This attaches a list called `"lts_clean_summs"` to the `lts_in()`
-output, which contains:
-
-1.  summary statistics of original time series input, called
-    `lts_clean_summ_original`
-
-2.  summary statistics of ccf calculations, called `lts_clean_summ_ccf`
-
-3.  a join of both (i) and (ii), to give combined summary statistics,
-    `lts_clean_summ_join`  
-
-    <p>
-
-    This new list can be passed to `lts_prcomp()`, to generate principle
-    components.
-
-``` r
-#Use lapply to iterate over "lts_clean_summs", to generate principle components
-lts_pc_list <- lapply(lts_clean_demo$lts_clean_summs, lts_prcomp) #run pc analyis on each
-```
-
-### **Visualising principal component space**
-
-[Back to top](#)
-
-Principle component space can be plotted for each of the three summary
-statistics. First we install the needed packages. Then we assign labels,
-and use lapply on our already computed principle components. This
-generates a list of plots.
-
-``` r
-#install ggfortify if needed
-if(!require("ggfortify")) install.packages("ggfortify")
-```
-
-    ## Loading required package: ggfortify
-
-    ## Loading required package: ggplot2
-
-``` r
-library(ggfortify)
-
-#make labels
-lts_pca_labels <- lts_pc_list$lts_clean_summ_original$lts_labels_pc
-
-#make 3 versions of PCA space
-p <- lapply(lts_pc_list, function(x) autoplot(x$lts_pc_values, 
-                                              data =lts_pca_labels,     
-                                              colour = "catchmentRegion")+
-  scale_color_manual(values = c("dodgerblue","darkorange"))+  theme_classic())
-```
-
-Principle component space can be plotted for each of the three summary
-statistics:  
-i. original data summaries
-
-2.  calculated ccfs summaries
-
-3.  combined data summaries
-
-``` r
-#plot PCA space
-if(!require("gridExtra")) install.packages("gridExtra")
-```
-
-    ## Loading required package: gridExtra
-
-``` r
-library(gridExtra)
-do.call("grid.arrange", p)
-```
-
-![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
-
-In comparison to the original data, the combined dataset give improved
-performance in classification tasks. Importantly, this improvement comes
-from the same original data without the addition of any new variables or
-measures. Instead, the improvement comes from the CCFs which give a
-better account of the relationship or coupling between measured
-variables and how these change between conditions.
-
-### **Using PLSR to predict catchment location**
-
-[Back to top](#)
-
-We can look at performance in classification tasks using PLSR to predict
-`catchmentRegion`, as a dummy variable. First we install and load the
-“pls” package.
-
-``` r
-if(!require("pls")) install.packages("pls")
-```
-
-    ## Loading required package: pls
-
-    ## 
-    ## Attaching package: 'pls'
-
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     loadings
-
-``` r
-library(pls)
-```
-
-<p>
-
-**Original data summary stats**
-
-From summary statistics of original data, CV analysis suggests 4 comps
-be used. This gives prediction accuracy of `66.74`.
-
-``` r
-#get categorical variables and predictors
-lts_PLSR <- lts_pc_list$lts_clean_summ_original
-
-#Get column names of predictors
-lts_predictors <- lts_PLSR$lts_values_pc
-lts_response <- as.numeric(lts_PLSR$lts_labels_pc$catchmentRegion)
-PLSR_model <- plsr(lts_response ~ ., data=lts_predictors, scale=TRUE, validation="CV")
-```
-
-**Plot RMSEP and prediction accuracy with Original Data**
-
-``` r
-plot(RMSEP(PLSR_model), legendpos = "topright")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
-
-``` r
-plot(PLSR_model)+abline(h =1.5, col = "magenta")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-22-2.png)<!-- -->
-
-    ## numeric(0)
-
-<p>
-
-**CCF + Original data summary stats**
-
-From summary statistics of original and cross correlation data (CCF), CV
-analysis suggests 8 comps be used. This gives prediction accuracy of
-`75.35`.
-
-``` r
-#get categorical variables and predictors
-lts_PLSR <- lts_pc_list$lts_clean_summ_join
-
-#Get column names of predictors
-lts_predictors <- lts_PLSR$lts_values_pc
-lts_response <- as.numeric(lts_PLSR$lts_labels_pc$catchmentRegion)
-PLSR_model <- plsr(lts_response ~ ., data=lts_predictors, scale=TRUE, validation="CV")
-```
-
-**Plot RMSEP and prediction accuracy with CCF Augmented Data**
-
-``` r
-plot(RMSEP(PLSR_model), legendpos = "topright")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
-
-``` r
-plot(PLSR_model)+abline(h =1.5, col = "magenta")
-```
-
-![](README_files/figure-gfm/unnamed-chunk-24-2.png)<!-- -->
-
-    ## numeric(0)
-
-In this simple example, using cross validated PLSR models, and selecting
-the number of model components where RMSEP reaches the first turning
-point, the improvement in prediction accuracy by incorporating CCF
-summary statistics is `75.35 - 66.74 = 8.61`. This improvement comes
-without adding any new measurements to the original data. The
-improvement in prediction accuracy is likely to depend on whether there
-are strong and characteristic difference in the relationships between
-variables in your dataset, and whether these differ between conditions.
-
-[Back to top](#)
+Decomposing the ERK (x) and AKT (y) cross-correlations foeach each
+treatment, <br /> results in clustering of treatments, broadly similar
+to distribution in tSNE <br /> space by neural networks (D). Each
+treatment also has a different enrichment <br /> for each cluster, for
+example CTR (control) cells are enriched for <br /> clusters 1, 9, and 7
+relative to EGF, BTC, and EPR.
+
+**ERK and AKT data mining** .  
+CCF from data measuring AKT and ERK activity following 7 different
+treatments <br /> (Jacques et al., 2021) (A), were visualised (B). Wide
+variation in CCF indicated <br /> subgroups may be present (B). CCFs
+were clustered and labelled (C), and data <br /> were plotted in
+lifeTimes (D). Decomposition of each treatment into different <br /> CCF
+patterns, shows charactestic enrichment from different treatments (D).
+
+<img src="man/figures/ERK_AKT_fig1.png" style="width:80.0%" alt="Fig ERK and AKT data mining: CCF from data measuring AKT and ERK" />  
+<br /> lifeTimes can be used to find motifs, or chacteristic
+relationships between <br /> sets of variables. Here 10 motifs of ERK
+and AKT are shown. <br /> <br /> <br /> **CCF Motif Extraction** .  
+Average traces for each of 10 CCF clusters identified in ERK versus AKT
+traces <br /> (data from Jacques et al., 2021). The raw traces most
+closely matching each <br /> motif (least sum of squared errors) (B).
+The calculated cross-correlation for <br /> each pair of raw traces (C).
+
+<img src="man/figures/ERK_AKT_fig2.png" style="width:80.0%" alt="**Fig Extract coupling motifs and examine traces" />  
+<br /> Fin.
 
 © 2022 GitHub, Inc. Terms Privacy Security Status
