@@ -493,6 +493,8 @@ lts_plot_coupled(lts_oneCat,
 
 ## **Downstream analysis: ERK and AKT data mining**
 
+[Data from Jacques et al., 2021](https://www.embopress.org/doi/full/10.15252/msb.202010026)
+
 [Back to top](#)
 
 Decomposing the ERK (x) and AKT (y) cross-correlations foeach each
