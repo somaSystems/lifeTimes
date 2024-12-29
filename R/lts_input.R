@@ -16,7 +16,7 @@
 #' @export
 
 lts_input <- function(
-    .tsData,
+    .tsData = NULL,
     .time = NULL,
     .compare_categorical = NULL, # Categorical variables
     .plot_measured_variables = FALSE,

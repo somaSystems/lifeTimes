@@ -1,3 +1,20 @@
+#' lts_in
+#'
+#' Description of the function's purpose.
+#'
+#' @param .in_tsData tidy time series data
+#' @param .in_time name of the "time" variable
+#' @param .in_compare_categorical names of categorical or explanatory variables to compare CCFs by. In future releases of this function, if there is only one explanatory variable, it will be possible to include a key of set of ".pairedComparisons".
+#' @param .in_plot_measured_variables logical parameter, set to TRUE if using one categorical variables and want different CCFs plotted against a single categorical variable.
+#' @param .in_pairedComparisons a single pair or list of pairs, of names of variables to generate cross correlations for.
+#' @param .in_uniqueID_colname name of column with unique identifier
+#' @param .in_lagMax maximum lag in CCFs
+#' @param .in_clusterByPortions defaults to cluster by mean correlation at mode maximum correlated lag, otherwise clusters by "portion" that each grouping/facet of data represents as a total of category 1.
+#' @param .in_metaData name of columns with metaData
+#' @param return_intermediate Logical, return intermediate outputs. Default: FALSE.
+#' @return calculated cross correlations, summary statistics and clustering that can be used for classification or plotting
+#' @export
+
 lts_in <- function(
     .in_tsData = NULL,
     .in_time = c("dayOfseason"),           # Time variable

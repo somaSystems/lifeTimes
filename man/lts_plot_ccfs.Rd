@@ -7,8 +7,8 @@ Returns plot of ccfs and dendrogram (compound plot), facets are clustered by the
 \usage{
 lts_plot_ccfs(
   .lts_output = lts_cluster,
-  plotType = c("compoundPlot", "draw_treatmentDendrogram", "plt_dendr",
-    "heatmapLagZero", "rawTraces", "clusteredLines")
+  plotType = c("compoundPlot", "draw_treatmentDendrogram", "plt_dendr", "heatmapLagZero",
+    "rawTraces", "clusteredLines")
 )
 }
 \arguments{

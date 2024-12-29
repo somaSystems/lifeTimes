@@ -27,7 +27,7 @@ lts_input(
 
 \item{.pairedComparisons}{a single pair or list of pairs, of names of variables to generate cross correlations for.}
 
-\item{.uniqueID_colname}{name of colum with unique identifier}
+\item{.uniqueID_colname}{name of column with unique identifier}
 
 \item{.lagMax}{maximum lag in CCFs}
 
