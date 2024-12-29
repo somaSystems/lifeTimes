@@ -1,0 +1,128 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+
+#install devtools if needed
+if(!require("devtools")) install.packages("devtools")
+
+#load devtools
+library(devtools)
+
+#install dependency from github
+if(!require("ComplexHeatmap")) install_github("jokergoo/ComplexHeatmap")
+
+#install lifeTimes from github
+install_github("somaSystems/lifeTimes", force = TRUE)
+
+```
+
+
+```{r}
+#copy and paste to run on test data
+library(lifeTimes)
+# rm(lifeTimes)
+
+lts <- lts_in() #calculate cross correlation
+```
+
+```{r}
+lts_plot_ccfs(lts) #plot clustered correlations
+```
+
+```{r}
+lts_plot_ClustSum(lts) #plot direction of correlations
+```
+
+```{r}
+lts_plot_coupled(lts) # plot strength and direction of correlation
+```
+
+```{r}
+rain_flow <- read.csv(file ="data-raw/rain_flow_Thames_Ash.csv")
+head(rain_flow)
+```
+
+```{r}
+library(lifeTimes) #load lifeTimes namespace
+
+#use the lts_pairsMaker hrlper function 
+#to prepare variables to be compared in a list of lists format 
+lts_pairedVars <- lts_pairsMaker(c("rainfall_cm","flow_m3s"))
+lts_pairedVars
+```
+
+```{r}
+#arguments for lts_in() with default inputs (the "river catchments "rain_flow" dataset) shown
+lts_in(.in_tsData = rain_flow  , #1. the dataset
+         .in_time = c("dayOfseason"), #2. the time column
+       .in_compare_categorical =  c("season", "catchmentRegion"), #3. A vector, with the names of categorical columns
+       .in_plot_measured_variables = FALSE , #4. Whether to CCFs for multiple pairs of variables 
+       .in_pairedComparisons =  list(pair_1 = list(y = "rainfall_cm", 
+        x = "flow_m3s")), #5. A list of lisys, holding the pairs of variables to be compared
+       .in_uniqueID_colname = "key_num", #6. The column with unique ID name for your observations
+       .in_metaData = NULL) #7. Column names of any attributes you would like to append to data
+```
+
+```{r}
+###start example
+lts_cells <- read.csv(file = "data-raw/sampleCells.csv")
+```
+
+
+```{r}
+#look at colum names
+colnames(lts_cells)
+```
+
+
+```{r}
+#choose three pairs of column names
+pair1 <- c("Polarity_cell","Polarity_nucleus")
+pair2 <- c("Eccentricity_cell", "Eccentricity_nucleus")
+pair3 <- c("Volume_cell", "Volume_nucleus")
+
+# use rbind to make these pairs into a matrix
+my_pairs <- rbind(pair1,pair2,pair3)
+```
+
+
+```{r}
+#make these into list of pairs using helper function with "defined = TRUE"
+lts_pairs <- lts_pairsMaker(my_pairs, defined = TRUE)
+```
+
+```{r}
+# enter arguments into lts_in
+# here there is one categorical variable and multiple measured variables
+lts_oneCat <- lts_in(.in_tsData = lts_cells,
+                     .in_compare_categorical = "Treatment",
+                     .in_time = "runNumber",
+                     .in_plot_measured_variables = TRUE,
+                     .in_pairedComparisons = lts_pairs,
+                     .in_uniqueID_colname = "cellNumber",
+                     .in_metaData = NULL )
+```
+
+```{r}
+#View results
+lts_plot_ccfs(lts_oneCat)
+```
+
+```{r}
+lts_plot_ClustSum(lts_oneCat)
+```
+
+
+```{r}
+lts_plot_coupled(lts_oneCat, 
+                 .lts_colour_by = "cat1", 
+                 .lts_facet_by = "cat2")
+```
+
