@@ -2,10 +2,10 @@
 % Please edit documentation in R/lts_in.R
 \name{lts_in}
 \alias{lts_in}
-\title{lts_calc}
+\title{lts_in}
 \usage{
 lts_in(
-  .in_tsData = lts_catchmentsAndRivers,
+  .in_tsData = NULL,
   .in_time = c("dayOfseason"),
   .in_compare_categorical = c("season", "catchmentRegion"),
   .in_plot_measured_variables = FALSE,
@@ -13,7 +13,8 @@ lts_in(
   .in_uniqueID_colname = "key_num",
   .in_lagMax = NULL,
   .in_clusterByPortions = FALSE,
-  .in_metaData = NULL
+  .in_metaData = NULL,
+  return_intermediate = FALSE
 )
 }
 \arguments{
@@ -34,10 +35,12 @@ lts_in(
 \item{.in_clusterByPortions}{defaults to cluster by mean correlation at mode maximum correlated lag, otherwise clusters by "portion" that each grouping/facet of data represents as a total of category 1.}
 
 \item{.in_metaData}{name of columns with metaData}
+
+\item{return_intermediate}{Logical, return intermediate outputs. Default: FALSE.}
 }
 \value{
 calculated cross correlations, summary statistics and clustering that can be used for classification or plotting
 }
 \description{
-lts_calc
+Description of the function's purpose.
 }

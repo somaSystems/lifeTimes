@@ -7,12 +7,12 @@
 lts_wide_ts_to_ccf(.lts_cast_ts = NULL, .lts_variables = NULL)
 }
 \arguments{
-\item{.lts_cast_ts}{output from lts_ts_to_wide()}
+\item{.lts_cast_ts}{Output from lts_ts_to_wide()}
 
-\item{.lts_variables}{output from lts_input()}
+\item{.lts_variables}{Output from lts_input()}
 }
 \value{
-returns output of cross correlation functions
+Returns a list of cross-correlation results, matching the original structure
 }
 \description{
 lts_wide_ts_to_ccf

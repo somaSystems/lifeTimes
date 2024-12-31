@@ -2,16 +2,26 @@
 % Please edit documentation in R/lts_ts_to_wide.R
 \name{lts_tsToWide}
 \alias{lts_tsToWide}
-\title{lts_ts_to_wide}
+\title{lts_tsToWide
+Converts a tidy data frame into a wide format for time series analysis.
+Each time series becomes a vector, uniquely identified by categorical and time variables.}
 \usage{
 lts_tsToWide(.lts_variables = NULL)
 }
 \arguments{
-\item{.lts_variables}{user description of variables taken from "lts_input()", otherwise taken from built in default set of variables.}
+\item{.lts_variables}{A list of variables:
+- lts_data: A tidy dataframe containing the time series data.
+- lts_time: Name of the column representing the time variable.
+- lts_uniqueID_colname: Column name containing unique identifiers.
+- lts_compare_by: Vector of categorical variable names for grouping.
+- lts_pariedComparisons: Variables to pivot and create wide-format data.}
 }
 \value{
-a list that includes time series data, and strings from user input that map variables in the time series data to input in lifeTimes functions. Eg. which column of dataframe is the unit of "time", which is the categorical variables, and which are the variables to compare when generating CCFs.
+A dataframe in wide format with each time series as a vector.
 }
 \description{
-lts_ts_to_wide
+lts_tsToWide
+Converts a tidy data frame into a wide format for time series analysis.
+Each time series becomes a vector, uniquely identified by categorical and time variables.
 }
+\keyword{internal}
