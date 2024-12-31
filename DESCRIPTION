@@ -25,6 +25,7 @@ Imports:
     rlang,
     stringr,
     tidyr,
+    tseries,
     viridis
 Suggests: 
     rmarkdown,
